@@ -1,17 +1,12 @@
 /*
  * Copyright 2002-2019 the original author or authors.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 
 package org.springframework.instrument.classloading;
@@ -23,10 +18,11 @@ import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.instrument.InstrumentationSavingAgent;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+
+// import org.springframework.instrument.InstrumentationSavingAgent;
 
 /**
  * {@link LoadTimeWeaver} relying on VM {@link Instrumentation}.
@@ -51,152 +47,148 @@ import org.springframework.util.ClassUtils;
  */
 public class InstrumentationLoadTimeWeaver implements LoadTimeWeaver {
 
-	private static final boolean AGENT_CLASS_PRESENT = ClassUtils.isPresent(
-			"org.springframework.instrument.InstrumentationSavingAgent",
-			InstrumentationLoadTimeWeaver.class.getClassLoader());
+    private static final boolean AGENT_CLASS_PRESENT = ClassUtils.isPresent("org.springframework.instrument.InstrumentationSavingAgent",
+            InstrumentationLoadTimeWeaver.class.getClassLoader());
 
 
-	@Nullable
-	private final ClassLoader classLoader;
+    @Nullable
+    private final ClassLoader classLoader;
 
-	@Nullable
-	private final Instrumentation instrumentation;
+    @Nullable
+    private final Instrumentation instrumentation;
 
-	private final List<ClassFileTransformer> transformers = new ArrayList<>(4);
-
-
-	/**
-	 * Create a new InstrumentationLoadTimeWeaver for the default ClassLoader.
-	 */
-	public InstrumentationLoadTimeWeaver() {
-		this(ClassUtils.getDefaultClassLoader());
-	}
-
-	/**
-	 * Create a new InstrumentationLoadTimeWeaver for the given ClassLoader.
-	 * @param classLoader the ClassLoader that registered transformers are supposed to apply to
-	 */
-	public InstrumentationLoadTimeWeaver(@Nullable ClassLoader classLoader) {
-		this.classLoader = classLoader;
-		this.instrumentation = getInstrumentation();
-	}
+    private final List<ClassFileTransformer> transformers = new ArrayList<>(4);
 
 
-	@Override
-	public void addTransformer(ClassFileTransformer transformer) {
-		Assert.notNull(transformer, "Transformer must not be null");
-		FilteringClassFileTransformer actualTransformer =
-				new FilteringClassFileTransformer(transformer, this.classLoader);
-		synchronized (this.transformers) {
-			Assert.state(this.instrumentation != null,
-					"Must start with Java agent to use InstrumentationLoadTimeWeaver. See Spring documentation.");
-			this.instrumentation.addTransformer(actualTransformer);
-			this.transformers.add(actualTransformer);
-		}
-	}
+    /**
+     * Create a new InstrumentationLoadTimeWeaver for the default ClassLoader.
+     */
+    public InstrumentationLoadTimeWeaver() {
+        this(ClassUtils.getDefaultClassLoader());
+    }
 
-	/**
-	 * We have the ability to weave the current class loader when starting the
-	 * JVM in this way, so the instrumentable class loader will always be the
-	 * current loader.
-	 */
-	@Override
-	public ClassLoader getInstrumentableClassLoader() {
-		Assert.state(this.classLoader != null, "No ClassLoader available");
-		return this.classLoader;
-	}
-
-	/**
-	 * This implementation always returns a {@link SimpleThrowawayClassLoader}.
-	 */
-	@Override
-	public ClassLoader getThrowawayClassLoader() {
-		return new SimpleThrowawayClassLoader(getInstrumentableClassLoader());
-	}
-
-	/**
-	 * Remove all registered transformers, in inverse order of registration.
-	 */
-	public void removeTransformers() {
-		synchronized (this.transformers) {
-			if (this.instrumentation != null && !this.transformers.isEmpty()) {
-				for (int i = this.transformers.size() - 1; i >= 0; i--) {
-					this.instrumentation.removeTransformer(this.transformers.get(i));
-				}
-				this.transformers.clear();
-			}
-		}
-	}
+    /**
+     * Create a new InstrumentationLoadTimeWeaver for the given ClassLoader.
+     * @param classLoader the ClassLoader that registered transformers are supposed to apply to
+     */
+    public InstrumentationLoadTimeWeaver(@Nullable ClassLoader classLoader) {
+        this.classLoader = classLoader;
+        this.instrumentation = getInstrumentation();
+    }
 
 
-	/**
-	 * Check whether an Instrumentation instance is available for the current VM.
-	 * @see #getInstrumentation()
-	 */
-	public static boolean isInstrumentationAvailable() {
-		return (getInstrumentation() != null);
-	}
+    @Override
+    public void addTransformer(ClassFileTransformer transformer) {
+        Assert.notNull(transformer, "Transformer must not be null");
+        FilteringClassFileTransformer actualTransformer = new FilteringClassFileTransformer(transformer, this.classLoader);
+        synchronized (this.transformers) {
+            Assert.state(this.instrumentation != null,
+                    "Must start with Java agent to use InstrumentationLoadTimeWeaver. See Spring documentation.");
+            this.instrumentation.addTransformer(actualTransformer);
+            this.transformers.add(actualTransformer);
+        }
+    }
 
-	/**
-	 * Obtain the Instrumentation instance for the current VM, if available.
-	 * @return the Instrumentation instance, or {@code null} if none found
-	 * @see #isInstrumentationAvailable()
-	 */
-	@Nullable
-	private static Instrumentation getInstrumentation() {
-		if (AGENT_CLASS_PRESENT) {
-			return InstrumentationAccessor.getInstrumentation();
-		}
-		else {
-			return null;
-		}
-	}
+    /**
+     * We have the ability to weave the current class loader when starting the
+     * JVM in this way, so the instrumentable class loader will always be the
+     * current loader.
+     */
+    @Override
+    public ClassLoader getInstrumentableClassLoader() {
+        Assert.state(this.classLoader != null, "No ClassLoader available");
+        return this.classLoader;
+    }
+
+    /**
+     * This implementation always returns a {@link SimpleThrowawayClassLoader}.
+     */
+    @Override
+    public ClassLoader getThrowawayClassLoader() {
+        return new SimpleThrowawayClassLoader(getInstrumentableClassLoader());
+    }
+
+    /**
+     * Remove all registered transformers, in inverse order of registration.
+     */
+    public void removeTransformers() {
+        synchronized (this.transformers) {
+            if (this.instrumentation != null && !this.transformers.isEmpty()) {
+                for (int i = this.transformers.size() - 1; i >= 0; i--) {
+                    this.instrumentation.removeTransformer(this.transformers.get(i));
+                }
+                this.transformers.clear();
+            }
+        }
+    }
 
 
-	/**
-	 * Inner class to avoid InstrumentationSavingAgent dependency.
-	 */
-	private static class InstrumentationAccessor {
+    /**
+     * Check whether an Instrumentation instance is available for the current VM.
+     * @see #getInstrumentation()
+     */
+    public static boolean isInstrumentationAvailable() {
+        return (getInstrumentation() != null);
+    }
 
-		public static Instrumentation getInstrumentation() {
-			return InstrumentationSavingAgent.getInstrumentation();
-		}
-	}
+    /**
+     * Obtain the Instrumentation instance for the current VM, if available.
+     * @return the Instrumentation instance, or {@code null} if none found
+     * @see #isInstrumentationAvailable()
+     */
+    @Nullable
+    private static Instrumentation getInstrumentation() {
+        if (AGENT_CLASS_PRESENT) {
+            return InstrumentationAccessor.getInstrumentation();
+        } else {
+            return null;
+        }
+    }
 
 
-	/**
-	 * Decorator that only applies the given target transformer to a specific ClassLoader.
-	 */
-	private static class FilteringClassFileTransformer implements ClassFileTransformer {
+    /**
+     * Inner class to avoid InstrumentationSavingAgent dependency.
+     */
+    private static class InstrumentationAccessor {
 
-		private final ClassFileTransformer targetTransformer;
+        public static Instrumentation getInstrumentation() {
+            // return InstrumentationSavingAgent.getInstrumentation();
+            return null;
+        }
+    }
 
-		@Nullable
-		private final ClassLoader targetClassLoader;
 
-		public FilteringClassFileTransformer(
-				ClassFileTransformer targetTransformer, @Nullable ClassLoader targetClassLoader) {
+    /**
+     * Decorator that only applies the given target transformer to a specific ClassLoader.
+     */
+    private static class FilteringClassFileTransformer implements ClassFileTransformer {
 
-			this.targetTransformer = targetTransformer;
-			this.targetClassLoader = targetClassLoader;
-		}
+        private final ClassFileTransformer targetTransformer;
 
-		@Override
-		@Nullable
-		public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
-				ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+        @Nullable
+        private final ClassLoader targetClassLoader;
 
-			if (this.targetClassLoader != loader) {
-				return null;
-			}
-			return this.targetTransformer.transform(
-					loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
-		}
+        public FilteringClassFileTransformer(ClassFileTransformer targetTransformer, @Nullable ClassLoader targetClassLoader) {
 
-		@Override
-		public String toString() {
-			return "FilteringClassFileTransformer for: " + this.targetTransformer.toString();
-		}
-	}
+            this.targetTransformer = targetTransformer;
+            this.targetClassLoader = targetClassLoader;
+        }
+
+        @Override
+        @Nullable
+        public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
+                byte[] classfileBuffer) throws IllegalClassFormatException {
+
+            if (this.targetClassLoader != loader) {
+                return null;
+            }
+            return this.targetTransformer.transform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
+        }
+
+        @Override
+        public String toString() {
+            return "FilteringClassFileTransformer for: " + this.targetTransformer.toString();
+        }
+    }
 
 }

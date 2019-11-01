@@ -1,17 +1,17 @@
 description = "Spring Aspects"
 
-apply plugin: "io.freefair.aspectj"
+//apply plugin: "io.freefair.aspectj"
 
-sourceSets.main.aspectj.srcDir "src/main/java"
+//sourceSets.main.aspectj.srcDir "src/main/java"
 sourceSets.main.java.srcDirs = files()
 
-sourceSets.test.aspectj.srcDir "src/test/java"
+//sourceSets.test.aspectj.srcDir "src/test/java"
 sourceSets.test.java.srcDirs = files()
 
-aspectj.version = dependencyManagement.managedVersions['org.aspectj:aspectjweaver']
+//aspectj.version = dependencyManagement.managedVersions['org.aspectj:aspectjweaver']
 
 dependencies {
-	aspect(project(":spring-orm"))
+//	aspect(project(":spring-orm"))
 	compile("org.aspectj:aspectjweaver")
 	compileOnly("org.aspectj:aspectjrt")
 	optional(project(":spring-aop"))  // for @Async support
