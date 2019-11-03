@@ -1,17 +1,12 @@
 /*
  * Copyright 2002-2016 the original author or authors.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 
 package org.springframework.aop.framework;
@@ -35,124 +30,131 @@ import org.springframework.util.ClassUtils;
 @SuppressWarnings("serial")
 public class ProxyFactory extends ProxyCreatorSupport {
 
-	/**
-	 * Create a new ProxyFactory.
-	 */
-	public ProxyFactory() {
-	}
+    /**
+     * Create a new ProxyFactory.
+     */
+    public ProxyFactory() {}
 
-	/**
-	 * Create a new ProxyFactory.
-	 * <p>Will proxy all interfaces that the given target implements.
-	 * @param target the target object to be proxied
-	 */
-	public ProxyFactory(Object target) {
-		setTarget(target);
-		setInterfaces(ClassUtils.getAllInterfaces(target));
-	}
+    /**
+     * Create a new ProxyFactory.
+     * <p>Will proxy all interfaces that the given target implements.
+     * @param target the target object to be proxied
+     */
+    public ProxyFactory(Object target) {
+        setTarget(target);
+        setInterfaces(ClassUtils.getAllInterfaces(target));
+    }
 
-	/**
-	 * Create a new ProxyFactory.
-	 * <p>No target, only interfaces. Must add interceptors.
-	 * @param proxyInterfaces the interfaces that the proxy should implement
-	 */
-	public ProxyFactory(Class<?>... proxyInterfaces) {
-		setInterfaces(proxyInterfaces);
-	}
+    /**
+     * Create a new ProxyFactory.
+     * <p>No target, only interfaces. Must add interceptors.
+     * @param proxyInterfaces the interfaces that the proxy should implement
+     */
+    public ProxyFactory(Class<?>... proxyInterfaces) {
+        setInterfaces(proxyInterfaces);
+    }
 
-	/**
-	 * Create a new ProxyFactory for the given interface and interceptor.
-	 * <p>Convenience method for creating a proxy for a single interceptor,
-	 * assuming that the interceptor handles all calls itself rather than
-	 * delegating to a target, like in the case of remoting proxies.
-	 * @param proxyInterface the interface that the proxy should implement
-	 * @param interceptor the interceptor that the proxy should invoke
-	 */
-	public ProxyFactory(Class<?> proxyInterface, Interceptor interceptor) {
-		addInterface(proxyInterface);
-		addAdvice(interceptor);
-	}
+    /**
+     * Create a new ProxyFactory for the given interface and interceptor.
+     * <p>Convenience method for creating a proxy for a single interceptor,
+     * assuming that the interceptor handles all calls itself rather than
+     * delegating to a target, like in the case of remoting proxies.
+     * @param proxyInterface the interface that the proxy should implement
+     * @param interceptor the interceptor that the proxy should invoke
+     */
+    public ProxyFactory(Class<?> proxyInterface, Interceptor interceptor) {
+        addInterface(proxyInterface);
+        addAdvice(interceptor);
+    }
 
-	/**
-	 * Create a ProxyFactory for the specified {@code TargetSource},
-	 * making the proxy implement the specified interface.
-	 * @param proxyInterface the interface that the proxy should implement
-	 * @param targetSource the TargetSource that the proxy should invoke
-	 */
-	public ProxyFactory(Class<?> proxyInterface, TargetSource targetSource) {
-		addInterface(proxyInterface);
-		setTargetSource(targetSource);
-	}
-
-
-	/**
-	 * Create a new proxy according to the settings in this factory.
-	 * <p>Can be called repeatedly. Effect will vary if we've added
-	 * or removed interfaces. Can add and remove interceptors.
-	 * <p>Uses a default class loader: Usually, the thread context class loader
-	 * (if necessary for proxy creation).
-	 * @return the proxy object
-	 */
-	public Object getProxy() {
-		return createAopProxy().getProxy();
-	}
-
-	/**
-	 * Create a new proxy according to the settings in this factory.
-	 * <p>Can be called repeatedly. Effect will vary if we've added
-	 * or removed interfaces. Can add and remove interceptors.
-	 * <p>Uses the given class loader (if necessary for proxy creation).
-	 * @param classLoader the class loader to create the proxy with
-	 * (or {@code null} for the low-level proxy facility's default)
-	 * @return the proxy object
-	 */
-	public Object getProxy(@Nullable ClassLoader classLoader) {
-		return createAopProxy().getProxy(classLoader);
-	}
+    /**
+     * Create a ProxyFactory for the specified {@code TargetSource},
+     * making the proxy implement the specified interface.
+     * @param proxyInterface the interface that the proxy should implement
+     * @param targetSource the TargetSource that the proxy should invoke
+     */
+    public ProxyFactory(Class<?> proxyInterface, TargetSource targetSource) {
+        addInterface(proxyInterface);
+        setTargetSource(targetSource);
+    }
 
 
-	/**
-	 * Create a new proxy for the given interface and interceptor.
-	 * <p>Convenience method for creating a proxy for a single interceptor,
-	 * assuming that the interceptor handles all calls itself rather than
-	 * delegating to a target, like in the case of remoting proxies.
-	 * @param proxyInterface the interface that the proxy should implement
-	 * @param interceptor the interceptor that the proxy should invoke
-	 * @return the proxy object
-	 * @see #ProxyFactory(Class, org.aopalliance.intercept.Interceptor)
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T getProxy(Class<T> proxyInterface, Interceptor interceptor) {
-		return (T) new ProxyFactory(proxyInterface, interceptor).getProxy();
-	}
+    /**
+     * Create a new proxy according to the settings in this factory.
+     * <p>Can be called repeatedly. Effect will vary if we've added
+     * or removed interfaces. Can add and remove interceptors.
+     * <p>Uses a default class loader: Usually, the thread context class loader
+     * (if necessary for proxy creation).
+     * @return the proxy object
+     */
+    public Object getProxy() {
+        return createAopProxy().getProxy();
+    }
 
-	/**
-	 * Create a proxy for the specified {@code TargetSource},
-	 * implementing the specified interface.
-	 * @param proxyInterface the interface that the proxy should implement
-	 * @param targetSource the TargetSource that the proxy should invoke
-	 * @return the proxy object
-	 * @see #ProxyFactory(Class, org.springframework.aop.TargetSource)
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T getProxy(Class<T> proxyInterface, TargetSource targetSource) {
-		return (T) new ProxyFactory(proxyInterface, targetSource).getProxy();
-	}
+    /**
+     * Create a new proxy according to the settings in this factory.
+     * <p>Can be called repeatedly. Effect will vary if we've added
+     * or removed interfaces. Can add and remove interceptors.
+     * <p>Uses the given class loader (if necessary for proxy creation).
+     * @param classLoader the class loader to create the proxy with
+     * (or {@code null} for the low-level proxy facility's default)
+     * @return the proxy object
+     */
+    public Object getProxy(@Nullable ClassLoader classLoader) {
+        // 通过代理实现完成代理类、代理对象的创建
+        /**
+         * 这里主要有两种实现
+         * 1.jdk代理，这种方式被target class 必须要有接口，target object会被传入到 proxy object中去
+         * 2.cglib代理 这种方式是基于继承实现的，所以不要求target class有接口，也不要要求target object存在
+         *
+         * 相对来说cglib的实现的前提会宽松很多，虽然Spring framework默认的选择是jdk代理，但是Spring boot目前已经将默认的选择设置为cglib代理
+         */
+        return createAopProxy().getProxy(classLoader);
+    }
 
-	/**
-	 * Create a proxy for the specified {@code TargetSource} that extends
-	 * the target class of the {@code TargetSource}.
-	 * @param targetSource the TargetSource that the proxy should invoke
-	 * @return the proxy object
-	 */
-	public static Object getProxy(TargetSource targetSource) {
-		if (targetSource.getTargetClass() == null) {
-			throw new IllegalArgumentException("Cannot create class proxy for TargetSource with null target class");
-		}
-		ProxyFactory proxyFactory = new ProxyFactory();
-		proxyFactory.setTargetSource(targetSource);
-		proxyFactory.setProxyTargetClass(true);
-		return proxyFactory.getProxy();
-	}
+
+    /**
+     * Create a new proxy for the given interface and interceptor.
+     * <p>Convenience method for creating a proxy for a single interceptor,
+     * assuming that the interceptor handles all calls itself rather than
+     * delegating to a target, like in the case of remoting proxies.
+     * @param proxyInterface the interface that the proxy should implement
+     * @param interceptor the interceptor that the proxy should invoke
+     * @return the proxy object
+     * @see #ProxyFactory(Class, org.aopalliance.intercept.Interceptor)
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getProxy(Class<T> proxyInterface, Interceptor interceptor) {
+        return (T) new ProxyFactory(proxyInterface, interceptor).getProxy();
+    }
+
+    /**
+     * Create a proxy for the specified {@code TargetSource},
+     * implementing the specified interface.
+     * @param proxyInterface the interface that the proxy should implement
+     * @param targetSource the TargetSource that the proxy should invoke
+     * @return the proxy object
+     * @see #ProxyFactory(Class, org.springframework.aop.TargetSource)
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getProxy(Class<T> proxyInterface, TargetSource targetSource) {
+        return (T) new ProxyFactory(proxyInterface, targetSource).getProxy();
+    }
+
+    /**
+     * Create a proxy for the specified {@code TargetSource} that extends
+     * the target class of the {@code TargetSource}.
+     * @param targetSource the TargetSource that the proxy should invoke
+     * @return the proxy object
+     */
+    public static Object getProxy(TargetSource targetSource) {
+        if (targetSource.getTargetClass() == null) {
+            throw new IllegalArgumentException("Cannot create class proxy for TargetSource with null target class");
+        }
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.setTargetSource(targetSource);
+        proxyFactory.setProxyTargetClass(true);
+        return proxyFactory.getProxy();
+    }
 
 }

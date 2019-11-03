@@ -1,7 +1,12 @@
 package com.github.chenqimiao.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import com.github.chenqimiao.component.UserService;
+import com.github.chenqimiao.component.UserServiceImpl;
 
 /**
  * @Auther: chenqimiao
@@ -10,4 +15,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("com.github.chenqimiao")
-public class AppConfig {}
+@EnableAspectJAutoProxy
+public class AppConfig {
+    @Bean(initMethod = "initMethod")
+    public UserService userService() {
+        return new UserServiceImpl();
+    }
+}

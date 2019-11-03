@@ -3,6 +3,7 @@ package com.github.chenqimiao;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.component.IndexService;
+import com.github.chenqimiao.component.UserService;
 import com.github.chenqimiao.config.AppConfig;
 
 /**
@@ -15,5 +16,8 @@ public class TestApplication {
     public static void main(String args[]) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
         ac.getBean(IndexService.class);
+        UserService userService = ac.getBean(UserService.class);
+        userService.getUserById(1);
+
     }
 }
