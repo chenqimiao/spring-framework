@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/3 18:15
  * @Description:
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 public class NotVeryUsefulAspect {
 
 

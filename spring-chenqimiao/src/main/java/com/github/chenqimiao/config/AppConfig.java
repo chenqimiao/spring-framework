@@ -17,7 +17,7 @@ import com.github.chenqimiao.component.UserServiceImpl;
 @ComponentScan("com.github.chenqimiao")
 @EnableAspectJAutoProxy
 public class AppConfig {
-    @Bean(initMethod = "initMethod")
+    //@Bean(initMethod = "initMethod")
     public UserService userService() {
         return new UserServiceImpl();
     }
