@@ -571,7 +571,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         try {
             // 完成属性注入
             populateBean(beanName, mbd, instanceWrapper);
-            // 执行后置处理器(eanPostProcessor)，aop enhance就是在这里完成的
+            // 执行后置处理器(beanPostProcessor)，aop enhance就是在这里完成的
             exposedObject = initializeBean(beanName, exposedObject, mbd);
         } catch (Throwable ex) {
             if (ex instanceof BeanCreationException && beanName.equals(((BeanCreationException) ex).getBeanName())) {

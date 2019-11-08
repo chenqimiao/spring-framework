@@ -529,24 +529,30 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				//按顺序调用BeanFactoryPostProcessor,这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//按顺序注册BeanPostProcessor到工厂里,这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				//注册国际化相关的Bean
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				//注册应用事件广播器（用于ApplicationEvent的广播）
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
 				onRefresh();
 
 				// Check for listener beans and register them.
+				//注册所有（静态、动态）的listener,并广播earlyApplicationEvents
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				//实例化单例Bean
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -641,6 +647,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/**
 	 * Configure the factory's standard context characteristics,
 	 * such as the context's ClassLoader and post-processors.
+	 * 将context的一些特性赋值到factory中去
 	 * @param beanFactory the BeanFactory to configure
 	 */
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
@@ -821,6 +828,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * Doesn't affect other listeners, which can be added without being beans.
 	 */
 	protected void registerListeners() {
+
+		//在Context中的listener是静态的，而在factory中的listener本质是一个bean,是运行时动态注入的。
+
 		// Register statically specified listeners first.
 		for (ApplicationListener<?> listener : getApplicationListeners()) {
 			getApplicationEventMulticaster().addApplicationListener(listener);
