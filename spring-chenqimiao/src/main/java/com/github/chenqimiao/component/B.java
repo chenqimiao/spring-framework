@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/7 15:24
  * @Description:
  */
-@Component
-@Scope("prototype")
+//@Component
+//@Scope("prototype")
 public class B {
 
 }

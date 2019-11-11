@@ -92,6 +92,8 @@ final class PostProcessorRegistrationDelegate {
 			}
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			registryProcessors.addAll(currentRegistryProcessors);
+			//此处调用ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry，
+			//解析配置类，为配置中的bean定义生成对应beanDefinition,并注入到registry的beanDefinitionMap
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			currentRegistryProcessors.clear();
 
@@ -127,6 +129,10 @@ final class PostProcessorRegistrationDelegate {
 			}
 
 			// Now, invoke the postProcessBeanFactory callback of all processors handled so far.
+			//调用ConfigurationClassPostProcessor#postProcessBeanFactory增强配置类(通过cglib生成增强类,load到jvm内存，
+			//设置beanDefinition的beanClass为增强类)
+			//为什么要增强配置类？主要是为了让@Bean生成的bean是单例,
+			//这里说明一下@Bean是没办法指定scope的，即使在方法上加上@scope注解也是无效的
 			invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 		}

@@ -99,6 +99,10 @@ abstract class ConfigurationClassUtils {
 			// Check already loaded Class if present...
 			// since we possibly can't even load the class file for this Class.
 			Class<?> beanClass = ((AbstractBeanDefinition) beanDef).getBeanClass();
+			//isAssignableFrom()方法的调用者和参数都是Class对象，调用者为父类，参数为本身或者其子类,如此则返回true
+			//表明BeanFactoryPostProcessor是否可由beanClass转化而来，如果返回为true,说明可以转化，
+			// 则BeanFactoryPostProcessor是beanClass的父类,或者beanClass就是BeanFactoryPostProcessor本身
+			//JDK相关知识，这里稍微提及一下
 			if (BeanFactoryPostProcessor.class.isAssignableFrom(beanClass) ||
 					BeanPostProcessor.class.isAssignableFrom(beanClass) ||
 					AopInfrastructureBean.class.isAssignableFrom(beanClass) ||
@@ -123,9 +127,13 @@ abstract class ConfigurationClassUtils {
 
 		Map<String, Object> config = metadata.getAnnotationAttributes(Configuration.class.getName());
 		if (config != null && !Boolean.FALSE.equals(config.get("proxyBeanMethods"))) {
+			//proxyBeanMethods为true,注入一个attribute full,表明是一个fullConfigurationClass,需要增强！这里的full可以理解为饱满！
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
+		//当Configuration的proxyBeanMethods为false或者
+		//未被@Configuration注解但是呢又是配置类候选人（具体的判断依据可以看isConfigurationCandidate方法实现）
 		else if (config != null || isConfigurationCandidate(metadata)) {
+			//放一个lite（有点劣质的意思）属性，表明是一个劣质的配置类bd(即没有加@Configuration)
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}
 		else {

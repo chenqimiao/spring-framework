@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 // @Component
 public class UserServiceImpl implements InitializingBean, UserService {
 
-    @Autowired
+    //@Autowired
     private IndexService indexService;
 
 
