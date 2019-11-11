@@ -403,7 +403,8 @@ class ConfigurationClassEnhancer {
 						beanFactory.getBean(beanName));
 				if (!ClassUtils.isAssignableValue(beanMethod.getReturnType(), beanInstance)) {
 					// Detect package-protected NullBean instance through equals(null) check
-					// 检测beanInstance是否为NullBean,当@Bean方法return null,会封装一个NullBean到singletonObjects
+					// 检测beanInstance是否为NullBean,
+					// 当@Bean方法return null或者ReturnType为null,会封装一个NullBean到singletonObjects
 					if (beanInstance.equals(null)) {
 						if (logger.isDebugEnabled()) {
 							logger.debug(String.format("@Bean method %s.%s called as bean reference " +
