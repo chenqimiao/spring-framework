@@ -28,7 +28,8 @@ public class AppConfig {
 
 	@Bean(initMethod = "initMethod")
 	public UserService userService() {
-		return new UserServiceImpl();
+		//return new UserServiceImpl();
+		return null;
 	}
 
 }
