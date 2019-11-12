@@ -106,6 +106,7 @@ class ConfigurationClassEnhancer {
 			}
 			return configClass;
 		}
+		//为Configuration class生成代理类
 		Class<?> enhancedClass = createClass(newEnhancer(configClass, classLoader));
 		if (logger.isTraceEnabled()) {
 			logger.trace(String.format("Successfully enhanced %s; enhanced class name is: %s",
@@ -120,13 +121,19 @@ class ConfigurationClassEnhancer {
 	private Enhancer newEnhancer(Class<?> configSuperClass, @Nullable ClassLoader classLoader) {
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(configSuperClass);
+		//所有的full configuration class都是EnhancedConfiguration的实现
+		//而EnhancedConfiguration继承了BeanFactoryAware，所以full configuration class间接实现了BeanFactoryAware
 		enhancer.setInterfaces(new Class<?>[] {EnhancedConfiguration.class});
 		enhancer.setUseFactory(false);
 		enhancer.setNamingPolicy(SpringNamingPolicy.INSTANCE);
+		//注入一个beanFactory field
 		enhancer.setStrategy(new BeanFactoryAwareGeneratorStrategy(classLoader));
 		//Map a method to a callback.  匹配方法和回调
 		enhancer.setCallbackFilter(CALLBACK_FILTER);
 		enhancer.setCallbackTypes(CALLBACK_FILTER.getCallbackTypes());
+		//仅仅生成代理类，这里可以不注入callback拦截器，
+		//可由Enhancer.registerStaticCallbacks(subclass, CALLBACKS);静态注入callback之后,
+		//再利用反射为代理类生成代理对象
 		return enhancer;
 	}
 
