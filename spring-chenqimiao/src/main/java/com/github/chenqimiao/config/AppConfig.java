@@ -1,6 +1,7 @@
 package com.github.chenqimiao.config;
 
 import com.github.chenqimiao.component.A;
+import com.github.chenqimiao.processor.CustomBeanFactoryPostProcessor;
 import com.github.chenqimiao.processor.CustomBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,6 +37,11 @@ public class AppConfig {
 	@Bean
 	public CustomBeanPostProcessor customBeanPostProcessor(){
     	return new CustomBeanPostProcessor();
+	}
+
+	@Bean
+	public CustomBeanFactoryPostProcessor customBeanFactoryPostProcessor(){
+    	return new CustomBeanFactoryPostProcessor();
 	}
 
 }

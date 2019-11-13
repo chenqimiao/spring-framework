@@ -531,14 +531,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 				// Invoke factory processors registered as beans in the context.
 				//按顺序调用BeanFactoryPostProcessor,这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
-				//解析@Configuration配置类,BeanFactoryPostProcessor操作的是configuration,
-				//必须在除BeanFactoryPostProcessor之外的其他bean实例化之前被调用
+				//通过调用ConfigurationConfigPostProcessor#postProcessBeanDefinitionRegistry
+				//解析@Configuration配置类，将自定义的BeanFactoryPostProcessor、BeanPostProcessor注册到beanDefinitionMap
+				//接着实例化所有（包括开天辟地）的BeanFactoryPostProcessor，然后再调用BeanFactoryPostProcessor#postProcessBeanFactory
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
-				//按顺序注册BeanPostProcessor的bean实例到beanFactory的beanPostProcessors,
+				//按顺序将BeanPostProcessor实例化成bean并注册到beanFactory的beanPostProcessors,
 				//这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
-				//因为BeanFactoryPostProcessor要在普通bean初始化（）前后被调用，所以需要提前被注册
+				//因为BeanPostProcessor要在普通bean初始化（）前后被调用，所以需要提前完成实例化并注册到beanFactory的beanPostProcessors
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -557,7 +558,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
-				//实例化用户自定义（非Spring开天劈地存在的）的单例Bean
+				//实例化用户自定义的普通单例Bean（非开天辟地的、非后置处理器）
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.

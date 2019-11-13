@@ -87,6 +87,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		/**
 		 * 调用无参构造函数，实例化AnnotatedBeanDefinitionReader和ClassPathBeanDefinitionScanner
 		 * 同时会调用父类GenericApplicationContext无参构造函数实例化一个关键的工厂DefaultListableBeanFactory
+		 * 同时还会注册一些开天辟地的后置处理器到beanDefinitionMap，这些后置处理器有bean工厂后置处理器;有bean后置处理器
 		 */
 		this();
 		//将componentClasses注册到beanDefinitionMap集合中去
