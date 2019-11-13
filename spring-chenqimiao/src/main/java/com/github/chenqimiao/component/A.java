@@ -1,5 +1,6 @@
 package com.github.chenqimiao.component;
 
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -22,5 +23,10 @@ public class A {
 	@Lookup
 	public B getClassB(){
 		return null;
+	}
+
+	@PostConstruct
+	public void a(){
+		System.out.println("aaaaa");
 	}
 }
