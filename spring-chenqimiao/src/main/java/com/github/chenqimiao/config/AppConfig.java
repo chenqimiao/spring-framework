@@ -27,7 +27,6 @@ import org.springframework.core.annotation.Order;
 public class AppConfig {
 
     @Bean
-	@Order(100)
 	public A a(){
 		//userService();
 		//System.out.println("order 100");
@@ -54,7 +53,6 @@ public class AppConfig {
 
 	@Bean
 	public CustomBeanPostProcessor customBeanPostProcessor1(){
-		System.out.println("order 100");
 		return new CustomBeanPostProcessor();
 	}
 //	@Bean

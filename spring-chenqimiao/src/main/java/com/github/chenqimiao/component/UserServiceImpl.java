@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 //@Component
-@Order(1)
 public class UserServiceImpl implements InitializingBean, UserService {
 
     //@Autowired
