@@ -29,20 +29,16 @@ public class AppConfig {
     @Bean
 	public A a(){
 		//userService();
-		//System.out.println("order 100");
-
 		return new A();
 	}
 
 	@Bean
 	public A c(){
-		//System.out.println("order 99");
 		return new A();
 	}
 	@Bean(initMethod = "initMethod")
 	public UserService userService() {
     	return new UserServiceImpl();
-		//return;
 	}
 
 	@Bean

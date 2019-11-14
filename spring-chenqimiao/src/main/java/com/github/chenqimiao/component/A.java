@@ -29,6 +29,6 @@ public class A {
 
 	@PostConstruct
 	public void a(){
-		System.out.println("aaaaa");
+		System.out.println("Call A PostConstruct Method");
 	}
 }
