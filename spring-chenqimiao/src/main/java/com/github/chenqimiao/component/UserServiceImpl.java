@@ -4,13 +4,16 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao
  * @Date: 2019/11/3 18:29
  * @Description:
  */
-// @Component
+//@Component
+@Order(1)
 public class UserServiceImpl implements InitializingBean, UserService {
 
     //@Autowired
