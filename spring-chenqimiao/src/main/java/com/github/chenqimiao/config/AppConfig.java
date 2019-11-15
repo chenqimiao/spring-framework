@@ -25,47 +25,47 @@ import org.springframework.core.annotation.Order;
 @ComponentScan("com.github.chenqimiao")
 @EnableAspectJAutoProxy
 public class AppConfig {
-
-    @Bean
-	public A a(){
-		//userService();
-		return new A();
-	}
-
-	@Bean
-	public A c(){
-		return new A();
-	}
-	@Bean(initMethod = "initMethod")
-	public UserService userService() {
-    	return new UserServiceImpl();
-	}
-
-	@Bean
-	public CustomBeanPostProcessor customBeanPostProcessor(){
-
-		return new CustomBeanPostProcessor();
-	}
-
-	@Bean
-	public CustomBeanPostProcessor customBeanPostProcessor1(){
-		return new CustomBeanPostProcessor();
-	}
+//
+//    @Bean
+//	public A a(){
+//		//userService();
+//		return new A();
+//	}
+//
 //	@Bean
-//	public CustomBeanFactoryPostProcessor customBeanFactoryPostProcessor(){
-//    	return new CustomBeanFactoryPostProcessor();
+//	public A c(){
+//		return new A();
+//	}
+//	@Bean(initMethod = "initMethod")
+//	public UserService userService() {
+//    	return new UserServiceImpl();
 //	}
 
-	@Bean
-	public SimpleApplicationEventMulticaster applicationEventMulticaster(ExecutorService executor ){
-		SimpleApplicationEventMulticaster applicationEventMulticaster = new SimpleApplicationEventMulticaster();
-		applicationEventMulticaster.setTaskExecutor(executor);
-		return applicationEventMulticaster;
-	}
-
-	@Bean
-	public ExecutorService executor(){
-		return Executors.newFixedThreadPool(5);
-	}
+//	@Bean
+//	public CustomBeanPostProcessor customBeanPostProcessor(){
+//
+//		return new CustomBeanPostProcessor();
+//	}
+//
+//	@Bean
+//	public CustomBeanPostProcessor customBeanPostProcessor1(){
+//		return new CustomBeanPostProcessor();
+//	}
+////	@Bean
+////	public CustomBeanFactoryPostProcessor customBeanFactoryPostProcessor(){
+////    	return new CustomBeanFactoryPostProcessor();
+////	}
+//
+//	@Bean
+//	public SimpleApplicationEventMulticaster applicationEventMulticaster(ExecutorService executor ){
+//		SimpleApplicationEventMulticaster applicationEventMulticaster = new SimpleApplicationEventMulticaster();
+//		applicationEventMulticaster.setTaskExecutor(executor);
+//		return applicationEventMulticaster;
+//	}
+//
+//	@Bean
+//	public ExecutorService executor(){
+//		return Executors.newFixedThreadPool(5);
+//	}
 
 }

@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,23 +14,27 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/3 18:15
  * @Description:
  */
-//@Component
-//@Aspect
+@Component
+@Aspect
+//@order定义在Aspect类上会影响AOP执行的顺序
+@Order(1)
 public class NotVeryUsefulAspect {
 
 
     @Pointcut(value = "execution(* com.github.chenqimiao.component..*(..))")
-    public void notVeryUsefulPointcut() {
+	public void notVeryUsefulPointcut() {
 
     }
 
     @After("notVeryUsefulPointcut()")
-    public void notVeryUsefulAdvice() {
+	public void notVeryUsefulAdvice() {
         System.out.println("---------------after aop---------------");
     }
 
     @Before("notVeryUsefulPointcut()")
-    public void littleUsefulAdvice(JoinPoint jp) {
+	public void littleUsefulAdvice(JoinPoint jp) {
         System.out.println("---------------before aop---------------");
     }
+
+
 }

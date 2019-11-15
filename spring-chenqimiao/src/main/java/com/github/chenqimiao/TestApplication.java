@@ -16,6 +16,8 @@ public class TestApplication {
 
     public static void main(String args[]) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        A a = ac.getBean(A.class);
+        a.voidMethod();
 //      ac.getBean(IndexService.class);
 //      UserService userService = ac.getBean(UserService.class);
 //      userService.getUserById(1);

@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/7 15:23
  * @Description:
  */
-//@Component
+@Component
 //@Scope("singleton")
-@Order(2)
 public class A {
 
 
@@ -27,6 +26,9 @@ public class A {
 		return null;
 	}
 
+	public void voidMethod(){
+
+	}
 	@PostConstruct
 	public void a(){
 		System.out.println("Call A PostConstruct Method");
