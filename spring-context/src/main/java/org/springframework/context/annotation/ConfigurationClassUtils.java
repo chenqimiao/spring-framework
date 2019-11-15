@@ -133,7 +133,7 @@ abstract class ConfigurationClassUtils {
 		//当Configuration的proxyBeanMethods为false或者
 		//未被@Configuration注解但是呢又是配置类候选人（具体的判断依据可以看isConfigurationCandidate方法实现）
 		else if (config != null || isConfigurationCandidate(metadata)) {
-			//放一个lite（有点劣质的意思）属性，表明是一个劣质的配置类bd(即没有加@Configuration)
+			//放一个lite（有点精简的意思）属性，表明是一个精简的配置类bd(即没有加@Configuration)
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}
 		else {
