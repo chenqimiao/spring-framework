@@ -132,7 +132,6 @@ final class PostProcessorRegistrationDelegate {
 			//调用ConfigurationClassPostProcessor#postProcessBeanFactory增强配置类(通过cglib生成增强类,load到jvm内存，
 			//设置beanDefinition的beanClass为增强类)
 			//为什么要增强配置类？主要是为了让@Bean生成的bean是单例,
-			//这里说明一下@Bean是没办法指定scope的，即使在方法上加上@scope注解也是无效的
 			invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 		}
