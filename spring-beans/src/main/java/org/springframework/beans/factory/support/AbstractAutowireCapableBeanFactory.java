@@ -546,6 +546,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         synchronized (mbd.postProcessingLock) {
             if (!mbd.postProcessed) {
                 try {
+                	//beanDefinition后置处理器调用
                     applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
                 } catch (Throwable ex) {
                     throw new BeanCreationException(mbd.getResourceDescription(), beanName,
@@ -1383,6 +1384,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             if (pvs == null) {
                 pvs = mbd.getPropertyValues();
             }
+            //通过CommonAnnotationBeanPostProcessor#postProcessProperties完成@Resource的注入
+			//通过AutowiredAnnotationBeanPostProcessor#postProcessProperties完成@Autowired的注入
             for (BeanPostProcessor bp : getBeanPostProcessors()) {
                 if (bp instanceof InstantiationAwareBeanPostProcessor) {
                     InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
