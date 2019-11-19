@@ -487,6 +487,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         try {
             // Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
+			//调用后置处理器
             Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
             if (bean != null) {
                 return bean;
@@ -546,7 +547,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         synchronized (mbd.postProcessingLock) {
             if (!mbd.postProcessed) {
                 try {
-                	//beanDefinition后置处理器调用
+                	//调用后置处理器
                     applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
                 } catch (Throwable ex) {
                     throw new BeanCreationException(mbd.getResourceDescription(), beanName,
@@ -1348,6 +1349,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             for (BeanPostProcessor bp : getBeanPostProcessors()) {
                 if (bp instanceof InstantiationAwareBeanPostProcessor) {
                     InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+                    //调用后置处理器
                     if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {
                         continueWithPropertyPopulation = false;
                         break;
@@ -1389,6 +1391,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             for (BeanPostProcessor bp : getBeanPostProcessors()) {
                 if (bp instanceof InstantiationAwareBeanPostProcessor) {
                     InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+					//调用后置处理器
                     PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
                     if (pvsToUse == null) {
                         if (filteredPds == null) {
@@ -1737,6 +1740,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         if (mbd == null || !mbd.isSynthetic()) {
             //BeanFactoryPostProcessor#postProcessBeforeInitialization调用
 			//@PostConstruct方法是在这里被执行，对应的处理器是CommonAnnotationBeanPostProcessor
+			//调用后置处理器
             wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
         }
 
@@ -1748,6 +1752,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                     "Invocation of init method failed", ex);
         }
         if (mbd == null || !mbd.isSynthetic()) {
+        	//调用后置处理器
             // 完成了aop的增强
             wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
         }

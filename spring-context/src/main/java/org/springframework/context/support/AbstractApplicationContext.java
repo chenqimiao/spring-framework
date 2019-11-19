@@ -529,6 +529,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				//供上下文(Context)子类继承，允许在这里后置处理bean factory
 				postProcessBeanFactory(beanFactory);
 
+
+				//调用后置处理器
 				// Invoke factory processors registered as beans in the context.
 				//按顺序调用BeanFactoryPostProcessor,这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
 				//通过调用ConfigurationConfigPostProcessor#postProcessBeanDefinitionRegistry
