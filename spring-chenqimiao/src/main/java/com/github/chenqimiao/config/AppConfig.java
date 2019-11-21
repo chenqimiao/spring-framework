@@ -1,6 +1,7 @@
 package com.github.chenqimiao.config;
 
 import com.github.chenqimiao.component.A;
+import com.github.chenqimiao.component.B;
 import com.github.chenqimiao.processor.CustomBeanFactoryPostProcessor;
 import com.github.chenqimiao.processor.CustomBeanPostProcessor;
 import java.util.concurrent.ExecutorService;
@@ -26,11 +27,11 @@ import org.springframework.core.annotation.Order;
 @EnableAspectJAutoProxy
 public class AppConfig {
 //
-//    @Bean
-//	public A a(){
-//		//userService();
-//		return new A();
-//	}
+    @Bean
+	public B b(){
+		//userService();
+		return new B();
+	}
 //
 //	@Bean
 //	public A c(){

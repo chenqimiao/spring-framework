@@ -228,12 +228,14 @@ class ConfigurationClassParser {
 				if (existingClass.isImported()) {
 					existingClass.mergeImportedBy(configClass);
 				}
+				//import进来的Configuration class不能override其他途径注册的Configuration class
 				// Otherwise ignore new imported config class; existing non-imported class overrides it.
 				return;
 			}
 			else {
 				// Explicit bean definition found, probably replacing an import.
 				// Let's remove the old one and go with the new one.
+				//非import进来的配置类可能会覆盖import进来的配置类
 				this.configurationClasses.remove(configClass);
 				this.knownSuperclasses.values().removeIf(configClass::equals);
 			}
@@ -345,6 +347,7 @@ class ConfigurationClassParser {
 	 */
 	private void processMemberClasses(ConfigurationClass configClass, SourceClass sourceClass) throws IOException {
 		Collection<SourceClass> memberClasses = sourceClass.getMemberClasses();
+		//对内部类的一个解析
 		if (!memberClasses.isEmpty()) {
 			List<SourceClass> candidates = new ArrayList<>(memberClasses.size());
 			for (SourceClass memberClass : memberClasses) {

@@ -323,8 +323,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 		Set<BeanDefinitionHolder> candidates = new LinkedHashSet<>(configCandidates);
 		Set<ConfigurationClass> alreadyParsed = new HashSet<>(configCandidates.size());
+		//循环解析@Configuration class
 		do {
-			//处理@ComponentScan@PropertySource等等注解,
+			//处理@ComponentScan@PropertySource@Import@Bean等等注解,并对ConfigurationClass实例做标记
 			//扫描@ComponentScan中指定的包路径下的被@Component注解的类，生成对应的beanDefinition,注入到beanDefinitionMap
 			parser.parse(candidates);
 			parser.validate();
@@ -338,11 +339,13 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 						registry, this.sourceExtractor, this.resourceLoader, this.environment,
 						this.importBeanNameGenerator, parser.getImportRegistry());
 			}
-			//解析@Bean method
+			//解析ConfigurationClass实例上的标记（parser.parse(candidates);产生的标记）
+			//此处会把@Bean method对应的bd放入bdMap
 			this.reader.loadBeanDefinitions(configClasses);
 			alreadyParsed.addAll(configClasses);
 
 			candidates.clear();
+			//解析@Configuration class 产生了新的BeanDefinition实例
 			if (registry.getBeanDefinitionCount() > candidateNames.length) {
 				String[] newCandidateNames = registry.getBeanDefinitionNames();
 				Set<String> oldCandidateNames = new HashSet<>(Arrays.asList(candidateNames));
