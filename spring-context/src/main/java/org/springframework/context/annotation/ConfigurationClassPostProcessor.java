@@ -279,7 +279,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					logger.debug("Bean definition has already been processed as a configuration class: " + beanDef);
 				}
 			}
-			//checkConfigurationClassCandidate会对bd进行标记，is full or lite Configuration
+			//checkConfigurationClassCandidate会对bd进行标记，is full or lite Configuration,
+			// 并返回boolean值以确定beanDef代表的类是否是配置类
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
