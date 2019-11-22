@@ -509,6 +509,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			elements.addAll(0, currElements);
 			targetClass = targetClass.getSuperclass();
 		}
+		//注入支持继承
 		while (targetClass != null && targetClass != Object.class);
 
 		return InjectionMetadata.forElements(elements, clazz);
