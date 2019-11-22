@@ -13,6 +13,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.github.chenqimiao.component.UserService;
 import com.github.chenqimiao.component.UserServiceImpl;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.annotation.Order;
@@ -23,8 +24,9 @@ import org.springframework.core.annotation.Order;
  * @Description:
  */
 @Configuration
-@ComponentScan("com.github.chenqimiao")
+//@ComponentScan("com.github.chenqimiao")
 @EnableAspectJAutoProxy
+@Import(AppConfig1.class)
 public class AppConfig {
 //
     @Bean
