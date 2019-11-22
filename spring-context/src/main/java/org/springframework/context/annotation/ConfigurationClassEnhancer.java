@@ -130,6 +130,8 @@ class ConfigurationClassEnhancer {
 		enhancer.setStrategy(new BeanFactoryAwareGeneratorStrategy(classLoader));
 		//Map a method to a callback.  匹配方法和回调
 		enhancer.setCallbackFilter(CALLBACK_FILTER);
+		//仅仅创建代理类，无需指定callback但是必须指定callbackType
+		//如果是直接创建代理对象，无需指定callbackType但是必须指定callback
 		enhancer.setCallbackTypes(CALLBACK_FILTER.getCallbackTypes());
 		//仅仅生成代理类，这里可以不注入callback拦截器，
 		//可由Enhancer.registerStaticCallbacks(subclass, CALLBACKS);静态注入callback之后,
@@ -145,6 +147,7 @@ class ConfigurationClassEnhancer {
 		Class<?> subclass = enhancer.createClass();
 		// Registering callbacks statically (as opposed to thread-local)
 		// is critical for usage in an OSGi environment (SPR-5932)...
+		//注册callbacks拦截器，为实例化代理类做准备
 		Enhancer.registerStaticCallbacks(subclass, CALLBACKS);
 		return subclass;
 	}
@@ -197,7 +200,8 @@ class ConfigurationClassEnhancer {
 		public int accept(Method method) {
 			for (int i = 0; i < this.callbacks.length; i++) {
 				Callback callback = this.callbacks[i];
-				//@Bean方法则返回0,BeanFactoryAware的setBeanFactory实现方法则返回1，返回的索引对应于enhancer中的callbacks下标
+				//@Bean方法则返回0,BeanFactoryAware的setBeanFactory实现方法则返回1，返回的索引对应于enhancer中的callbacks下标，
+				//接着执行callbacks数组对应下标的callback对象的intercept方法
 				if (!(callback instanceof ConditionalCallback) || ((ConditionalCallback) callback).isMatch(method)) {
 					return i;
 				}
@@ -282,6 +286,7 @@ class ConfigurationClassEnhancer {
 		public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 			Field field = ReflectionUtils.findField(obj.getClass(), BEAN_FACTORY_FIELD);
 			Assert.state(field != null, "Unable to find generated BeanFactory field");
+			//将beanFactory对象赋值给BEAN_FACTORY_FIELD
 			field.set(obj, args[0]);
 
 			// Does the actual (non-CGLIB) superclass implement BeanFactoryAware?
