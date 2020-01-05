@@ -100,6 +100,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 
 	private boolean customClassLoader = false;
 
+	//标记位，保证只刷新一次，且线程安全
 	private final AtomicBoolean refreshed = new AtomicBoolean();
 
 
@@ -262,6 +263,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws IllegalStateException {
+		//refreshed:标记位，保证只刷新一次，且线程安全
 		if (!this.refreshed.compareAndSet(false, true)) {
 			throw new IllegalStateException(
 					"GenericApplicationContext does not support multiple refresh attempts: just call 'refresh' once");
