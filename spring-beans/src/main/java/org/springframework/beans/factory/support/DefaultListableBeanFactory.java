@@ -207,6 +207,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 */
 	public void setSerializationId(@Nullable String serializationId) {
 		if (serializationId != null) {
+			//这里使用弱引用，可以避免内存泄漏
 			serializableFactories.put(serializationId, new WeakReference<>(this));
 		}
 		else if (this.serializationId != null) {
