@@ -6,6 +6,7 @@ import com.github.chenqimiao.processor.CustomBeanFactoryPostProcessor;
 import com.github.chenqimiao.processor.CustomBeanPostProcessor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +36,10 @@ public class AppConfig {
 		return new B();
 	}
 //
-//	@Bean
-//	public A c(){
-//		return new A();
-//	}
+	@Bean(autowire= Autowire.BY_TYPE)
+	public A c(){
+		return new A();
+	}
 //	@Bean(initMethod = "initMethod")
 //	public UserService userService() {
 //    	return new UserServiceImpl();

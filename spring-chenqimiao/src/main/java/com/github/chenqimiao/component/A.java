@@ -1,7 +1,12 @@
 package com.github.chenqimiao.component;
 
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.annotation.Order;
@@ -14,23 +19,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 //@Scope("singleton")
-public class A {
+public class A implements BAware{
+
+	@Autowired
+	public ApplicationContextAware applicationContextAware;
+
+	@Autowired
+	private ApplicationContext applicationContext;
 
 
-	public void printB(){
-		System.out.println(getClassB());
-	}
+	public B b;
 
-	@Lookup
-	public B getClassB(){
-		return null;
-	}
 
-	public void voidMethod(){
-
-	}
-	@PostConstruct
-	public void a(){
-		System.out.println("Call A PostConstruct Method");
+	public void setB(B b) {
+		this.b = b;
 	}
 }

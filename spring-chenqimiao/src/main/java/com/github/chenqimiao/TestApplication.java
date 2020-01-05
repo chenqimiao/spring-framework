@@ -1,6 +1,8 @@
 package com.github.chenqimiao;
 
 import com.github.chenqimiao.component.A;
+import com.github.chenqimiao.component.B;
+import com.github.chenqimiao.component.BAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.component.IndexService;
@@ -15,9 +17,12 @@ import com.github.chenqimiao.config.AppConfig;
 public class TestApplication {
 
     public static void main(String args[]) {
-        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+       // ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
+        ac.getBeanFactory().ignoreDependencyType(B.class);
+        ac.register(AppConfig.class);
+        ac.refresh();
         A a = ac.getBean(A.class);
-        a.voidMethod();
 //      ac.getBean(IndexService.class);
 //      UserService userService = ac.getBean(UserService.class);
 //      userService.getUserById(1);
