@@ -21,17 +21,15 @@ import org.springframework.stereotype.Component;
 //@Scope("singleton")
 public class A implements BAware{
 
-	@Autowired
-	public ApplicationContextAware applicationContextAware;
-
-	@Autowired
-	private ApplicationContext applicationContext;
-
-
-	public B b;
+	//@Autowired
+	private B b;
 
 
 	public void setB(B b) {
 		this.b = b;
+	}
+
+	public B getB() {
+		return b;
 	}
 }

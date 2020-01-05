@@ -18,11 +18,12 @@ public class TestApplication {
 
     public static void main(String args[]) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
-       // ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
-        ac.getBeanFactory().ignoreDependencyType(B.class);
+        ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
+       // ac.getBeanFactory().ignoreDependencyType(B.class);
         ac.register(AppConfig.class);
         ac.refresh();
         A a = ac.getBean(A.class);
+		System.out.println(a.getB());
 //      ac.getBean(IndexService.class);
 //      UserService userService = ac.getBean(UserService.class);
 //      userService.getUserById(1);
