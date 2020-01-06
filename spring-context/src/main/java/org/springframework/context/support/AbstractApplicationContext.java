@@ -534,7 +534,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				//调用后置处理器
 				// Invoke factory processors registered as beans in the context.
 				//按顺序调用BeanFactoryPostProcessor,这里的按顺序仅实现了PriorityOrdered和Ordered的语意，未实现@Order注解的语意
-				//通过调用ConfigurationConfigPostProcessor#postProcessBeanDefinitionRegistry
+				//通过调用ConfigurationPostProcessor#postProcessBeanDefinitionRegistry
 				//解析@Configuration配置类，将自定义的BeanFactoryPostProcessor、BeanPostProcessor注册到beanDefinitionMap
 				//接着实例化所有（包括开天辟地）的BeanFactoryPostProcessor，然后再调用BeanFactoryPostProcessor#postProcessBeanFactory
 				invokeBeanFactoryPostProcessors(beanFactory);
