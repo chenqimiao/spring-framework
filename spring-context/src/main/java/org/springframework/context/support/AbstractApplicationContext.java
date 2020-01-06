@@ -39,6 +39,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.beans.support.ResourceEditorRegistrar;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -669,7 +670,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		/**
 		 * ignoreDependencyInterface忽略该接口的实现类中和接口setter方法入参类型相同的依赖（自动装配时）
 		 * 而ignoreDependencyType是直接忽略该类型的依赖（自动装配时）
-		 * 以下ignoreDependencyInterface的调用，让XxxAware的实现类中的xxx属性在自动装配时被忽略，由容器通过后置处理器的方式进行注入
+		 * 以下ignoreDependencyInterface的调用，让XxxAware的实现类中的xxx属性在自动装配时被忽略，由容器通过其他方式（
+		 * @see org.springframework.context.support.ApplicationContextAwareProcessor#invokeAwareInterfaces(java.lang.Object)
+		 * @see AbstractAutowireCapableBeanFactory#invokeAwareMethods(java.lang.String, java.lang.Object)
+		 * ）的方式进行注入
 		 * 强调一点：属性被@Autowired注解不属于自动装配
 		 */
 
