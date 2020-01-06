@@ -705,7 +705,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		 * 运行期织入则是采用CGLib工具或JDK动态代理进行切面的织入。
 		 * AspectJ采用编译期织入和类加载期织入的方式织入切面，是语言级的AOP实现，提供了完备的AOP支持。
 		 * 它用AspectJ语言定义切面，在编译期或类加载期将切面织入到Java类中。
-		 * AspectJ提供了两种切面织入方式，第一种通过特殊编译器（acj），在编译期，将AspectJ语言编写的切面类织入到Java类中，可以通过一个Ant或Maven任务来完成这个操作；
+		 * AspectJ提供了两种切面织入方式，第一种通过特殊编译器（acj），在编译期，将AspectJ语言编写的切面类织入到Java类中，
+		 * 可以通过一个Ant或Maven任务来完成这个操作；
 		 * 第二种方式是类加载期织入，也简称为LTW（Load Time Weaving）
 		 *
 		 *
