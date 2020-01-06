@@ -439,6 +439,7 @@ public class ResourceBundleMessageSource extends AbstractResourceBasedMessageSou
 				if (inputStream != null) {
 					String encoding = getDefaultEncoding();
 					if (encoding != null) {
+						//设置读写property的编码,默认的编码格式是IOS8859-1
 						try (InputStreamReader bundleReader = new InputStreamReader(inputStream, encoding)) {
 							return loadBundle(bundleReader);
 						}
@@ -467,6 +468,7 @@ public class ResourceBundleMessageSource extends AbstractResourceBasedMessageSou
 
 		@Override
 		public long getTimeToLive(String baseName, Locale locale) {
+			//优先使用spring缓存的ttl
 			long cacheMillis = getCacheMillis();
 			return (cacheMillis >= 0 ? cacheMillis : super.getTimeToLive(baseName, locale));
 		}
@@ -476,6 +478,7 @@ public class ResourceBundleMessageSource extends AbstractResourceBasedMessageSou
 				String baseName, Locale locale, String format, ClassLoader loader, ResourceBundle bundle, long loadTime) {
 
 			if (super.needsReload(baseName, locale, format, loader, bundle, loadTime)) {
+				//需要reload时，移除缓存的bundle
 				cachedBundleMessageFormats.remove(bundle);
 				return true;
 			}
