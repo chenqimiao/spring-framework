@@ -3,6 +3,7 @@ package com.github.chenqimiao;
 import com.github.chenqimiao.component.A;
 import com.github.chenqimiao.component.B;
 import com.github.chenqimiao.component.BAware;
+import java.util.Locale;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.component.IndexService;
@@ -18,12 +19,12 @@ public class TestApplication {
 
     public static void main(String args[]) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
-        ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
+        //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
        // ac.getBeanFactory().ignoreDependencyType(B.class);
         ac.register(AppConfig.class);
         ac.refresh();
-        A a = ac.getBean(A.class);
-		System.out.println(a.getB());
+//        A a = ac.getBean(A.class);
+//		System.out.println(a.getB());
 //      ac.getBean(IndexService.class);
 //      UserService userService = ac.getBean(UserService.class);
 //      userService.getUserById(1);
@@ -32,5 +33,16 @@ public class TestApplication {
 //			a.printB();
 //		}
 
-    }
+
+		String englishMessage = ac.getMessage("message", null, "Default", Locale.ENGLISH);
+		System.out.println(englishMessage);
+
+		String zhMessage = ac.getMessage("message", null, "Default", Locale.SIMPLIFIED_CHINESE);
+		System.out.println(zhMessage);
+
+		String message = ac.getMessage("argument.required",
+				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
+		System.out.println(message);
+
+	}
 }

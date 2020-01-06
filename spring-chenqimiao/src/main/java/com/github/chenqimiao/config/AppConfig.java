@@ -7,6 +7,7 @@ import com.github.chenqimiao.processor.CustomBeanPostProcessor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import com.github.chenqimiao.component.UserServiceImpl;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -71,5 +73,14 @@ public class AppConfig {
 //	public ExecutorService executor(){
 //		return Executors.newFixedThreadPool(5);
 //	}
+
+
+	@Bean
+	public ResourceBundleMessageSource messageSource(){
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setBasenames("format","exceptions");
+		return messageSource;
+	}
 
 }

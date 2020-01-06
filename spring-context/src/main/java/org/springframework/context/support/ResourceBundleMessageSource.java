@@ -245,6 +245,7 @@ public class ResourceBundleMessageSource extends AbstractResourceBasedMessageSou
 		MessageSourceControl control = this.control;
 		if (control != null) {
 			try {
+				//调用JDK API获取ResourceBundle
 				return ResourceBundle.getBundle(basename, locale, classLoader, control);
 			}
 			catch (UnsupportedOperationException ex) {
