@@ -397,6 +397,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Multicast right now if possible - or lazily once the multicaster is initialized
+		/**
+		 * 请关注下面俩方法
+		 * @see org.springframework.context.support.AbstractApplicationContext#prepareRefresh() 给earlyApplicationEvents赋值
+		 * @see org.springframework.context.support.AbstractApplicationContext#registerListeners() 将earlyApplicationEvents置为null
+		 *
+		 * 执行到这里的时候，如果监听器还未注册完毕，会将事件先放入到earlyApplicationEvents，
+		 * 等到监听器注册完毕，再将事件广播出去，并将earlyApplicationEvents置为null
+		 *
+		 * 所以某种意义上来说，earlyApplicationEvents是监听器是否注册完成的一个标志位
+		 *
+		 */
 		if (this.earlyApplicationEvents != null) {
 			this.earlyApplicationEvents.add(applicationEvent);
 		}

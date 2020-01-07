@@ -1,13 +1,7 @@
 package com.github.chenqimiao;
 
-import com.github.chenqimiao.component.A;
-import com.github.chenqimiao.component.B;
-import com.github.chenqimiao.component.BAware;
-import java.util.Locale;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.github.chenqimiao.component.IndexService;
-import com.github.chenqimiao.component.UserService;
 import com.github.chenqimiao.config.AppConfig;
 
 /**
@@ -34,15 +28,14 @@ public class TestApplication {
 //		}
 
 
-		String englishMessage = ac.getMessage("message", null, "Default", Locale.ENGLISH);
-		System.out.println(englishMessage);
-
-		String zhMessage = ac.getMessage("message", null, "Default", Locale.SIMPLIFIED_CHINESE);
-		System.out.println(zhMessage);
-
-		String message = ac.getMessage("argument.required",
-				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
-		System.out.println(message);
-
+//		String englishMessage = ac.getMessage("message", null, "Default", Locale.ENGLISH);
+//		System.out.println(englishMessage);
+//
+//		String zhMessage = ac.getMessage("message", null, "Default", Locale.SIMPLIFIED_CHINESE);
+//		System.out.println(zhMessage);
+//
+//		String message = ac.getMessage("argument.required",
+//				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
+//		System.out.println(message);
 	}
 }
