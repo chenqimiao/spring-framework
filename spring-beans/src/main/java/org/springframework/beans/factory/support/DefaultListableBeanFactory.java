@@ -864,7 +864,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 						/**
 						 * 一般来说，FactoryBean是在真正访问的时候，去调用getObject()生产bean
 						 * SmartFactoryBean扩展了FactoryBean，可以提前生产Bean，该扩展主要应用于框架内部。
-						 * @see org.springframework.beans.factory.SmartFactoryBean.isEagerInit
+						 * @see org.springframework.beans.factory.SmartFactoryBean#isEagerInit()
+						 *
 						 * 详见上面的方法注释
 						 */
 
