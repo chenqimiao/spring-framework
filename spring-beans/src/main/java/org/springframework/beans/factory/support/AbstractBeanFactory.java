@@ -1307,6 +1307,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
                     }
                     // Deep copy with overridden values.
                     mbd = new RootBeanDefinition(pbd);
+                    //子bd覆盖父bd属性
                     mbd.overrideFrom(bd);
                 }
 

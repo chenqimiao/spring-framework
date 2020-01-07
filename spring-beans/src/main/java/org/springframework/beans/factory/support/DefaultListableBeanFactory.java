@@ -861,6 +861,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
 					if (bean instanceof FactoryBean) {
 						final FactoryBean<?> factory = (FactoryBean<?>) bean;
+						/**
+						 * 一般来说，FactoryBean是在真正访问的时候，去调用getObject()生产bean
+						 * SmartFactoryBean扩展了FactoryBean，可以提前生产Bean，该扩展主要应用于框架内部。
+						 * @see org.springframework.beans.factory.SmartFactoryBean.isEagerInit
+						 * 详见上面的方法注释
+						 */
+
 						boolean isEagerInit;
 						if (System.getSecurityManager() != null && factory instanceof SmartFactoryBean) {
 							isEagerInit = AccessController.doPrivileged((PrivilegedAction<Boolean>)
