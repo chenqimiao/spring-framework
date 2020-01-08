@@ -334,6 +334,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
                 }
 
                 else {
+                	//WebApplicationContext下的 request/session scope 或者自定义的scope在这个else中进行处理
                     String scopeName = mbd.getScope();
                     final Scope scope = this.scopes.get(scopeName);
                     if (scope == null) {
