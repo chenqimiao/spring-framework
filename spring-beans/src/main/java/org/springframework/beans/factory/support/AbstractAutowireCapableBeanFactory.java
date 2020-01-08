@@ -471,6 +471,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         // Make sure bean class is actually resolved at this point, and
         // clone the bean definition in case of a dynamically resolved Class
         // which cannot be stored in the shared merged bean definition.
+		//解析mdb中beanClassName(可能是一个待解析的表达式)为class对象
         Class<?> resolvedClass = resolveBeanClass(mbd, beanName);
         if (resolvedClass != null && !mbd.hasBeanClass() && mbd.getBeanClassName() != null) {
             mbdToUse = new RootBeanDefinition(mbd);
@@ -479,6 +480,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         // Prepare method overrides.
         try {
+        	//为lookup-method和replace-method的实现做准备
             mbdToUse.prepareMethodOverrides();
         } catch (BeanDefinitionValidationException ex) {
             throw new BeanDefinitionStoreException(mbdToUse.getResourceDescription(), beanName, "Validation of method overrides failed",
@@ -488,6 +490,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         try {
             // Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
 			//调用后置处理器
+			//象一个阻断药，提前解析出了bean实例。
+			//个人想法：后置处理器不应该影响bean的实例化主流程，这样的设计感觉不是太好。
             Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
             if (bean != null) {
                 return bean;
