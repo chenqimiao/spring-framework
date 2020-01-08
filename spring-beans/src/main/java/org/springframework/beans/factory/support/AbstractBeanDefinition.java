@@ -172,7 +172,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * eg.当AppConfig中有一个被@Bean注解的方法的时候，
-	 * factoryBeanName = AppConfig全类名
+	 * factoryBeanName = appConfig
 	 * factoryMethodName = 被@Bean注解的方法
 	 */
 	@Nullable
