@@ -13,9 +13,11 @@ public class IndexService {
 
 	public void printUserName(){
 		if(obj != null){
+
 			System.out.println(obj.getName());
 
 		}else {
+			//before this change ,program will go here
 			System.out.println("obj is null");
 		}
 	}
