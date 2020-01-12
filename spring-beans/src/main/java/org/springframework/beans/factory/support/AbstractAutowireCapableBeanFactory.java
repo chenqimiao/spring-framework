@@ -1378,6 +1378,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             }
             // Add property values based on autowire by type if applicable.
             if (resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
+				/**
+				 * 比起AUTOWIRE_BY_NAME多了许多细节
+				 * eg.解析通过{@link org.springframework.beans.factory.support.DefaultListableBeanFactory.registerResolvableDependency}注册的内建依赖，用于注入
+				 */
                 autowireByType(beanName, mbd, bw, newPvs);
             }
             pvs = newPvs;
