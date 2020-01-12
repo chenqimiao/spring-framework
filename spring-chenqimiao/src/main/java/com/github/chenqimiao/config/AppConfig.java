@@ -27,7 +27,7 @@ import org.springframework.core.annotation.Order;
  * @Description:
  */
 @Configuration
-@ComponentScan("com.github.chenqimiao")
+//@ComponentScan("com.github.chenqimiao")
 @EnableAspectJAutoProxy
 @Import(AppConfig1.class)
 public class AppConfig {
