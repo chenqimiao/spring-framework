@@ -1122,6 +1122,7 @@ public abstract class ClassUtils {
 			}
 		}
 		else {
+			// 尽最大的努力找到唯一的方法，paramTypes (may be {@code null} to indicate any signature rather than no parameters)
 			Set<Method> candidates = findMethodCandidatesByName(clazz, methodName);
 			if (candidates.size() == 1) {
 				return candidates.iterator().next();
