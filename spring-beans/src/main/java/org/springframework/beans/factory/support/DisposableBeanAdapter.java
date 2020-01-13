@@ -239,7 +239,10 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 	public void destroy() {
 		if (!CollectionUtils.isEmpty(this.beanPostProcessors)) {
 			for (DestructionAwareBeanPostProcessor processor : this.beanPostProcessors) {
-				//通过{@link InitDestroyAnnotationBeanPostProcessor#postProcessBeforeDestruction(java.lang.Object, java.lang.String) } 调用被@PostConstruct注解的方法
+
+				/**
+				 * 通过{@link InitDestroyAnnotationBeanPostProcessor#postProcessBeforeDestruction(java.lang.Object, java.lang.String) } 调用被@PostConstruct注解的方法
+				 */
 				processor.postProcessBeforeDestruction(this.bean, this.beanName);
 			}
 		}
