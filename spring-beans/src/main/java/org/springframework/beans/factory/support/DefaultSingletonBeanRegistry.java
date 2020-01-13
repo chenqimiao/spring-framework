@@ -11,6 +11,7 @@
 
 package org.springframework.beans.factory.support;
 
+import com.sun.javafx.tools.ant.Callbacks;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.BeanCurrentlyInCreationException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor;
 import org.springframework.beans.factory.config.SingletonBeanRegistry;
 import org.springframework.core.SimpleAliasRegistry;
 import org.springframework.lang.Nullable;
@@ -567,6 +569,12 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
         // Actually destroy the bean now...
         if (bean != null) {
             try {
+				/**
+				 * Bean destruction Callbacks
+				 * 1.通过{@link InitDestroyAnnotationBeanPostProcessor#postProcessBeforeDestruction(java.lang.Object, java.lang.String) } 调用被@PostConstruct注解的方法
+				 * 2.调用实现了{@link DisposableBean}的{@link DisposableBean#destroy()}
+				 * 3.调用自定义的销毁方法(可由 {@link org.springframework.context.annotation.Bean#destroyMethod()} 属性指定)
+				 */
                 bean.destroy();
             } catch (Throwable ex) {
                 if (logger.isWarnEnabled()) {

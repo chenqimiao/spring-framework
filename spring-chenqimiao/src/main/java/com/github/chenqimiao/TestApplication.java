@@ -17,6 +17,8 @@ public class TestApplication {
        // ac.getBeanFactory().ignoreDependencyType(B.class);
         ac.register(AppConfig.class);
         ac.refresh();
+		ac.removeBeanDefinition("b");
+        //ac.removeBeanDefinition("b");
 //        A a = ac.getBean(A.class);
 //		System.out.println(a.getB());
 //      ac.getBean(IndexService.class);
