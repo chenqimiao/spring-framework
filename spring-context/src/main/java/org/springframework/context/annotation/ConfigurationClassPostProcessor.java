@@ -325,7 +325,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		Set<ConfigurationClass> alreadyParsed = new HashSet<>(configCandidates.size());
 		//循环解析@Configuration class
 		do {
-			//处理@ComponentScan@PropertySource@Import@Bean等等注解,并对ConfigurationClass实例做标记
+			//处理@ComponentScan@PropertySource@Import@Bean等等注解,并对ConfigurationClass实例（不是bean）做标记
 			//扫描@ComponentScan中指定的包路径下的被@Component注解的类，生成对应的beanDefinition,注入到beanDefinitionMap
 			parser.parse(candidates);
 			parser.validate();
