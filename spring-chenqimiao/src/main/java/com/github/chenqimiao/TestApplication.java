@@ -1,12 +1,21 @@
 package com.github.chenqimiao;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Target;
+import java.util.Map;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.config.AppConfig;
+import org.springframework.context.annotation.AnnotationConfigUtils;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao
@@ -20,6 +29,7 @@ public class TestApplication {
 //        //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
 //       // ac.getBeanFactory().ignoreDependencyType(B.class);
 //        ac.register(AppConfig.class);
+//		//ac.scan("com.github.chenqimiao.component");
 //        ac.refresh();
 //		ac.removeBeanDefinition("b");
         //ac.removeBeanDefinition("b");
@@ -44,12 +54,21 @@ public class TestApplication {
 //				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
 //		System.out.println(message);
 
-		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("config/spring-config.xml");
-		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory)ac.getBeanFactory();
-		beanFactory.removeBeanDefinition("c");
-		BeanDefinition dbd = beanFactory.getBeanDefinition("d");
-		System.out.println(dbd);
-		Object o = ac.getBean("d");
-		System.out.println(o);
+//		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("config/spring-config.xml");
+//		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory)ac.getBeanFactory();
+//		beanFactory.removeBeanDefinition("c");
+//		BeanDefinition dbd = beanFactory.getBeanDefinition("d");
+//		System.out.println(dbd);
+//		Object o = ac.getBean("d");
+//		System.out.println(o);
+
+		AnnotationMetadata annotationMetadata = AnnotationMetadata.introspect(AppConfig.class);
+		System.out.println(annotationMetadata.isAnnotated(Component.class.getName()));
+		System.out.println(annotationMetadata.hasMetaAnnotation(Component.class.getName()));
+		System.out.println(annotationMetadata.hasAnnotatedMethods(Bean.class.getName()));
+		System.out.println(annotationMetadata.hasAnnotation(Configuration.class.getName()));
+		Map map = annotationMetadata.getAllAnnotationAttributes(Configuration.class.getName());
+
+		System.out.println(map);
 	}
 }

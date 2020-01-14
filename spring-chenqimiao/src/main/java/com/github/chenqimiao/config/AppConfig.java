@@ -28,15 +28,15 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration
 //@ComponentScan("com.github.chenqimiao")
-@EnableAspectJAutoProxy
-@Import(AppConfig1.class)
+//@EnableAspectJAutoProxy
+//@Import(AppConfig1.class)
 public class AppConfig {
 //
-    @Bean(destroyMethod = "destroy2")
-	public B b(){
-		//userService();
-		return new B();
-	}
+//    @Bean(destroyMethod = "destroy2")
+//	public B b(){
+//		//userService();
+//		return new B();
+//	}
 ////
 //	@Bean(autowire= Autowire.BY_TYPE)
 //	public A c(){
