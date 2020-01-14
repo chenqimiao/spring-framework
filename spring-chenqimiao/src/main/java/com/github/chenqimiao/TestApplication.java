@@ -25,12 +25,12 @@ import org.springframework.stereotype.Component;
 public class TestApplication {
 
     public static void main(String args[]) {
-//        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
 //        //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
 //       // ac.getBeanFactory().ignoreDependencyType(B.class);
-//        ac.register(AppConfig.class);
+        ac.register(AppConfig.class);
 //		//ac.scan("com.github.chenqimiao.component");
-//        ac.refresh();
+        ac.refresh();
 //		ac.removeBeanDefinition("b");
         //ac.removeBeanDefinition("b");
 //        A a = ac.getBean(A.class);
@@ -62,13 +62,13 @@ public class TestApplication {
 //		Object o = ac.getBean("d");
 //		System.out.println(o);
 
-		AnnotationMetadata annotationMetadata = AnnotationMetadata.introspect(AppConfig.class);
-		System.out.println(annotationMetadata.isAnnotated(Component.class.getName()));
-		System.out.println(annotationMetadata.hasMetaAnnotation(Component.class.getName()));
-		System.out.println(annotationMetadata.hasAnnotatedMethods(Bean.class.getName()));
-		System.out.println(annotationMetadata.hasAnnotation(Configuration.class.getName()));
-		Map map = annotationMetadata.getAllAnnotationAttributes(Configuration.class.getName());
-
-		System.out.println(map);
+//		AnnotationMetadata annotationMetadata = AnnotationMetadata.introspect(AppConfig.class);
+//		System.out.println(annotationMetadata.isAnnotated(Component.class.getName()));
+//		System.out.println(annotationMetadata.hasMetaAnnotation(Component.class.getName()));
+//		System.out.println(annotationMetadata.hasAnnotatedMethods(Bean.class.getName()));
+//		System.out.println(annotationMetadata.hasAnnotation(Configuration.class.getName()));
+//		Map map = annotationMetadata.getAllAnnotationAttributes(Configuration.class.getName());
+//
+//		System.out.println(map);
 	}
 }

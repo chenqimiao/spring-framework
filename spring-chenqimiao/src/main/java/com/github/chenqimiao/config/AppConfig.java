@@ -6,7 +6,12 @@ import com.github.chenqimiao.processor.CustomBeanFactoryPostProcessor;
 import com.github.chenqimiao.processor.CustomBeanPostProcessor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -73,6 +78,23 @@ public class AppConfig {
 //	public ExecutorService executor(){
 //		return Executors.newFixedThreadPool(5);
 //	}
+
+	@Bean
+	public BeanDefinitionRegistryPostProcessor bdrpp(){
+		return new BeanDefinitionRegistryPostProcessor() {
+			@Override
+			public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)
+					throws BeansException {
+
+			}
+
+			@Override
+			public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
+					throws BeansException {
+
+			}
+		};
+	}
 
 
 	@Bean
