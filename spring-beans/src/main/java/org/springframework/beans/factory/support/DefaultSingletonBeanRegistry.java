@@ -570,7 +570,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
         if (bean != null) {
             try {
 				/**
-				 * Bean destruction Callbacks
+				 * Bean destruction Callbacks（一般来说下面的bean是一个代理的bean {@link DisposableBeanAdapter} ）
 				 * 1.通过{@link InitDestroyAnnotationBeanPostProcessor#postProcessBeforeDestruction(java.lang.Object, java.lang.String) } 调用被@PostConstruct注解的方法
 				 * 2.调用实现了{@link DisposableBean}的{@link DisposableBean#destroy()}
 				 * 3.调用自定义的销毁方法(可由 {@link org.springframework.context.annotation.Bean#destroyMethod()} 属性指定)
