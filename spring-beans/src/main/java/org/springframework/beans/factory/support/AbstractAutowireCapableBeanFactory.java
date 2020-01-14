@@ -1150,6 +1150,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         if (mbd.getFactoryMethodName() != null) {
+        	//@Configuration class中定义的@Bean，要使用factory method进行实例化
             return instantiateUsingFactoryMethod(beanName, mbd, args);
         }
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServiceImpl implements InitializingBean, UserService {
 
-    @Autowired
+   // @Autowired
     private IndexService indexService;
 
 

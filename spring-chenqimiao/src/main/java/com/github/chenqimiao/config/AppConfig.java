@@ -37,20 +37,20 @@ import org.springframework.core.annotation.Order;
 //@Import(AppConfig1.class)
 public class AppConfig {
 //
-//    @Bean(destroyMethod = "destroy2")
-//	public B b(){
-//		//userService();
-//		return new B();
-//	}
+    @Bean(destroyMethod = "destroy2")
+	public B b(){
+		userService();
+		return new B();
+	}
 ////
 //	@Bean(autowire= Autowire.BY_TYPE)
 //	public A c(){
 //		return new A();
 //	}
-//	@Bean(initMethod = "initMethod")
-//	public UserService userService() {
-//    	return new UserServiceImpl();
-//	}
+	@Bean(initMethod = "initMethod")
+	public UserService userService() {
+    	return new UserServiceImpl();
+	}
 
 //	@Bean
 //	public CustomBeanPostProcessor customBeanPostProcessor(){
