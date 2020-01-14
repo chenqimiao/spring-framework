@@ -1050,6 +1050,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				// Ensure bd is non-null due to potential concurrent modification
 				// of the beanDefinitionMap.
 				if (bd != null && beanName.equals(bd.getParentName())) {
+					//子beanDefinition会被保留，但是对应的bean会被销毁
 					resetBeanDefinition(bdName);
 				}
 			}

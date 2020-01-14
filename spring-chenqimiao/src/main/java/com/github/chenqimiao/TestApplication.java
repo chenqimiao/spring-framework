@@ -1,8 +1,12 @@
 package com.github.chenqimiao;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.config.AppConfig;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @Auther: chenqimiao
@@ -12,12 +16,12 @@ import com.github.chenqimiao.config.AppConfig;
 public class TestApplication {
 
     public static void main(String args[]) {
-        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
-        //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
-       // ac.getBeanFactory().ignoreDependencyType(B.class);
-        ac.register(AppConfig.class);
-        ac.refresh();
-		ac.removeBeanDefinition("b");
+//        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+//        //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
+//       // ac.getBeanFactory().ignoreDependencyType(B.class);
+//        ac.register(AppConfig.class);
+//        ac.refresh();
+//		ac.removeBeanDefinition("b");
         //ac.removeBeanDefinition("b");
 //        A a = ac.getBean(A.class);
 //		System.out.println(a.getB());
@@ -39,5 +43,13 @@ public class TestApplication {
 //		String message = ac.getMessage("argument.required",
 //				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
 //		System.out.println(message);
+
+		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("config/spring-config.xml");
+		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory)ac.getBeanFactory();
+		beanFactory.removeBeanDefinition("c");
+		BeanDefinition dbd = beanFactory.getBeanDefinition("d");
+		System.out.println(dbd);
+		Object o = ac.getBean("d");
+		System.out.println(o);
 	}
 }

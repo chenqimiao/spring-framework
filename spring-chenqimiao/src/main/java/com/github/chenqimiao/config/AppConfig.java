@@ -32,7 +32,7 @@ import org.springframework.core.annotation.Order;
 @Import(AppConfig1.class)
 public class AppConfig {
 //
-    @Bean(destroyMethod = "destroy2" )
+    @Bean(destroyMethod = "destroy2")
 	public B b(){
 		//userService();
 		return new B();
