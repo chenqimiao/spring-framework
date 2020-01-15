@@ -116,6 +116,7 @@ final class PostProcessorRegistrationDelegate {
 			currentRegistryProcessors.clear();
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
+			//后置处理器的调用可能会产生新的后置处理器
 			boolean reiterate = true;
 			while (reiterate) {
 				reiterate = false;
