@@ -335,6 +335,7 @@ class ConfigurationClassParser {
 					!this.knownSuperclasses.containsKey(superclass)) {
 				this.knownSuperclasses.put(superclass, configClass);
 				// Superclass found, return its annotation metadata and recurse
+				//递归处理superclass
 				return sourceClass.getSuperClass();
 			}
 		}

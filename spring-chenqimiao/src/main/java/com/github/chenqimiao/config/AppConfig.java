@@ -36,12 +36,13 @@ import org.springframework.core.env.Environment;
  * @Description:
  */
 @Configuration
-//@ComponentScan("com.github.chenqimiao")
+//@ComponentScan("com.github.chenqimiao.component")
+//@ComponentScan(basePackageClasses = com.github.chenqimiao.component.D.class)
 //@EnableAspectJAutoProxy
 //@Import(AppConfig1.class)
-@PropertySource("classpath:config/app.properties")
-@ImportResource("classpath:config/spring-config.xml")
-public class AppConfig {
+//@PropertySource("classpath:config/app.properties")
+//@ImportResource("classpath:config/spring-config.xml")
+public class AppConfig implements IAppConfig{
 
 
 	@Autowired
@@ -60,11 +61,11 @@ public class AppConfig {
 //	public A c(){
 //		return new A();
 //	}
-	@Bean(initMethod = "initMethod")
-	public UserService userService() {
-		System.out.println(env.getProperty("testbean.name"));
-    	return new UserServiceImpl();
-	}
+//	@Bean(initMethod = "initMethod")
+//	public UserService userService() {
+//		System.out.println(env.getProperty("testbean.name"));
+//    	return new UserServiceImpl();
+//	}
 
 //	@Bean
 //	public CustomBeanPostProcessor customBeanPostProcessor(){
