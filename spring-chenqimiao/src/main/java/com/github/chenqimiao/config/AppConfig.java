@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -21,10 +22,13 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import com.github.chenqimiao.component.UserService;
 import com.github.chenqimiao.component.UserServiceImpl;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 
 /**
  * @Auther: chenqimiao
@@ -35,13 +39,22 @@ import org.springframework.core.annotation.Order;
 //@ComponentScan("com.github.chenqimiao")
 //@EnableAspectJAutoProxy
 //@Import(AppConfig1.class)
+@PropertySource("classpath:config/app.properties")
+@ImportResource("classpath:config/spring-config.xml")
 public class AppConfig {
+
+
+	@Autowired
+	private Environment env;
+
+
+
 //
-    @Bean(destroyMethod = "destroy2")
-	public B b(){
-		userService();
-		return new B();
-	}
+//    @Bean(destroyMethod = "destroy2")
+//	public B b(){
+//		userService();
+//		return new B();
+//	}
 ////
 //	@Bean(autowire= Autowire.BY_TYPE)
 //	public A c(){
@@ -49,6 +62,7 @@ public class AppConfig {
 //	}
 	@Bean(initMethod = "initMethod")
 	public UserService userService() {
+		System.out.println(env.getProperty("testbean.name"));
     	return new UserServiceImpl();
 	}
 
@@ -79,30 +93,30 @@ public class AppConfig {
 //		return Executors.newFixedThreadPool(5);
 //	}
 
-	@Bean
-	public BeanDefinitionRegistryPostProcessor bdrpp(){
-		return new BeanDefinitionRegistryPostProcessor() {
-			@Override
-			public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)
-					throws BeansException {
+//	@Bean
+//	public BeanDefinitionRegistryPostProcessor bdrpp(){
+//		return new BeanDefinitionRegistryPostProcessor() {
+//			@Override
+//			public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)
+//					throws BeansException {
+//
+//			}
+//
+//			@Override
+//			public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
+//					throws BeansException {
+//
+//			}
+//		};
+//	}
 
-			}
 
-			@Override
-			public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
-					throws BeansException {
-
-			}
-		};
-	}
-
-
-	@Bean
-	public ResourceBundleMessageSource messageSource(){
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setDefaultEncoding("UTF-8");
-		messageSource.setBasenames("format","exceptions");
-		return messageSource;
-	}
+//	@Bean
+//	public ResourceBundleMessageSource messageSource(){
+//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+//		messageSource.setDefaultEncoding("UTF-8");
+//		messageSource.setBasenames("format","exceptions");
+//		return messageSource;
+//	}
 
 }
