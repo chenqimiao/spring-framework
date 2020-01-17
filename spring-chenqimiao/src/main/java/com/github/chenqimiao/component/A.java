@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/7 15:23
  * @Description:
  */
-@Component
+//@Component
 //@Scope("singleton")
 public class A implements BAware{
 
@@ -32,4 +32,10 @@ public class A implements BAware{
 	public B getB() {
 		return b;
 	}
+
+
+	public A (){
+		System.out.println("Call A Constructor ");
+	}
+
 }
