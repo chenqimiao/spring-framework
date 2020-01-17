@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/1 16:35
  * @Description:
  */
-@Component("indexService")
+//@Component("indexService")
 public class IndexServiceImpl implements IndexService {
 
 
@@ -16,8 +16,8 @@ public class IndexServiceImpl implements IndexService {
     private UserService userService;
 
 
-    //@Autowired
-	//private A a;
+    @Autowired
+	private A a;
 
     public IndexServiceImpl() {
         System.out.println("Construct IndexService");

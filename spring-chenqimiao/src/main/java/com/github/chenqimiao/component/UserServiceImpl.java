@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/3 18:29
  * @Description:
  */
-@Component
+//@Component
 public class UserServiceImpl implements InitializingBean, UserService {
 
    // @Autowired
