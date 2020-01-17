@@ -36,9 +36,9 @@ import org.springframework.core.env.Environment;
  * @Description:
  */
 @Configuration
-//@ComponentScan("com.github.chenqimiao.component")
+@ComponentScan({"com.github.chenqimiao.component","com.github.chenqimiao.aop"})
 //@ComponentScan(basePackageClasses = com.github.chenqimiao.component.D.class)
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 //@Import(AppConfig1.class)
 //@PropertySource("classpath:config/app.properties")
 //@ImportResource("classpath:config/spring-config.xml")

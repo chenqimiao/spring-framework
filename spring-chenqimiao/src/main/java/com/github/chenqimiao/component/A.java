@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/7 15:23
  * @Description:
  */
-//@Component
+@Component
 //@Scope("singleton")
 public class A implements BAware{
 

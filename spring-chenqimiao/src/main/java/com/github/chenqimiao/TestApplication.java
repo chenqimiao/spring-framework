@@ -1,21 +1,10 @@
 package com.github.chenqimiao;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Target;
-import java.util.Map;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import com.github.chenqimiao.aop.DefaultUsageTracked;
+import com.github.chenqimiao.aop.UsageTracked;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.config.AppConfig;
-import org.springframework.context.annotation.AnnotationConfigUtils;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao
@@ -31,6 +20,10 @@ public class TestApplication {
         ac.register(AppConfig.class);
 //		//ac.scan("com.github.chenqimiao.component");
         ac.refresh();
+
+        UsageTracked usageTracked = (UsageTracked)ac.getBean("a");
+
+		System.out.println(usageTracked instanceof DefaultUsageTracked);
 //		ac.removeBeanDefinition("b");
         //ac.removeBeanDefinition("b");
 //        A a = ac.getBean(A.class);

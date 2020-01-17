@@ -16,8 +16,8 @@ public class IndexServiceImpl implements IndexService {
     private UserService userService;
 
 
-    @Autowired
-	private A a;
+    //@Autowired
+	//private A a;
 
     public IndexServiceImpl() {
         System.out.println("Construct IndexService");

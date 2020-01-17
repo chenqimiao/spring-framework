@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/11/3 18:15
  * @Description:
  */
-@Component
+//@Component
 @Aspect
 //@order定义在Aspect类上会影响AOP执行的顺序
 @Order(1)
