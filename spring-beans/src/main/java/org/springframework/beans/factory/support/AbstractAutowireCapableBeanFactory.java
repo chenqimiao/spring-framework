@@ -1755,7 +1755,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         try {
-            // 执行InitializingBean#afterPropertiesSet和@Bean中定义的init-method方法
+            // 执行InitializingBean#afterPropertiesSet和自定义的init-method方法(如@Bean中init-method属性定义)
             invokeInitMethods(beanName, wrappedBean, mbd);
         } catch (Throwable ex) {
             throw new BeanCreationException((mbd != null ? mbd.getResourceDescription() : null), beanName,
