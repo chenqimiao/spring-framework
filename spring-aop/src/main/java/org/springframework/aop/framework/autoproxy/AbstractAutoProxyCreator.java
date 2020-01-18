@@ -446,10 +446,16 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
         ProxyFactory proxyFactory = new ProxyFactory();
         proxyFactory.copyFrom(this);
 
+        //是否全局设置直接代理目标类
+		/**
+		 * {@link org.springframework.context.annotation.EnableAspectJAutoProxy#proxyTargetClass()}
+		 */
         if (!proxyFactory.isProxyTargetClass()) {
+        	//是否对单个BeanDefinition设置直接代理目标类
             if (shouldProxyTargetClass(beanClass, beanName)) {
                 proxyFactory.setProxyTargetClass(true);
             } else {
+            	//评估是否可以使用jdk代理
                 evaluateProxyInterfaces(beanClass, proxyFactory);
             }
         }
