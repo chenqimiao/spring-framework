@@ -91,6 +91,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 					aspectNames = new ArrayList<>();
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false);
+					//遍历所有的beanName，找出符合条件Aspect bean
 					for (String beanName : beanNames) {
 						if (!isEligibleBean(beanName)) {
 							continue;
