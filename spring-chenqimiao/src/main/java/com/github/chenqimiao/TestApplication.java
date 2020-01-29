@@ -4,6 +4,7 @@ import com.github.chenqimiao.aop.DefaultUsageTracked;
 import com.github.chenqimiao.aop.UsageTracked;
 import com.github.chenqimiao.component.A;
 import com.github.chenqimiao.component.BAware;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.github.chenqimiao.config.AppConfig;
@@ -16,6 +17,7 @@ import com.github.chenqimiao.config.AppConfig;
 public class TestApplication {
 
     public static void main(String args[]) {
+
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
         //ac.getBeanFactory().ignoreDependencyInterface(BAware.class);
 //       // ac.getBeanFactory().ignoreDependencyType(B.class);
@@ -27,6 +29,9 @@ public class TestApplication {
 
 		System.out.println(usageTracked instanceof DefaultUsageTracked);
 		System.out.println(usageTracked instanceof A);
+
+		ObjectProvider<A> objectProvider = ac.getBeanProvider(A.class);
+		objectProvider.getObject();
 //		ac.removeBeanDefinition("b");
         //ac.removeBeanDefinition("b");
 //        A a = ac.getBean(A.class);
