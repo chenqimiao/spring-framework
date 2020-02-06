@@ -482,7 +482,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			});
 
 			ReflectionUtils.doWithLocalMethods(targetClass, method -> {
-				//jdk1.5引入泛型，为了向前兼容，引入了bridge method, bridge method是由编译器自动生成的.
+				//jdk1.5引入泛型，为了向前兼容，引入了bridge method（当然还有其他情况也会使用到桥接方法）, bridge method是由编译器自动生成的.
 				//这里需要寻找被桥接的方法，进行`方法注入`的解析
 				Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(method);
 				if (!BridgeMethodResolver.isVisibilityBridgeMethodPair(method, bridgedMethod)) {
