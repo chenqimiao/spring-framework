@@ -483,7 +483,16 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 			ReflectionUtils.doWithLocalMethods(targetClass, method -> {
 				//jdk1.5引入泛型，为了向前兼容，引入了bridge method（当然还有其他情况也会使用到桥接方法）, bridge method是由编译器自动生成的.
-				//这里需要寻找被桥接的方法，进行`方法注入`的解析
+				/**
+				 * 这里需要寻找被桥接的方法，进行`方法注入`的解析
+				 * {@link Class#getMethods()} 并不能拿到所有被桥接的方法，有些被桥接的方法需要通过桥接方法进行推敲才可以拿到.
+				 * eg.
+				 * {@link org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessorTests.TypedExtendedResourceInjectionBean#} 会产生一个
+				 *  setTestBean2桥接方法，以调用父类的setTestBean2方法，这里产生桥接方法的原因是父类并非public类型.
+				 *  这里的被桥接方法在父类，
+				 *  但是通过{@link org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessorTests.TypedExtendedResourceInjectionBean#}
+				 *  的Class对象，调用其getMethods()方法并不能直接拿到被桥接方法,本质原因是桥接方法override父类中被桥接方法.
+				 */
 				Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(method);
 				if (!BridgeMethodResolver.isVisibilityBridgeMethodPair(method, bridgedMethod)) {
 					return;
