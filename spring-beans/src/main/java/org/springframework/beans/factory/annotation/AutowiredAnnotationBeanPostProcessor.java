@@ -486,7 +486,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				/**
 				 * 这里需要寻找被桥接的方法，进行`方法注入`的解析
 				 * {@link Class#getMethods()} 并不能拿到所有被桥接的方法，有些被桥接的方法需要通过桥接方法进行推敲才可以拿到.
-				 * eg.
+				 *  E.G.
 				 * {@link org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessorTests.TypedExtendedResourceInjectionBean#} 会产生一个
 				 *  setTestBean2桥接方法，以调用父类的setTestBean2方法，这里产生桥接方法的原因是父类并非public类型.
 				 *  这里的被桥接方法在父类，
