@@ -1370,6 +1370,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         PropertyValues pvs = (mbd.hasPropertyValues() ? mbd.getPropertyValues() : null);
 
+        //不管是AUTOWIRE_BY_NAME还是AUTOWIRE_BY_TYPE都是在进行自动注入
         int resolvedAutowireMode = mbd.getResolvedAutowireMode();
         if (resolvedAutowireMode == AUTOWIRE_BY_NAME || resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
             MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
