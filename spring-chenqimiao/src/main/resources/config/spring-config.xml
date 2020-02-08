@@ -5,7 +5,7 @@
 
 
 
-	<bean id="c" class="com.github.chenqimiao.component.C">
+	<bean id="c" class="com.github.chenqimiao.component.C" >
 
 	</bean>
 	<bean id="d" class="com.github.chenqimiao.component.D" parent="c">
