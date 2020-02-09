@@ -349,6 +349,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 		if (isExistingTransaction(transaction)) {
 			// Existing transaction found -> check propagation behavior to find out how to behave.
+			//检测到已存在事务，那么就要考虑事务的传播特性(行为)
 			return handleExistingTransaction(def, transaction, debugEnabled);
 		}
 
@@ -395,6 +396,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 	/**
 	 * Create a TransactionStatus for an existing transaction.
+	 *
+	 * 当存在事务时，处理传播特性
 	 */
 	private TransactionStatus handleExistingTransaction(
 			TransactionDefinition definition, Object transaction, boolean debugEnabled)
@@ -409,6 +412,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			if (debugEnabled) {
 				logger.debug("Suspending current transaction");
 			}
+			//挂起事务
 			Object suspendedResources = suspend(transaction);
 			boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
 			return prepareTransactionStatus(

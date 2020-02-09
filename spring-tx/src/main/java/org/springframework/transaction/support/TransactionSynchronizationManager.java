@@ -147,7 +147,12 @@ public abstract class TransactionSynchronizationManager {
 
 	/**
 	 * Actually check the value of the resource that is bound for the given key.
+	 *
+	 * actualKey实际上是DataSource对象，resources是一个ThreadLocal对象
+	 * 从这里可以得出结论:
+	 * 是否存在事务指的是在当前线程、当前数据源(DataSource)中是否存在处于活动状态的事务。
 	 */
+
 	@Nullable
 	private static Object doGetResource(Object actualKey) {
 		Map<Object, Object> map = resources.get();

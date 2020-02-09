@@ -23,3 +23,8 @@ package org.springframework.jdbc;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;
+
+/**
+ * 事务的本质其实是对数据库自动提交的关闭与开启，传播特性是Spring提出、实现、控制的概念，而隔离级别是对数据库实现的封装。
+ */
+

@@ -282,6 +282,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				if (logger.isDebugEnabled()) {
 					logger.debug("Switching JDBC Connection [" + con + "] to manual commit");
 				}
+				//Spring事务的开启实际上是将数据库的自动提交设为false
 				con.setAutoCommit(false);
 			}
 
@@ -312,6 +313,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	protected Object doSuspend(Object transaction) {
 		DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;
 		txObject.setConnectionHolder(null);
+		//事务挂起其实就是一个移除当前线程、数据源活动事务对象的过程
 		return TransactionSynchronizationManager.unbindResource(obtainDataSource());
 	}
 
@@ -322,6 +324,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 	@Override
 	protected void doCommit(DefaultTransactionStatus status) {
+		//事务提交 & 回滚其实就是对jdbc相应方法的封装
 		DataSourceTransactionObject txObject = (DataSourceTransactionObject) status.getTransaction();
 		Connection con = txObject.getConnectionHolder().getConnection();
 		if (status.isDebug()) {
