@@ -35,6 +35,38 @@ import org.springframework.lang.Nullable;
  * at the resource level. In the latter case, the flag will only apply to managed
  * resources within the application, such as a Hibernate {@code Session}.
  *
+ *
+ * 事务的隔离级别一般有四种(spring提供了五种)：
+ *
+ * 1.DEFAULT   默认使用数据库的隔离级别
+ *
+ * 2.READ_UNCOMMITTED  能读取还未提交的事务，不能解决脏读、不可重复度和幻读
+ *
+ * 3.READ_COMMITTED  只能读取已经提交的事务，能解决脏读，不能解决不可重复读和幻读，一般使用此隔离级别
+ *
+ * 4.REPEATABLE_READ   当一个事务读取这个数据时会对其进行加锁处理，防止其他事务对数据进行修改。重复读取(REPEATABLE_READ)的意思，读取了一条数据，这个事务不结束，别的事务就不可以改这条记录，这样就解决了脏读、不可重复读的问题，但是幻读的问题还是无法解决
+ *
+ * 5.SERIALIZABLE 串行化，最高的事务隔离级别，不管多少事务，挨个运行完一个事务的所有子事务之后才可以执行另外一个事务里面的所有子事务，这样就解决了脏读、不可重复读和幻读的问题了
+ *
+ * 事务的传播特性：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行。
+ *
+ * 一共有七种传播行为：
+ * 1.PROPAGATION_REQUIRED  如果当前方法存在一个事务，则将该方法置于同一个事物中，如果之前不存在事务，则另新开启一个事物（delete ，insert update）
+ *
+ * 2.PROPAGATION_SUPPORTS 如果当前方法存在一个事务，则将该方法置于同一个事物中，如果之前不存在事务，则进行非事务执行（select）
+ *
+ * 3.PROPAGATION_MANDATORY 如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。
+ *
+ * 4.PROPAGATION_REQUIRES_NEW 使用PROPAGATION_REQUIRES_NEW,需要使用 JtaTransactionManager作为事务管理器。
+ *
+ * 它会开启一个新的事务。如果一个事务已经存在，则先将这个存在的事务挂起。
+ *
+ * 5.PROPAGATION_NOT_SUPPORTED PROPAGATION_NOT_SUPPORTED 总是非事务地执行，并挂起任何存在的事务。使用PROPAGATION_NOT_SUPPORTED,也需要使用JtaTransactionManager作为事务管理器。
+ *
+ * 6.PROPAGATION_NEVER 总是非事务地执行，如果存在一个活动事务，则抛出异常。
+ *
+ * 7.PROPAGATION_NESTED 如果一个活动的事务存在，则运行在一个嵌套的事务中。 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行
+ *
  * @author Juergen Hoeller
  * @since 08.05.2003
  * @see PlatformTransactionManager#getTransaction(TransactionDefinition)
