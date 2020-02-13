@@ -238,7 +238,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		this.beanFactory = (ConfigurableListableBeanFactory) beanFactory;
 	}
 
-
+	//构建依赖注入的元信息
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, beanType, null);

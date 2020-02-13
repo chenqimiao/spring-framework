@@ -28,6 +28,8 @@ import java.lang.annotation.Target;
  * candidate beans when autowiring. It may also be used to annotate other
  * custom annotations that can then in turn be used as qualifiers.
  *
+ * @Qualifier 除了可以与@Autowired搭配使用，进行限定依赖注入，还可以与@Bean搭配使用，用于对Bean进行分组
+ *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @since 2.5
