@@ -184,6 +184,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	@Nullable
 	private ConstructorArgumentValues constructorArgumentValues;
 
+	/**
+	 * 对应xml中定义的<property name="" ></property>
+	 */
 	@Nullable
 	private MutablePropertyValues propertyValues;
 
