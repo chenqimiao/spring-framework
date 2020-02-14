@@ -6,9 +6,9 @@
 
 
 	<bean id="user10" class="com.github.chenqimiao.qualifier.User" >
-		<property name="id" value="10"/>
+		<constructor-arg name="id" value="12"/>
 	</bean>
 	<bean id="user11" class="com.github.chenqimiao.qualifier.User">
-		<property name="id" value="11"/>
+		<constructor-arg name="id" value="11"/>
 	</bean>
 </beans>

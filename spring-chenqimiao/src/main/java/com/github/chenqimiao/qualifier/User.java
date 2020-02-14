@@ -23,4 +23,8 @@ public class User {
 				"id=" + id +
 				'}';
 	}
+
+	public User(Long id) {
+		this.id = id;
+	}
 }

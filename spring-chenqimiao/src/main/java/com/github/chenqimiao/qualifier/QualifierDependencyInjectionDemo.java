@@ -41,43 +41,35 @@ public class QualifierDependencyInjectionDemo {
 	@Bean
 	@Qualifier("u1")
 	public User user1(){
-		User user = new User();
-		user.setId(1L);
-		return user;
+		return new User(1L);
 	}
 
 	@Bean
 	@Qualifier("u1")
 	public User user2(){
-		User user = new User();
-		user.setId(2L);
-		return user;
+		return new User(2L);
 	}
 
 	@Bean
 	@Qualifier("u2")
 	public User user3(){
-		User user = new User();
-		user.setId(3L);
-		return user;
+		return new User(3L);
 	}
 
 
 	@Bean
 	@Qualifier
 	public User user4(){
-		User user = new User();
-		user.setId(4L);
-		return user;
+
+		return new User(4L);
 	}
 
 
 	@Bean
 	@UserGroup
 	public User user5(){
-		User user = new User();
-		user.setId(5L);
-		return user;
+		return new User(5L);
+
 	}
 	public static void main(String args[]){
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
