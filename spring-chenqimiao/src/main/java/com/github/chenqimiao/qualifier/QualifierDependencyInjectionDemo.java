@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -79,8 +80,12 @@ public class QualifierDependencyInjectionDemo {
 		return user;
 	}
 	public static void main(String args[]){
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(QualifierDependencyInjectionDemo.class);
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+		ac.register(QualifierDependencyInjectionDemo.class);
 
+//		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(ac);
+//		xmlBeanDefinitionReader.loadBeanDefinitions("classpath:/config/user-definition.xml");
+		ac.refresh();
 		QualifierDependencyInjectionDemo demo = ac.getBean(QualifierDependencyInjectionDemo.class);
 
 		//输出 user1 user2
@@ -88,7 +93,7 @@ public class QualifierDependencyInjectionDemo {
 
 		//输出 user3
 		System.out.println(demo.u2Users);
-
+		
 		//输出user1 user2 user3 user4
 		System.out.println(demo.allUsers);
 		//输出 user5
