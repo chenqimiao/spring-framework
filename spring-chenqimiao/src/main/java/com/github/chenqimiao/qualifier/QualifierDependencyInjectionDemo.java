@@ -1,6 +1,7 @@
 package com.github.chenqimiao.qualifier;
 
 import java.util.Collection;
+import javax.annotation.Priority;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.PriorityOrdered;
 
 /**
  * @Auther: chenqimiao
@@ -17,6 +19,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QualifierDependencyInjectionDemo {
 
+
+
+	@Priority(0)
+	public static class User1 extends User  {
+
+		public User1(Long id) {
+			super(id);
+		}
+
+
+	}
+
+	@Autowired
+	private User user;
+
+	@Bean
+
+	public User1 userx(){
+		return new User1(100L);
+	};
 
 
 	//@Qualifier 除了可以与Autowired搭配使用，进行限定依赖注入，还可以与@Bean搭配使用，用于对Bean进行分组

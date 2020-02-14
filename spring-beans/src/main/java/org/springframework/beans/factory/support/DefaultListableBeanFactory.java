@@ -1370,6 +1370,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			if (elementType == null) {
 				return null;
 			}
+			//如果明确是集合类型，可以传入MultiElementDescriptor类型的依赖描述符，将查找出来的 autowire candidate beans全部初始化
+			/**
+			 * see {@link DefaultListableBeanFactory#addCandidateEntry(java.util.Map, java.lang.String, org.springframework.beans.factory.config.DependencyDescriptor, java.lang.Class)}
+			 */
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, elementType,
 					new MultiElementDescriptor(descriptor));
 			if (matchingBeans.isEmpty()) {
@@ -1528,6 +1532,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			candidates.put(candidateName, (beanInstance instanceof NullBean ? null : beanInstance));
 		}
 		else {
+			//put the resolved type, preventing early bean initialization ahead of primary candidate selection.
 			candidates.put(candidateName, getType(candidateName));
 		}
 	}
@@ -1543,10 +1548,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	@Nullable
 	protected String determineAutowireCandidate(Map<String, Object> candidates, DependencyDescriptor descriptor) {
 		Class<?> requiredType = descriptor.getDependencyType();
+		//被@Primary标注的注入优先级高
 		String primaryCandidate = determinePrimaryCandidate(candidates, requiredType);
 		if (primaryCandidate != null) {
 			return primaryCandidate;
 		}
+		//javax.annotation.Priority可以定义注入优先级
 		String priorityCandidate = determineHighestPriorityCandidate(candidates, requiredType);
 		if (priorityCandidate != null) {
 			return priorityCandidate;
