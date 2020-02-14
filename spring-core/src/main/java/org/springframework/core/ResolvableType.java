@@ -47,7 +47,7 @@ import org.springframework.util.StringUtils;
  * {@link #getSuperType() supertypes}, {@link #getInterfaces() interfaces}, and
  * {@link #getGeneric(int...) generic parameters} along with the ability to ultimately
  * {@link #resolve() resolve} to a {@link java.lang.Class}.
- *
+ * 封装一个 Java Type,提供到父类、接口、泛型参数的访问，并具备最终解析成Class的能力.
  * <p>{@code ResolvableTypes} may be obtained from {@link #forField(Field) fields},
  * {@link #forMethodParameter(Method, int) method parameters},
  * {@link #forMethodReturnType(Method) method returns} or
