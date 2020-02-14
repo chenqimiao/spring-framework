@@ -93,7 +93,7 @@ public class QualifierDependencyInjectionDemo {
 
 		//输出 user3
 		System.out.println(demo.u2Users);
-		
+
 		//输出user1 user2 user3 user4
 		System.out.println(demo.allUsers);
 		//输出 user5
