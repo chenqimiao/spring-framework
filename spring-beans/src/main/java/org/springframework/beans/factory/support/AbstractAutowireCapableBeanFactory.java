@@ -1398,7 +1398,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 pvs = mbd.getPropertyValues();
             }
             //通过CommonAnnotationBeanPostProcessor#postProcessProperties完成@Resource的注入
-			//通过AutowiredAnnotationBeanPostProcessor#postProcessProperties完成@Autowired的注入
+			//通过AutowiredAnnotationBeanPostProcessor#postProcessProperties完成@Autowired的字段注入
             for (BeanPostProcessor bp : getBeanPostProcessors()) {
                 if (bp instanceof InstantiationAwareBeanPostProcessor) {
                     InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
