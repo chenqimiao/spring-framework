@@ -439,6 +439,7 @@ public class ResolvableType implements Serializable {
 	 * @see #getSuperType()
 	 * @see #getInterfaces()
 	 */
+	//向上获取指定的父类
 	public ResolvableType as(Class<?> type) {
 		if (this == NONE) {
 			return NONE;
@@ -560,6 +561,7 @@ public class ResolvableType implements Serializable {
 	 * Determine whether the underlying type is a type variable that
 	 * cannot be resolved through the associated variable resolver.
 	 */
+	//泛型T，这种格式有可能是Unresolvable
 	private boolean isUnresolvableTypeVariable() {
 		if (this.type instanceof TypeVariable) {
 			if (this.variableResolver == null) {
@@ -578,11 +580,13 @@ public class ResolvableType implements Serializable {
 	 * Determine whether the underlying type represents a wildcard
 	 * without specific bounds (i.e., equal to {@code ? extends Object}).
 	 */
+	//通配符？，判断是否是这种格式
 	private boolean isWildcardWithoutBounds() {
 		if (this.type instanceof WildcardType) {
 			WildcardType wt = (WildcardType) this.type;
 			if (wt.getLowerBounds().length == 0) {
 				Type[] upperBounds = wt.getUpperBounds();
+				//上限为Object，也认为是没有界限
 				if (upperBounds.length == 0 || (upperBounds.length == 1 && Object.class == upperBounds[0])) {
 					return true;
 				}
@@ -815,6 +819,7 @@ public class ResolvableType implements Serializable {
 	 * Resolve this type by a single level, returning the resolved value or {@link #NONE}.
 	 * <p>Note: The returned {@link ResolvableType} should only be used as an intermediary
 	 * as it cannot be serialized.
+	 * TypeVariable只有上界，WildcardType有上下界
 	 */
 	ResolvableType resolveType() {
 		if (this.type instanceof ParameterizedType) {
