@@ -26,7 +26,7 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * Spring-specific variant of {@link ObjenesisStd} / {@link ObjenesisBase},
  * providing a cache based on {@code Class} keys instead of class names,
  * and allowing for selective use of the cache.
- *
+ * 另一种创建实例的方式，可以绕过有参构造函数
  * @author Juergen Hoeller
  * @since 4.2
  * @see #isWorthTrying()
