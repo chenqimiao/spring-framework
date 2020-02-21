@@ -21,6 +21,7 @@ import org.springframework.lang.NonNullFields;
  *
  * Converter 是Spring定义的在Spring容器中使用的转化器，依赖于ConversionService的注册，可以自由定义source 和 target 的类型
  *
- * Formatter 是为了满足在典型的客户端环境下（web/desktop应用）的类型转化需求而引入的，支持source <-> target的双向转化，source 类型必须是String.
+ * Formatter 是为了满足在典型的客户端环境下（web/desktop应用）的类型转化需求而引入的，支持source <-> target的双向转化，source 类型必须是String,
+ * 但是在Spring Mvc中，只用到了输入方向的转化即`String source -> any type target`
  *
  */
