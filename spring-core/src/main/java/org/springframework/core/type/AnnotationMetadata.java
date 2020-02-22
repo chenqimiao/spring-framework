@@ -37,6 +37,8 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
  * @see StandardAnnotationMetadata
  * @see org.springframework.core.type.classreading.MetadataReader#getAnnotationMetadata()
  * @see AnnotatedTypeMetadata
+ *
+ * 比起MergedAnnotations，本类功能比较单一，仅仅是对指定类的注解访问的封装，并没有对继承树进行遍历的能力
  */
 public interface AnnotationMetadata extends ClassMetadata, AnnotatedTypeMetadata {
 

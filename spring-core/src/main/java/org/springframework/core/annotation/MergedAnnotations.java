@@ -126,6 +126,8 @@ import org.springframework.lang.Nullable;
  * @see MergedAnnotationCollectors
  * @see MergedAnnotationPredicates
  * @see MergedAnnotationSelectors
+ *
+ * 在类的继承树上以某种策略进行搜索，得到合并后的注解集合
  */
 public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>> {
 
