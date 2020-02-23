@@ -1013,6 +1013,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 					}
 				}
 			};
+			//在JVM层面注册一个shutdownHook
 			Runtime.getRuntime().addShutdownHook(this.shutdownHook);
 		}
 	}
