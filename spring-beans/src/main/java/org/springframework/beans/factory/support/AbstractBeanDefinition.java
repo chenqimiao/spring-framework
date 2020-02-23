@@ -1112,6 +1112,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 			 * Spring中没有override-method这样的配置,但是在Spring配置中是存在lookup-method和replace-method的，
 			 * 而这个两个配置的加载其实就是将配置统一存放在BeanDefinition中的methodOverrides属性里，
 			 * 而这个函数的操作其实也就是针对于这两个配置的。
+			 * 方法覆盖又称方法注入
 			 */
 			prepareMethodOverrides();
 		}
