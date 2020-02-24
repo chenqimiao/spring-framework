@@ -67,8 +67,8 @@ public class TestApplication {
 //		System.out.println(annotationMetadata.isAnnotated(Component.class.getName()));
 //		System.out.println(annotationMetadata.hasMetaAnnotation(Component.class.getName()));
 //		System.out.println(annotationMetadata.hasAnnotatedMethods(Bean.class.getName()));
-//		System.out.println(annotationMetadata.hasAnnotation(Configuration.class.getName()));
-//		Map map = annotationMetadata.getAllAnnotationAttributes(Configuration.class.getName());
+//		System.out.println(annotationMetadata.hasAnnotation(BeanPostProcessorInConfiguration.class.getName()));
+//		Map map = annotationMetadata.getAllAnnotationAttributes(BeanPostProcessorInConfiguration.class.getName());
 //
 //		System.out.println(map);
 	}
