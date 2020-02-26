@@ -1,0 +1,25 @@
+package com.github.chenqimiao.applicationeventtest;
+
+import java.util.Optional;
+import java.util.concurrent.Future;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.ListenableFuture;
+
+/**
+ * @Auther: chenqimiao
+ * @Date: 2020/2/25 20:26
+ * @Description:
+ */
+@Component
+public class MyApplicationEventListener {
+
+
+	@EventListener
+	//@Async
+	public MyOtherApplicationEvent onMyApplicationEventListener(MyApplicationEvent event){
+		System.out.println("onMyApplicationEventListener name=" + event.getName());
+		return new MyOtherApplicationEvent("MyOtherApplicationEvent from MyApplicationEventListener ");
+	}
+}
