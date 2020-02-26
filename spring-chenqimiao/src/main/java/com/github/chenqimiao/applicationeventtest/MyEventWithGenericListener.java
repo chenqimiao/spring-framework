@@ -13,7 +13,7 @@ public class MyEventWithGenericListener  {
 
 
 	@EventListener
-	public void onApplication(MyEventWithGeneric<?> eventWithGeneric){
+	public void onApplication(MyEventWithGeneric<String> eventWithGeneric){
 		System.out.println("MyEventWithGenericListener.....");
 	}
 }

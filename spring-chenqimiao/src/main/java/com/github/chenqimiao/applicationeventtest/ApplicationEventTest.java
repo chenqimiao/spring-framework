@@ -24,8 +24,8 @@ public class ApplicationEventTest {
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationEventTest.class);
 	//	ac.publishEvent(new MyApplicationEvent("myApplicationEvent"));
 	//	ac.publishEvent(new MyOtherApplicationEvent("myOtherApplicationEvent"));
-		//方法体内部声明的泛型信息是没有办法拿到的。
-		ac.publishEvent(new MyEventWithGeneric<Generic>());
+		//方法体内部赋值的泛型信息是没有办法拿到的。
+		ac.publishEvent(new MyEventWithGeneric<String>());
 
 
 	}
