@@ -17,13 +17,13 @@ public class A {
 
 	}
 
-	@Autowired(required = false)
+	//@Autowired(required = false)
 	public A(B b){
 		System.out.println("B");
 	}
 
 
-	@Autowired(required = false)
+	//@Autowired(required = false)
 	public A(SuperB b){
 		System.out.println("superB");
 	}

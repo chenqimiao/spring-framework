@@ -387,7 +387,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 						candidateConstructors = new Constructor<?>[] {primaryConstructor};
 					}
 					else {
-						//仅存在默认构造器，就不需进行构造器注入啦～
+						//仅存在默认构造器或者同时存在默认构造器和未被@Autowired注解的其他构造器，这两种情况都不会进行构造器自动注入
 						candidateConstructors = new Constructor<?>[0];
 					}
 					this.candidateConstructorsCache.put(beanClass, candidateConstructors);
