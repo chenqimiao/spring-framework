@@ -1,4 +1,4 @@
-package com.github.chenqimiao.applicationeventtest;
+package com.github.chenqimiao.event;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

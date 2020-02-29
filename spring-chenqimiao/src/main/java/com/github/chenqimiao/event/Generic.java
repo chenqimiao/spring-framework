@@ -1,4 +1,4 @@
-package com.github.chenqimiao.applicationeventtest;
+package com.github.chenqimiao.event;
 
 /**
  * @Auther: chenqimiao

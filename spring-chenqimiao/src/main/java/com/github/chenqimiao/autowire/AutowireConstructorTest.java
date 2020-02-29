@@ -1,9 +1,8 @@
-package com.github.chenqimiao.autowiretest;
+package com.github.chenqimiao.autowire;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Configuration
-@ComponentScan("com.github.chenqimiao.autowiretest")
+@ComponentScan("com.github.chenqimiao.autowire")
 public class AutowireConstructorTest {
 
 	public static void main(String args[]){

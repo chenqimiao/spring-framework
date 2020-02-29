@@ -1,12 +1,8 @@
-package com.github.chenqimiao.applicationeventtest;
+package com.github.chenqimiao.event;
 
-import org.aspectj.weaver.ResolvedType;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.ResolvableType;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @Auther: chenqimiao
@@ -14,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @Description:
  */
 @Configuration
-@ComponentScan("com.github.chenqimiao.applicationeventtest")
+@ComponentScan("com.github.chenqimiao.event")
 //@EnableAsync
 public class ApplicationEventTest {
 

@@ -1,4 +1,4 @@
-package com.github.chenqimiao.applicationeventtest;
+package com.github.chenqimiao.event;
 
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator;

@@ -1,6 +1,4 @@
-package com.github.chenqimiao.applicationeventtest;
-
-import org.springframework.stereotype.Component;
+package com.github.chenqimiao.event;
 
 /**
  * @Auther: chenqimiao

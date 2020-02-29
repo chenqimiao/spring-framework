@@ -1,4 +1,4 @@
-package com.github.chenqimiao.autowiretest;
+package com.github.chenqimiao.autowire;
 
 import org.springframework.stereotype.Component;
 
