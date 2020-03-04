@@ -436,6 +436,7 @@ public abstract class CollectionUtils {
 
 	/**
 	 * Adapts a Map to the MultiValueMap contract.
+	 * 以MultiValueMap的形式使用普通Map，典型的适配器模式
 	 */
 	@SuppressWarnings("serial")
 	private static class MultiValueMapAdapter<K, V> implements MultiValueMap<K, V>, Serializable {
