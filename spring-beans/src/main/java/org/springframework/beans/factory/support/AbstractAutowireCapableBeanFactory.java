@@ -529,6 +529,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @see #instantiateBean
      * @see #instantiateUsingFactoryMethod
      * @see #autowireConstructor
+	 *
+	 * 注入的顺序：
+	 * 构造器注入（包括自动和手动）-> 字段(@Autowired)注入 -> set注入（包括autowireByName、autowireByType、xml property）-> 接口方法回调注入
+	 *
+	 *
+	 * @Bean 方法的注入比较特殊，我认为这是构造器注入的特殊形式.
+	 *
      */
     protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
             throws BeanCreationException {
@@ -1377,6 +1384,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
             // Add property values based on autowire by name if applicable.
             if (resolvedAutowireMode == AUTOWIRE_BY_NAME) {
+            	//检测需要自动注入的字段，将其赋值给newPvs，在后面的applyPropertyValues方法进行注入
                 autowireByName(beanName, mbd, bw, newPvs);
             }
             // Add property values based on autowire by type if applicable.
@@ -1426,7 +1434,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         if (pvs != null) {
-            applyPropertyValues(beanName, mbd, bw, pvs);
+			//xml中<property></property>属性注入 or 自动注入
+			applyPropertyValues(beanName, mbd, bw, pvs);
         }
     }
 
@@ -1741,6 +1750,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     protected Object initializeBean(final String beanName, final Object bean, @Nullable RootBeanDefinition mbd) {
         if (System.getSecurityManager() != null) {
             AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+            	//接口方法回调注入
                 invokeAwareMethods(beanName, bean);
                 return null;
             }, getAccessControlContext());
