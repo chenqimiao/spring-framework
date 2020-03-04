@@ -23,7 +23,7 @@ public class MultiInjectionsTest {
 		return new B();
 	}
 
-	//方法注入和自动注入会冲突
+	//@Bean方法注入本质还是构造器自动注入，所以和Autowire.BY_NAME/BY_TYPE冲突,不能一起使用
 	@Bean(autowire = Autowire.BY_NAME)
 	public A a(B b){
 		return new A();

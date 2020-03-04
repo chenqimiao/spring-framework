@@ -443,6 +443,7 @@ class ConstructorResolver {
 				}
 			}
 			if (argsToResolve != null) {
+				//主要还是做了一个类型转化
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, factoryMethodToUse, argsToResolve, true);
 			}
 		}
@@ -776,6 +777,7 @@ class ConstructorResolver {
 				MethodParameter methodParam = MethodParameter.forExecutable(executable, paramIndex);
 				// No explicit match found: we're either supposed to autowire or
 				// have to fail creating an argument array for the given constructor.
+				// @Bean方法注入本质还是构造器自动注入，所以和Autowire.BY_NAME/BY_TYPE冲突,不能一起使用
 				if (!autowiring) {
 					throw new UnsatisfiedDependencyException(
 							mbd.getResourceDescription(), beanName, new InjectionPoint(methodParam),
