@@ -230,6 +230,7 @@ public abstract class AopProxyUtils {
 				Class<?> varargType = paramTypes[varargIndex];
 				if (varargType.isArray()) {
 					Object varargArray = arguments[varargIndex];
+					//下面条件成立，可变参数类型实参则需要向下转型
 					if (varargArray instanceof Object[] && !varargType.isInstance(varargArray)) {
 						Object[] newArguments = new Object[arguments.length];
 						System.arraycopy(arguments, 0, newArguments, 0, varargIndex);

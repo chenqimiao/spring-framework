@@ -11,6 +11,13 @@
  * <p>The ProxyFactoryBean is a convenient way to create AOP proxies in a BeanFactory
  * or ApplicationContext. However, proxies can be created programmatically using the
  * ProxyFactory class.
+ *
+ *
+ * 这里梳理AOP API层面几个概念
+ * Advice 增强建议
+ * Advisor 顾问，我这里把它理解成发起建议的人，包含Advice和Filter(常常指PointCut)
+ * Advised 被增强的对象，被ProxyObject实现,可以获取一些信息
+ * {@link org.aopalliance.intercept.Interceptor} 拦截器，底层实现上来说，Advice也会被适配包装成Interceptor，再进行传递、执行
  */
 @NonNullApi
 @NonNullFields

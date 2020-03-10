@@ -89,6 +89,8 @@ import org.springframework.util.ObjectUtils;
  * @see org.aopalliance.intercept.MethodInterceptor
  * @see org.springframework.aop.Advisor
  * @see Advised
+ *
+ * 注意这是一个Advised、ProxyConfig的实现
  */
 @SuppressWarnings("serial")
 public class ProxyFactoryBean extends ProxyCreatorSupport
@@ -323,6 +325,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 				if (targetClass == null) {
 					throw new FactoryBeanNotInitializedException("Cannot determine target class for proxy");
 				}
+				//设置自动检测出来的接口
 				setInterfaces(ClassUtils.getAllInterfacesForClass(targetClass, this.proxyClassLoader));
 			}
 			// Initialize the shared singleton instance.

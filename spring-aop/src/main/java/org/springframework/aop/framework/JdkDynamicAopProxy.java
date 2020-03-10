@@ -60,6 +60,8 @@ import org.springframework.util.ClassUtils;
  * @see java.lang.reflect.Proxy
  * @see AdvisedSupport
  * @see ProxyFactory
+ *
+ * 注意这个类是一个InvocationHandler的实现
  */
 final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializable {
 
@@ -118,6 +120,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 		if (logger.isTraceEnabled()) {
 			logger.trace("Creating JDK dynamic proxy: " + this.advised.getTargetSource());
 		}
+		//扩充一些非用户自定义的接口，用于扩展.
 		Class<?>[] proxiedInterfaces = AopProxyUtils.completeProxiedInterfaces(this.advised, true);
 		findDefinedEqualsAndHashCodeMethods(proxiedInterfaces);
 		return Proxy.newProxyInstance(classLoader, proxiedInterfaces, this);
