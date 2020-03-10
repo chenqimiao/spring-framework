@@ -532,6 +532,10 @@ public abstract class BeanFactoryUtils {
 		List<String> merged = new ArrayList<>(result.length + parentResult.length);
 		merged.addAll(Arrays.asList(result));
 		for (String beanName : parentResult) {
+			//为什么要进行hbf.containsLocalBean？
+			//存在这样一种情况，父子工厂中均存在名为a的Bean定义，父工厂中该Bean为A类型的实例，子工厂中该Bean为B类型的实例，
+			//此时通过beanNamesForTypeIncludingAncestors查找子工厂中所有A类型的实例名时，会把父工厂中类型为A的bean的名字a找出来，
+			//但是该名字与子工厂有所冲突，所以会被忽略
 			if (!merged.contains(beanName) && !hbf.containsLocalBean(beanName)) {
 				merged.add(beanName);
 			}
