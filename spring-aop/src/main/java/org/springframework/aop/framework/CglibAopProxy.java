@@ -673,6 +673,10 @@ class CglibAopProxy implements AopProxy, Serializable {
 		// 与java.lang.reflect.InvocationHandler.invoke作用类似，
 		// 这里的逻辑与org.springframework.aop.framework.JdkDynamicAopProxy.invoke类似
 		public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+			//Object为由CGLib动态生成的代理类实例，
+			// Method为上文中实体类所调用的被代理的方法引用，
+			// Object[]为参数值列表，
+			// MethodProxy为生成的代理类对方法的代理引用
 			Object oldProxy = null;
 			boolean setProxyContext = false;
 			Object target = null;
