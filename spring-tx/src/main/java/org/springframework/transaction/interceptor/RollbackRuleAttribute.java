@@ -48,6 +48,7 @@ public class RollbackRuleAttribute implements Serializable{
 	 * This way does multiple string comparisons, but how often do we decide
 	 * whether to roll back a transaction following an exception?
 	 */
+	//异常名类型包含${exceptionName}或其父类包含${exceptionName}，该异常都可以被匹配
 	private final String exceptionName;
 
 

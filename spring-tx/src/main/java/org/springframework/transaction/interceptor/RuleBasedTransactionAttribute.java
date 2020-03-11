@@ -138,6 +138,7 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		int deepest = Integer.MAX_VALUE;
 
 		if (this.rollbackRules != null) {
+			//找到离该异常`ex`最近的回滚规则
 			for (RollbackRuleAttribute rule : this.rollbackRules) {
 				int depth = rule.getDepth(ex);
 				if (depth >= 0 && depth < deepest) {
@@ -154,9 +155,13 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		// User superclass behavior (rollback on unchecked) if no rule matches.
 		if (winner == null) {
 			logger.trace("No relevant rollback rule found: applying default rules");
+			//默认规则只会回滚运行时异常或Error
 			return super.rollbackOn(ex);
 		}
-
+		// 如果该规则是NoRollbackRuleAttribute，则将结果取反.
+		// 有点巧妙！！先找到离异常最近的规则，最后再去判断是包含规则还是排除规则.
+		// 这样做可以达到一个效果，范围小的规则优先级高。
+		// 当包含和排除规则都可匹配该异常的时候，范围较小的规则起作用.
 		return !(winner instanceof NoRollbackRuleAttribute);
 	}
 
