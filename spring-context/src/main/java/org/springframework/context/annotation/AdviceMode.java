@@ -30,6 +30,9 @@ public enum AdviceMode {
 
 	/**
 	 * JDK proxy-based advice.
+	 *
+	 * jdk dynamic proxy or cglib proxy
+	 *
 	 */
 	PROXY,
 

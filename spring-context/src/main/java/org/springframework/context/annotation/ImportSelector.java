@@ -53,6 +53,8 @@ import org.springframework.core.type.AnnotationMetadata;
  * @see Import
  * @see ImportBeanDefinitionRegistrar
  * @see Configuration
+ *
+ * \@Import(该接口实现类)，可以将selectImports方法的返回作为Import的Configuration class.
  */
 public interface ImportSelector {
 
