@@ -92,6 +92,8 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 	public AnnotationTransactionAttributeSource(boolean publicMethodsOnly) {
 		this.publicMethodsOnly = publicMethodsOnly;
 		if (jta12Present || ejb3Present) {
+			// 这里4是基于负载因子得到的一个最合理的初始化值，这个初始值不会引起resize操作，且节省了内存空间
+			// tip: 当size > capacity * loadFactor 会进行resize
 			this.annotationParsers = new LinkedHashSet<>(4);
 			this.annotationParsers.add(new SpringTransactionAnnotationParser());
 			if (jta12Present) {
