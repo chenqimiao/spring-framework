@@ -1031,6 +1031,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
             return ((ConfigurableBeanFactory) getParentBeanFactory()).getMergedBeanDefinition(beanName);
         }
         // Resolve merged bean definition locally.
+		// 获取当前BeanFactory中定义的BeanDefinition
         return getMergedLocalBeanDefinition(beanName);
     }
 
@@ -1235,6 +1236,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException {
         // Quick check on the concurrent map first, with minimal locking.
         RootBeanDefinition mbd = this.mergedBeanDefinitions.get(beanName);
+        //stale表示过时的
         if (mbd != null && !mbd.stale) {
             return mbd;
         }
@@ -1260,7 +1262,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
      * @param beanName the name of the bean definition
      * @param bd the original bean definition (Root/ChildBeanDefinition)
      * @param containingBd the containing bean definition in case of inner bean,
-     * or {@code null} in case of a top-level bean
+     * or {@code null} in case of a top-level bean  类似于Enclosing class的概念
      * @return a (potentially merged) RootBeanDefinition for the given bean
      * @throws BeanDefinitionStoreException in case of an invalid bean definition
      */
@@ -1294,6 +1296,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
                         if (!beanName.equals(parentBeanName)) {
                             pbd = getMergedBeanDefinition(parentBeanName);
                         } else {
+                        	//parentBeanName == 当前BeanName,则进行层级查找
                             BeanFactory parent = getParentBeanFactory();
                             if (parent instanceof ConfigurableBeanFactory) {
                                 pbd = ((ConfigurableBeanFactory) parent).getMergedBeanDefinition(parentBeanName);
@@ -1308,8 +1311,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
                                 "Could not resolve parent bean definition '" + bd.getParentName() + "'", ex);
                     }
                     // Deep copy with overridden values.
+					// 从父beanDefinition中拷贝属性
                     mbd = new RootBeanDefinition(pbd);
-                    //子bd覆盖父bd属性
+                    // 子bd覆盖父bd属性
                     mbd.overrideFrom(bd);
                 }
 
@@ -1418,6 +1422,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
             if (mbd.hasBeanClass()) {
                 return mbd.getBeanClass();
             }
+            //java.lang.ClassLoader.getSystemClassLoader 存在一个安全检查，只不过默认情况下，权限是放通的
             if (System.getSecurityManager() != null) {
                 return AccessController.doPrivileged((PrivilegedExceptionAction<Class<?>>) () -> doResolveBeanClass(mbd, typesToMatch),
                         getAccessControlContext());

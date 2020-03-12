@@ -161,6 +161,7 @@ class ConstructorResolver {
 			if (candidates == null) {
 				Class<?> beanClass = mbd.getBeanClass();
 				try {
+					//前者返回所有构造器，后者返回public构造器
 					candidates = (mbd.isNonPublicAccessAllowed() ?
 							beanClass.getDeclaredConstructors() : beanClass.getConstructors());
 				}
@@ -170,7 +171,7 @@ class ConstructorResolver {
 							"] from ClassLoader [" + beanClass.getClassLoader() + "] failed", ex);
 				}
 			}
-
+			//hasConstructorArgumentValues表示是否声明了构造器参数  比如在xml 定义 <bean><constructor></constructor></bean>
 			if (candidates.length == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Constructor<?> uniqueCandidate = candidates[0];
 				if (uniqueCandidate.getParameterCount() == 0) {
@@ -223,8 +224,10 @@ class ConstructorResolver {
 						//解析@ConstructorProperties，当jvm运行在非debug模式下，Spring无法拿到构造器参数名,需要这个注解进行指定
 						String[] paramNames = ConstructorPropertiesChecker.evaluate(candidate, paramTypes.length);
 						if (paramNames == null) {
+							//参数名发现器，前面是通过JavaBeans规范注解去查找参数名
 							ParameterNameDiscoverer pnd = this.beanFactory.getParameterNameDiscoverer();
 							if (pnd != null) {
+								//这里是一些比较骚的操作了，这里需要注意接口的参数名java8之前是没有办法取出来的，但是java8之后则可以
 								paramNames = pnd.getParameterNames(candidate);
 							}
 						}
@@ -786,7 +789,8 @@ class ConstructorResolver {
 							"] - did you specify the correct bean references as arguments?");
 				}
 				try {
-					//依赖解析
+					//构造器注入是一个特殊的类型注入！！并非根据名字注入
+					//依赖解析/处理
 					Object autowiredArgument = resolveAutowiredArgument(
 							methodParam, beanName, autowiredBeanNames, converter, fallback);
 					args.rawArguments[paramIndex] = autowiredArgument;

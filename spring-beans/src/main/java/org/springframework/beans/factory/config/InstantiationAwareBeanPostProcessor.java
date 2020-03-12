@@ -69,6 +69,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * @see #postProcessAfterInstantiation
 	 * @see org.springframework.beans.factory.support.AbstractBeanDefinition#getBeanClass()
 	 * @see org.springframework.beans.factory.support.AbstractBeanDefinition#getFactoryMethodName()
+	 *
+	 * 可以用来替换Spring实例化Bean的过程，该方法返回值不为空，则绕开后续Spring实例化操作，将返回值作为最终容器中的Bean
 	 */
 	@Nullable
 	default Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
@@ -89,6 +91,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * instances being invoked on this bean instance.
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @see #postProcessBeforeInstantiation
+	 *
+	 * 可以用来忽略后置属性注入/赋值，以及后续的InstantiationAwareBeanPostProcessor的方法调用
 	 */
 	default boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
 		return true;
@@ -111,6 +115,15 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @since 5.1
 	 * @see #postProcessPropertyValues
+	 *
+	 * 工厂应用属性到Bean之前的一个后处理操作（属性赋值前的一个操作）
+	 * 这里命名感觉有点奇怪，但javadoc里也确实是这么描述的
+	 * 在框架内部，其中一个用途就是利用AutowiredAnnotationBeanPostProcessor在这里完成@Autowired的字段注入
+	 * 这里会有点奇怪，javadoc里不是说属性应用到Bean之前的后处理器操作吗，似乎与上述用途有些矛盾，
+	 * 这里的属性应用到bean可以狭义地理解成下面这个方法
+	 * org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#applyPropertyValues
+	 *
+	 * 可以在这里对PropertyValues属性集做一些改造或者增强
 	 */
 	@Nullable
 	default PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
