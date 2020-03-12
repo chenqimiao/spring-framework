@@ -115,6 +115,7 @@ public abstract class BeanFactoryAnnotationUtils {
 	 * @return the matching bean of type {@code T} (never {@code null})
 	 */
 	private static <T> T qualifiedBeanOfType(ListableBeanFactory bf, Class<T> beanType, String qualifier) {
+		//通过BeanDefinitionNames进行查找,手动注册的singleton无法找到
 		String[] candidateBeans = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(bf, beanType);
 		String matchingBean = null;
 		for (String beanName : candidateBeans) {
@@ -162,6 +163,8 @@ public abstract class BeanFactoryAnnotationUtils {
 				}
 			}
 			try {
+				//查找在xml、@Bean、实现类 上的@Qulifier属性
+
 				Class<?> beanType = beanFactory.getType(beanName);
 				if (beanFactory instanceof ConfigurableBeanFactory) {
 					BeanDefinition bd = ((ConfigurableBeanFactory) beanFactory).getMergedBeanDefinition(beanName);
