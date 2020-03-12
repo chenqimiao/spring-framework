@@ -104,6 +104,7 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 	private void invokeAwareInterfaces(Object bean) {
+		// 除了（AbstractAutowireCapableBeanFactory.invokeAwareMethods）会执行一部分aware接口的回调之外，这里也会执行一部分.
 		if (bean instanceof EnvironmentAware) {
 			((EnvironmentAware) bean).setEnvironment(this.applicationContext.getEnvironment());
 		}
