@@ -171,6 +171,9 @@ public abstract class DataSourceUtils {
 	 * @see #resetConnectionAfterTransaction
 	 * @see Connection#setTransactionIsolation
 	 * @see Connection#setReadOnly
+	 *
+	 * 底层Connection的readOnly、isolation设置
+	 * 请注意传播特性是Spring的特性，不是底层数据库的特性
 	 */
 	@Nullable
 	public static Integer prepareConnectionForTransaction(Connection con, @Nullable TransactionDefinition definition)
@@ -209,6 +212,7 @@ public abstract class DataSourceUtils {
 			}
 			int currentIsolation = con.getTransactionIsolation();
 			if (currentIsolation != definition.getIsolationLevel()) {
+				//现任变前任
 				previousIsolationLevel = currentIsolation;
 				con.setTransactionIsolation(definition.getIsolationLevel());
 			}

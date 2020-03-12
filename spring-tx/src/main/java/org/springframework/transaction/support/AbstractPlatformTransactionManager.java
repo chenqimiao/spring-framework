@@ -349,7 +349,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 		if (isExistingTransaction(transaction)) {
 			// Existing transaction found -> check propagation behavior to find out how to behave.
-			//检测到已存在事务，那么就要考虑事务的传播特性(行为)
+			// 当下，事务管理已经开启，则需要考虑事务的传播行为
 			return handleExistingTransaction(def, transaction, debugEnabled);
 		}
 
@@ -404,6 +404,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			throws TransactionException {
 
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NEVER) {
+			//不允许传播事务给当前事务
 			throw new IllegalTransactionStateException(
 					"Existing transaction found for transaction marked with propagation 'never'");
 		}

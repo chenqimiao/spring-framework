@@ -67,6 +67,7 @@ public class Constants {
 			if (ReflectionUtils.isPublicStaticFinal(field)) {
 				String name = field.getName();
 				try {
+					//获取static属性不需要Object
 					Object value = field.get(null);
 					this.fieldCache.put(name, value);
 				}

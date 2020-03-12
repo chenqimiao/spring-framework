@@ -313,7 +313,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	protected Object doSuspend(Object transaction) {
 		DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;
 		txObject.setConnectionHolder(null);
-		//事务挂起其实就是一个移除当前线程、数据源活动事务对象的过程
+		//事务挂起其实就是管理器移除当前线程资源、数据源活动事务对象的过程
 		return TransactionSynchronizationManager.unbindResource(obtainDataSource());
 	}
 
@@ -346,6 +346,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 			logger.debug("Rolling back JDBC transaction on Connection [" + con + "]");
 		}
 		try {
+			//由jdbc驱动完成rollback
 			con.rollback();
 		}
 		catch (SQLException ex) {

@@ -384,7 +384,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 					retVal = VavrDelegate.evaluateTryFailure(retVal, txAttr, status);
 				}
 			}
-
+			//提交事务
 			commitTransactionAfterReturning(txInfo);
 			return retVal;
 		}
