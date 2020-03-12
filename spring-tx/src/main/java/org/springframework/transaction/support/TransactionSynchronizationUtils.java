@@ -70,6 +70,7 @@ public abstract class TransactionSynchronizationUtils {
 			// now unwrap scoped proxy
 			resourceRef = ScopedProxyUnwrapper.unwrapIfNecessary(resourceRef);
 		}
+		//大部分情况直接返回
 		return resourceRef;
 	}
 

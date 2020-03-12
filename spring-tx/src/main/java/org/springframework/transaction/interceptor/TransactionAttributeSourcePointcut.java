@@ -92,9 +92,8 @@ abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPoi
 					PersistenceExceptionTranslator.class.isAssignableFrom(clazz)) {
 				return false;
 			}
-			// 这里只做了类型的过滤，方法级别的过滤由Interceptor运行时过滤。
-			// 具体实现是通过定义一些规则:
-			// eg .org.springframework.transaction.interceptor.RuleBasedTransactionAttribute.rollbackOn
+			// 异常的具体匹配 需要在拦截器里动态执行
+			// eg. see org.springframework.transaction.interceptor.RuleBasedTransactionAttribute.rollbackOn
 			TransactionAttributeSource tas = getTransactionAttributeSource();
 			return (tas == null || tas.isCandidateClass(clazz));
 		}

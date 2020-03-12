@@ -181,6 +181,8 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	 * @return the DataSource (never {@code null})
 	 * @throws IllegalStateException in case of no DataSource set
 	 * @since 5.0
+	 *
+	 * 一般情况下这里返回一个数据源连接池
 	 */
 	protected DataSource obtainDataSource() {
 		DataSource dataSource = getDataSource();
@@ -237,6 +239,8 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	protected Object doGetTransaction() {
 		DataSourceTransactionObject txObject = new DataSourceTransactionObject();
 		txObject.setSavepointAllowed(isNestedTransactionAllowed());
+		//第一次来拿conHolder为null，第二次同一线程走到这个方法的时候可以拿到该线程绑定的连接
+		//从数据源连接池拿到连接、并绑定的操作是在后续的doBegin方法里进行的
 		ConnectionHolder conHolder =
 				(ConnectionHolder) TransactionSynchronizationManager.getResource(obtainDataSource());
 		txObject.setConnectionHolder(conHolder, false);
@@ -258,8 +262,11 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 		Connection con = null;
 
 		try {
+			//第一个判断条件好理解就是看当前的数据源事务对象是否持有连接
+			//第二个判断可以理解为持有的连接是否被占用
 			if (!txObject.hasConnectionHolder() ||
 					txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
+				//从数据源连接池中拿到连接，稍后会被缓存在当前线程中或者说会与当前线程绑定
 				Connection newCon = obtainDataSource().getConnection();
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
@@ -269,7 +276,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
 			con = txObject.getConnectionHolder().getConnection();
-
+			//使用definition设置数据库连接 eg. readOnly isolation, 返回当前连接之前的隔离级别
 			Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
 			txObject.setPreviousIsolationLevel(previousIsolationLevel);
 			txObject.setReadOnly(definition.isReadOnly());
@@ -296,6 +303,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 			// Bind the connection holder to the thread.
 			if (txObject.isNewConnectionHolder()) {
+				//绑定数据库连接到当前线程
 				TransactionSynchronizationManager.bindResource(obtainDataSource(), txObject.getConnectionHolder());
 			}
 		}

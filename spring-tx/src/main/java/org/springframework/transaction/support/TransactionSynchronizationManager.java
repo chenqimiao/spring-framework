@@ -169,6 +169,7 @@ public abstract class TransactionSynchronizationManager {
 			}
 			value = null;
 		}
+		//value是一个连接，从数据源拿到的连接，这里会被缓存起来
 		return value;
 	}
 
@@ -178,6 +179,9 @@ public abstract class TransactionSynchronizationManager {
 	 * @param value the value to bind (usually the active resource object)
 	 * @throws IllegalStateException if there is already a value bound to the thread
 	 * @see ResourceTransactionManager#getResourceFactory()
+	 *
+	 * 从连接池拿到的连接会与当前线程做一个绑定
+	 *
 	 */
 	public static void bindResource(Object key, Object value) throws IllegalStateException {
 		Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);
