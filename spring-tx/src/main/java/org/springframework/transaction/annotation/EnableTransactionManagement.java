@@ -159,6 +159,10 @@ import org.springframework.core.Ordered;
  *  ->AutoProxyRegistrar.registerBeanDefinitions AutoProxy被注册到registry
  *
  * 以上流程忽略一些无关细节，旨在表达@Import的解析流程
+ *
+ * 另外在解析完@Import之后，会注册一个ImportRegistry单例到IOC容器，用以实现ImportAwareBeanPostProcessor的逻辑
+ * Spring利用这个特性将@EnableTransactionManagement属性回注到ProxyTransactionManagementConfiguration（由上述的TransactionManagementConfigurationSelector.selectImports生成该BeanDefinition）
+ * 进而实现Advisor的注册
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
