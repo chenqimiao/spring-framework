@@ -93,6 +93,10 @@ public interface AnnotatedTypeMetadata {
 	 * @return a Map of attributes, with the attribute name as key (e.g. "value")
 	 * and the defined attribute value as Map value. This return value will be
 	 * {@code null} if no matching annotation is defined.
+	 *
+	 * 拿到自省类上指定注解或者元注解的属性(级联元注解也可以拿到，但是无法在类的继承树上搜素)
+	 * 找到一个最近的值即停止查找
+	 *
 	 */
 	@Nullable
 	default Map<String, Object> getAnnotationAttributes(String annotationName,
@@ -116,6 +120,8 @@ public interface AnnotatedTypeMetadata {
 	 * and a list of the defined attribute values as Map value. This return value will
 	 * be {@code null} if no matching annotation is defined.
 	 * @see #getAllAnnotationAttributes(String, boolean)
+	 *
+	 * 查找指定注解的所有属性，最近到最远的注解的属性都会被保留下来
 	 */
 	@Nullable
 	default MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName) {

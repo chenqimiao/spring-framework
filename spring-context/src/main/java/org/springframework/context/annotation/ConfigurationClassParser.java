@@ -540,9 +540,12 @@ class ConfigurationClassParser {
 			for (SourceClass annotation : sourceClass.getAnnotations()) {
 				String annName = annotation.getMetadata().getClassName();
 				if (!annName.equals(Import.class.getName())) {
+					//发现@Import之后本轮循环不进行递归，因为通过sourceClass变量已经可以拿到对应的属性
+					//但是其余情况的循环递归还是要进行，因为@Import的value值是可以叠加的，不是说找到一个最近的值就够了的
 					collectImports(annotation, imports, visited);
 				}
 			}
+			//止于@Import的承载类
 			imports.addAll(sourceClass.getAnnotationAttributes(Import.class.getName(), "value"));
 		}
 	}
@@ -563,21 +566,27 @@ class ConfigurationClassParser {
 				for (SourceClass candidate : importCandidates) {
 					if (candidate.isAssignable(ImportSelector.class)) {
 						// Candidate class is an ImportSelector -> delegate to it to determine imports
+						// 如果该candidate class 是一个 ImportSelector，将会回调selectImports方法，将返回值作为import class
 						Class<?> candidateClass = candidate.loadClass();
 						ImportSelector selector = ParserStrategyUtils.instantiateClass(candidateClass, ImportSelector.class,
 								this.environment, this.resourceLoader, this.registry);
 						if (selector instanceof DeferredImportSelector) {
+							//延迟处理类型的ImportSelector
 							this.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);
 						}
 						else {
 							String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());
 							Collection<SourceClass> importSourceClasses = asSourceClasses(importClassNames);
+							//递归处理由ImportSelector返回的 Imported class
 							processImports(configClass, currentSourceClass, importSourceClasses, false);
 						}
 					}
 					else if (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) {
 						// Candidate class is an ImportBeanDefinitionRegistrar ->
 						// delegate to it to register additional bean definitions
+						// 如果是ImportBeanDefinitionRegistrar类型，会回调registerBeanDefinitions方法注册一些BeanDefinition
+						// 回调时机不在本方法内，会在后续loadBeanDefinitions的时候统一处理，
+						// 详见ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsFromRegistrars方法调用链
 						Class<?> candidateClass = candidate.loadClass();
 						ImportBeanDefinitionRegistrar registrar =
 								ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,
@@ -587,8 +596,10 @@ class ConfigurationClassParser {
 					else {
 						// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar ->
 						// process it as an @Configuration class
+						//普通Imported class注册
 						this.importStack.registerImport(
 								currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());
+						//进入普通@Configuration class的处理流程
 						processConfigurationClass(candidate.asConfigClass(configClass));
 					}
 				}
@@ -610,6 +621,7 @@ class ConfigurationClassParser {
 	private boolean isChainedImportOnStack(ConfigurationClass configClass) {
 		if (this.importStack.contains(configClass)) {
 			String configClassName = configClass.getMetadata().getClassName();
+			//找到import该configClass的importingClass
 			AnnotationMetadata importingClass = this.importStack.getImportingClassFor(configClassName);
 			while (importingClass != null) {
 				if (configClassName.equals(importingClass.getClassName())) {
@@ -905,6 +917,8 @@ class ConfigurationClassParser {
 	/**
 	 * Simple wrapper that allows annotated source classes to be dealt with
 	 * in a uniform manner, regardless of how they are loaded.
+	 *
+	 * 被注解的源类型的封装 source可以指注解类型或者普通类型对象 又或者 MetadataReader 类型对象
 	 */
 	private class SourceClass implements Ordered {
 
