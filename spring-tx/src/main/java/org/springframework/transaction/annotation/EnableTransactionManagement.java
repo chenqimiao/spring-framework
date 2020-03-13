@@ -148,6 +148,17 @@ import org.springframework.core.Ordered;
  * @see TransactionManagementConfigurationSelector
  * @see ProxyTransactionManagementConfiguration
  * @see org.springframework.transaction.aspectj.AspectJTransactionManagementConfiguration
+ *
+ * 将这个注解放在某个@Configuration class 上面的时候，
+ * Spring 会有一个处理流程：
+ * 	->解析@Configuration class
+ *  ->解析\@Import(TransactionManagementConfigurationSelector.class)
+ *  ->TransactionManagementConfigurationSelector instanceof ImportSelector == true
+ *  ->TransactionManagementConfigurationSelector.selectImports return AutoProxyRegistrar
+ *  ->AutoProxyRegistrar instanceof ImportBeanDefinitionRegistrar == true
+ *  ->AutoProxyRegistrar.registerBeanDefinitions AutoProxy被注册到registry
+ *
+ * 以上流程忽略一些无关细节，旨在表达@Import的解析流程
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
