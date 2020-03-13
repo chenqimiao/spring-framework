@@ -973,6 +973,7 @@ class ConfigurationClassParser {
 			if (sourceToProcess instanceof Class) {
 				Class<?> sourceClass = (Class<?>) sourceToProcess;
 				try {
+					//拿到成员类
 					Class<?>[] declaredClasses = sourceClass.getDeclaredClasses();
 					List<SourceClass> members = new ArrayList<>(declaredClasses.length);
 					for (Class<?> declaredClass : declaredClasses) {
