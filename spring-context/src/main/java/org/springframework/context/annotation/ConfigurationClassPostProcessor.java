@@ -368,7 +368,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		while (!candidates.isEmpty());
 
 		// Register the ImportRegistry as a bean in order to support ImportAware @Configuration classes
-		// 将importStack 注册为importRegistry 单例Bean 以实现ImportAware @Configuration classes的语意
+		// 将importStack 注册名为...importRegistry的单例Bean，以实现ImportAware @Configuration classes的语意
 		if (sbr != null && !sbr.containsSingleton(IMPORT_REGISTRY_BEAN_NAME)) {
 			sbr.registerSingleton(IMPORT_REGISTRY_BEAN_NAME, parser.getImportRegistry());
 		}
