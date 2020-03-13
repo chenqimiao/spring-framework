@@ -430,6 +430,8 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 	 *
 	 * <p>Each strategy creates a different set of aggregates that will be
 	 * combined to create the final {@link MergedAnnotations}.
+	 *
+	 * 主要针对类的继承树的搜索策略，与元注解无关
 	 */
 	enum SearchStrategy {
 
