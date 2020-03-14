@@ -534,7 +534,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * 构造器注入（包括自动和手动）-> 字段(@Autowired)注入 -> set注入（包括autowireByName、autowireByType、xml property）-> 接口方法回调注入
 	 *
 	 *
-	 * @Bean 方法的注入比较特殊，我认为这是构造器注入的特殊形式.
+	 * \@Bean 方法的注入比较特殊，我认为这是构造器注入的特殊形式.
 	 *
      */
     protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
