@@ -87,6 +87,7 @@ public class BeanFactoryAspectInstanceFactory implements MetadataAwareAspectInst
 
 	@Override
 	public Object getAspectInstance() {
+		//实例化或者获取Aspect Bean
 		return this.beanFactory.getBean(this.name);
 	}
 

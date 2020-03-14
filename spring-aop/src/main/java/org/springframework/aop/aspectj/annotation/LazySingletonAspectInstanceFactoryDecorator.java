@@ -48,11 +48,13 @@ public class LazySingletonAspectInstanceFactoryDecorator implements MetadataAwar
 
 
 	@Override
+	//当Advised方法被调用的时候，才会调用此方法获取相关的Aspect Bean,进行Advice方法的执行
 	public Object getAspectInstance() {
 		Object aspectInstance = this.materialized;
 		if (aspectInstance == null) {
 			Object mutex = this.maaif.getAspectCreationMutex();
 			if (mutex == null) {
+				//这里会实例化或者获取Bean
 				aspectInstance = this.maaif.getAspectInstance();
 				this.materialized = aspectInstance;
 			}

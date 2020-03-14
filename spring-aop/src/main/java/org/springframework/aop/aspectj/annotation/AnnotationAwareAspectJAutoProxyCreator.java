@@ -45,6 +45,9 @@ import org.springframework.util.Assert;
  * @author Juergen Hoeller
  * @since 2.0
  * @see org.springframework.aop.aspectj.annotation.AspectJAdvisorFactory
+ *
+ * 注意这是一个实现了BeanfactoryAware的类，通过回调setBeanFactory,完成BeanFactoryAspectJAdvisorsBuilderAdapter实例化.
+ * BeanFactoryAspectJAdvisorsBuilderAdapter 实例用于查找实例化容器中@AspectJ beans，当Bean的被增强方法被调用的时候.
  */
 @SuppressWarnings("serial")
 public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorAutoProxyCreator {

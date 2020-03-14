@@ -15,15 +15,17 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class AspectJStyleAopDemo {
 
-	@Bean
-	public CustomAspect customAspect(){
-		return new CustomAspect();
-	}
 
 	@Bean
 	public User user(){
 		return new User();
 	}
+
+	@Bean
+	public CustomAspect customAspect(){
+		return new CustomAspect();
+	}
+
 
 	public static void main(String args[]){
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AspectJStyleAopDemo.class);

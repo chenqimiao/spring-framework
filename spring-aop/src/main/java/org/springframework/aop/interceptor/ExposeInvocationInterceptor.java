@@ -39,6 +39,8 @@ import org.springframework.core.PriorityOrdered;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ * 保存MethodInvocation到本地线程上下文，用于Aspectj表达式分析
  */
 @SuppressWarnings("serial")
 public final class ExposeInvocationInterceptor implements MethodInterceptor, PriorityOrdered, Serializable {

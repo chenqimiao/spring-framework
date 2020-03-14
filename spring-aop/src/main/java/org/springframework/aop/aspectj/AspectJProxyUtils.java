@@ -55,6 +55,7 @@ public abstract class AspectJProxyUtils {
 				}
 			}
 			if (foundAspectJAdvice && !advisors.contains(ExposeInvocationInterceptor.ADVISOR)) {
+				//新增一个默认的Advisor
 				advisors.add(0, ExposeInvocationInterceptor.ADVISOR);
 				return true;
 			}

@@ -122,16 +122,19 @@ public abstract class AopConfigUtils {
 
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
+			//判断Registry里的AutoProxy和准备注册的AutoProxy类型是否相同
 			if (!cls.getName().equals(apcDefinition.getBeanClassName())) {
+				//不同，计算优先级
 				int currentPriority = findPriorityForClass(apcDefinition.getBeanClassName());
 				int requiredPriority = findPriorityForClass(cls);
+				//谁的优先级高，谁生效
 				if (currentPriority < requiredPriority) {
 					apcDefinition.setBeanClassName(cls.getName());
 				}
 			}
 			return null;
 		}
-
+		//常规操作, 注册一个RootBeanDefinition到Registry
 		RootBeanDefinition beanDefinition = new RootBeanDefinition(cls);
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);
