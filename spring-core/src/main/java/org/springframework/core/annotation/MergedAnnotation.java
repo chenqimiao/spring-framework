@@ -58,6 +58,10 @@ import org.springframework.lang.Nullable;
  * @param <A> the annotation type
  * @see MergedAnnotations
  * @see MergedAnnotationPredicates
+ *
+ * 支持AliasFor注解语意
+ *
+ * 对单个Merged annoation的抽象，初始化入参数一般是某个注解 入of(..)
  */
 public interface MergedAnnotation<A extends Annotation> {
 

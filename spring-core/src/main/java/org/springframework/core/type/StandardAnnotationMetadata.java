@@ -44,6 +44,9 @@ import org.springframework.util.ReflectionUtils;
  * @author Phillip Webb
  * @author Sam Brannen
  * @since 2.5
+ *
+ * 封装了MergedAnnotations，继承StandardClassMetadata，同时拥有操作Class元信息、Annotation元信息的能力
+ * 而MergedAnnotations只具备操作Annotation元信息的能力
  */
 public class StandardAnnotationMetadata extends StandardClassMetadata implements AnnotationMetadata {
 

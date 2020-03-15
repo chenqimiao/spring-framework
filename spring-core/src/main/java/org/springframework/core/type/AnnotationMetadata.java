@@ -39,6 +39,10 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
  * @see AnnotatedTypeMetadata
  *
  * 比起MergedAnnotations，本类功能比较单一，仅仅是对指定类的注解访问的封装，并没有对继承树进行遍历的能力
+ *
+ * 对注解元信息的抽象,初始化一般通过某个类的自省 introspect(..)
+ *
+ * 主要的实现类是StandardAnnotationMetadata，而StandardAnnotationMetadata基本上也是将具体实现委托到MergedAnnotations
  */
 public interface AnnotationMetadata extends ClassMetadata, AnnotatedTypeMetadata {
 
