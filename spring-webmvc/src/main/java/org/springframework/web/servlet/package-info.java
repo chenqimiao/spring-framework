@@ -11,10 +11,9 @@
  * Servlet container -> DispatcherServlet -> Search handler -> Search interceptor -> 封装成chain
  * -> 执行interceptor preHandler -> Handler 参数解析（转化）-> 反射调用handler方法
  * -> 返回结果处理（对于标注了@ResponseBody的方法的返回结果直接写入到response的输出流）
- * -> 执行interceptor postHandler
- * -> 如果有需要，进行视图渲染
- * -> 写入到HTTP response 输出流
- * -> 执行interceptor afterCompletion
+ * -> 执行interceptor postHandler(可能会往HTTP response输出流写入东西)
+ * -> 如果有需要,进行视图渲染,写入到HTTP response 输出流
+ * -> 执行interceptor afterCompletion（常用于资源清理）
  * -> 完成一次HTTP请求
  */
 @NonNullApi
