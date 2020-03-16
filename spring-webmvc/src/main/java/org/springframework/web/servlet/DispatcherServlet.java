@@ -931,8 +931,10 @@ public class DispatcherServlet extends FrameworkServlet {
 		request.setAttribute(THEME_SOURCE_ATTRIBUTE, getThemeSource());
 
 		if (this.flashMapManager != null) {
+			//Spring提供了一种名为FlashMap的属性集合，常用于重定向前后请求的数据传递,底层实现依赖于Session
 			FlashMap inputFlashMap = this.flashMapManager.retrieveAndUpdate(request, response);
 			if (inputFlashMap != null) {
+				//不为 null, 则重定向前的请求为重定向后的请求传递了FlashMap属性集合
 				request.setAttribute(INPUT_FLASH_MAP_ATTRIBUTE, Collections.unmodifiableMap(inputFlashMap));
 			}
 			request.setAttribute(OUTPUT_FLASH_MAP_ATTRIBUTE, new FlashMap());
@@ -1029,10 +1031,11 @@ public class DispatcherServlet extends FrameworkServlet {
 				if (isGet || "HEAD".equals(method)) {
 					long lastModified = ha.getLastModified(request, mappedHandler.getHandler());
 					if (new ServletWebRequest(request, response).checkNotModified(lastModified) && isGet) {
+						//缓存机制？
 						return;
 					}
 				}
-
+				//执行拦截器preHandle方法
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}

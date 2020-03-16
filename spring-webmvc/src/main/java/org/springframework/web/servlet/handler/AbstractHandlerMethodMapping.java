@@ -394,6 +394,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		}
 
 		if (!matches.isEmpty()) {
+			//本质是利用org.springframework.web.servlet.mvc.method.RequestMappingInfo.compareTo进行排序
 			Comparator<Match> comparator = new MatchComparator(getMappingComparator(request));
 			matches.sort(comparator);
 			Match bestMatch = matches.get(0);
@@ -778,7 +779,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		}
 	}
 
-
+	//委托到内部到比较器
 	private class MatchComparator implements Comparator<Match> {
 
 		private final Comparator<T> comparator;

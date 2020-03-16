@@ -100,6 +100,7 @@ public abstract class AbstractFlashMapManager implements FlashMapManager {
 		List<FlashMap> mapsToRemove = getExpiredFlashMaps(allFlashMaps);
 		FlashMap match = getMatchingFlashMap(allFlashMaps, request);
 		if (match != null) {
+			//重定向之后matching flash Map 会被移除
 			mapsToRemove.add(match);
 		}
 
