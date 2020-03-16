@@ -108,6 +108,12 @@ import org.springframework.util.ReflectionUtils;
  * @since 3.1
  * @see #onStartup(Set, ServletContext)
  * @see WebApplicationInitializer
+ *
+ * Servlet3.0 SPI支持下，在META-INF/services/javax.servlet.ServletContainerInitializer文件放入一个实现了ServletContainerInitializer的类，
+ * 则实现类的onStartup()会被Servlet容器回调.
+ * 另外在此实现类上使用@HandlesTypes传入一个类型，该类型的全部实现类将以Set集合的形式被传递到此实现类的onStartup方法.
+ *
+ * 所以我们可以通过实现WebApplicationInitializer来进行程序的扩展.
  */
 @HandlesTypes(WebApplicationInitializer.class)
 public class SpringServletContainerInitializer implements ServletContainerInitializer {
@@ -151,6 +157,7 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 				if (!waiClass.isInterface() && !Modifier.isAbstract(waiClass.getModifiers()) &&
 						WebApplicationInitializer.class.isAssignableFrom(waiClass)) {
 					try {
+						//实例化所有实现了WebApplicationInitializer的类
 						initializers.add((WebApplicationInitializer)
 								ReflectionUtils.accessibleConstructor(waiClass).newInstance());
 					}
@@ -169,6 +176,7 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 		servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath");
 		AnnotationAwareOrderComparator.sort(initializers);
 		for (WebApplicationInitializer initializer : initializers) {
+			//回调WebApplicationInitializer接口的所有实现类实例的onStartup方法
 			initializer.onStartup(servletContext);
 		}
 	}
