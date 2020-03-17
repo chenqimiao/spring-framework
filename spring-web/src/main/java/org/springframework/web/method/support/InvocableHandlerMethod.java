@@ -160,6 +160,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 			if (args[i] != null) {
 				continue;
 			}
+			//抽象了一个参数解析器，根据不同的参数类型（基本类型/集合/自定义类型），有不同的处理
 			if (!this.resolvers.supportsParameter(parameter)) {
 				throw new IllegalStateException(formatArgumentError(parameter, "No suitable resolver"));
 			}

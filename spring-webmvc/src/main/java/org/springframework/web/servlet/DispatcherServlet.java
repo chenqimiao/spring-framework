@@ -1236,6 +1236,8 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	@Nullable
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+		//除了以注解的形式实现Handler以外，还可以通过实现Controller或者HttpRequestHandler接口
+		//所以这里默认会有两个HandlerMapping,用于支持不同注册类型的handler的查找
 		if (this.handlerMappings != null) {
 			for (HandlerMapping mapping : this.handlerMappings) {
 				HandlerExecutionChain handler = mapping.getHandler(request);
@@ -1273,6 +1275,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletException {
 		if (this.handlerAdapters != null) {
+			//这里使用适配器模式，是因为Handler的注册方式有三种，标注@Controller或者实现Controller/HttpRequestHandler接口
+			//为了统一handler的调用方式，Spring提供了HandlerAdapter的抽象概念，以适配原生handler不同的调用方式.
+			//如果这里不进行抽象，那么会产生诸多if/else....代码可读性和扩展性会非常差.
 			for (HandlerAdapter adapter : this.handlerAdapters) {
 				if (adapter.supports(handler)) {
 					return adapter;
