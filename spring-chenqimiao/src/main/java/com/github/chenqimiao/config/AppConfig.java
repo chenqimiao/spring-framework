@@ -1,33 +1,9 @@
 package com.github.chenqimiao.config;
 
-import com.github.chenqimiao.component.A;
-import com.github.chenqimiao.component.B;
-import com.github.chenqimiao.processor.CustomBeanFactoryPostProcessor;
-import com.github.chenqimiao.processor.CustomBeanPostProcessor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-import com.github.chenqimiao.component.UserService;
-import com.github.chenqimiao.component.UserServiceImpl;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.event.SimpleApplicationEventMulticaster;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
 /**

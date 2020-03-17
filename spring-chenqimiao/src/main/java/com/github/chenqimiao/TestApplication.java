@@ -3,11 +3,9 @@ package com.github.chenqimiao;
 import com.github.chenqimiao.aop.DefaultUsageTracked;
 import com.github.chenqimiao.aop.UsageTracked;
 import com.github.chenqimiao.component.A;
-import com.github.chenqimiao.component.BAware;
+import com.github.chenqimiao.config.AppConfig;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.github.chenqimiao.config.AppConfig;
 
 /**
  * @Auther: chenqimiao

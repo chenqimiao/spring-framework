@@ -1,7 +1,6 @@
 package com.github.chenqimiao.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao

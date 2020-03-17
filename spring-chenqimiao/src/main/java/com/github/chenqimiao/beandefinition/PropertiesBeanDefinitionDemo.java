@@ -1,7 +1,6 @@
 package com.github.chenqimiao.beandefinition;
 
 import java.nio.charset.Charset;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;

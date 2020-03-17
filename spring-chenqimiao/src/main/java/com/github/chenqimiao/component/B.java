@@ -2,10 +2,7 @@ package com.github.chenqimiao.component;
 
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.context.Lifecycle;
 import org.springframework.context.SmartLifecycle;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao

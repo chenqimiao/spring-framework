@@ -1,7 +1,6 @@
 package com.github.chenqimiao.processor;
 
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao

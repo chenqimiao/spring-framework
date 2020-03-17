@@ -1,11 +1,7 @@
 package com.github.chenqimiao.component;
 
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 /**
  * @Auther: chenqimiao

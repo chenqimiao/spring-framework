@@ -1,8 +1,6 @@
 package com.github.chenqimiao.configuration.postprocessor;
 
-import com.github.chenqimiao.component.A;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
