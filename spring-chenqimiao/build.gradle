@@ -12,10 +12,10 @@ repositories {
 }
 
 dependencies {
-	testCompile group: 'junit', name: 'junit', version: '4.12'
+//	testCompile group: 'junit', name: 'junit', version: '4.12'
 	compile(project(":spring-context"))
 	//引入aspectj依赖，Spring默认没有引入这个依赖
-	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.4'
-	compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+	compile ("org.aspectj:aspectjweaver:1.9.4")
+	compile ("javax.annotation:javax.annotation-api:1.3.2")
 
 }
