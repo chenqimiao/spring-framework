@@ -7,7 +7,13 @@
  * <a href="https://www.amazon.com/exec/obidos/tg/detail/-/0764543857/">Expert One-On-One J2EE Design and Development</a>
  * by Rod Johnson (Wrox, 2002).
  *
+ * MVC大致启动流程（仅针对注解的形式，接口形式注册Handler会有一些出入）
+ * Servlet3.0 SPI -> Spring扫描整个项目 -> 拿到所有的Handler类(如被@Controller注解的类) -> 遍历类里面的方法
+ * -> 判断方法是否加了@RequestMapping注解 -> 将@RequestMapping的value作为key,对应方法作为value，存储到一个Map缓存供后续查询
  *
+ *
+ *
+ * 请求处理流程
  * Servlet container -> DispatcherServlet -> Search handler -> Search interceptor -> 封装成chain
  * -> 执行interceptor preHandler -> Handler 参数解析（转化）-> 反射调用handler方法
  * -> 返回结果处理（对于标注了@ResponseBody的方法的返回结果直接写入到response的输出流）
