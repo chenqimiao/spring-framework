@@ -554,11 +554,15 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 
 
 	@Override
+	//RequestMappingHandlerAdapter实例被会注册为容器Bean（通过@EnableWebMvc的元注解@Import）,所以下面的方法所在Bean初始化阶段调用
+	//下面方法主要注册三个解析器
 	public void afterPropertiesSet() {
 		// Do this first, it may add ResponseBody advice beans
 		initControllerAdviceCache();
 
 		if (this.argumentResolvers == null) {
+			//初始化默认的参数解析器
+			//tip: 个人感觉 Argument一般指实参;Parameter一般指形参数;ReturnValue毫无疑问指回参或者说返回值
 			List<HandlerMethodArgumentResolver> resolvers = getDefaultArgumentResolvers();
 			this.argumentResolvers = new HandlerMethodArgumentResolverComposite().addResolvers(resolvers);
 		}

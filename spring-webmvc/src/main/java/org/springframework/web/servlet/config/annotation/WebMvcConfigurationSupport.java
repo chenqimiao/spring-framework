@@ -336,6 +336,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 			ResourceUrlProvider mvcResourceUrlProvider) {
 		if (this.interceptors == null) {
 			InterceptorRegistry registry = new InterceptorRegistry();
+			//下面方法供子类实现，注册自定义拦截器
 			addInterceptors(registry);
 			registry.addInterceptor(new ConversionServiceExposingInterceptor(mvcConversionService));
 			registry.addInterceptor(new ResourceUrlProviderExposingInterceptor(mvcResourceUrlProvider));

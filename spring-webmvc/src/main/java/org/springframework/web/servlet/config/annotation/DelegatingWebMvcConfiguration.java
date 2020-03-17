@@ -44,7 +44,15 @@ public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
 
 	private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
 
-
+	/**
+	 *
+	 * 假如将@EnableWebMvc标注在WebMvcConfig类上，然后WebMvcConfig实现类configurers，并且同时标记了@Configuration注解，会发生如下流程的事情
+	 *
+	 * 由于WebConfig是@Configuration class, 会最先被注册、实例化 -> DelegatingWebMvcConfiguration类被@EnableWebMvc的@Import元注解导入
+	 * -> DelegatingWebMvcConfiguration类会被注册、实例化 -> 在依赖注入的阶段会执行如下方法将WebConfig Bean 注入该方法
+	 * -> WebConfig会注册到configurers -> 解析本类的父类的@Bean方法 eg.WebMvcConfigurationSupport#requestMappingHandlerMapping
+	 * -> 进而触发DelegatingWebMvcConfiguration#addInterceptors -> WebConfig#addInterceptors -> 到此自定义的注册拦截器的方法就会被调用
+	 */
 	@Autowired(required = false)
 	public void setConfigurers(List<WebMvcConfigurer> configurers) {
 		if (!CollectionUtils.isEmpty(configurers)) {

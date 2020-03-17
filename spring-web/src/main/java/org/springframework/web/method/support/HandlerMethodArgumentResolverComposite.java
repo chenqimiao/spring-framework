@@ -127,6 +127,9 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 	 */
 	@Nullable
 	private HandlerMethodArgumentResolver getArgumentResolver(MethodParameter parameter) {
+		// 这里缓存一下，可以提高查询效率
+		// 另外每一次参数解析（InvocableHandlerMethod.getMethodArgumentValues),
+		// supportsParameter和resolveArgument都会分别去调用一次getArgumentResolver，有了缓存才可以这么玩
 		HandlerMethodArgumentResolver result = this.argumentResolverCache.get(parameter);
 		if (result == null) {
 			for (HandlerMethodArgumentResolver resolver : this.argumentResolvers) {

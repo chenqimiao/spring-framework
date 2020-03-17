@@ -21,6 +21,18 @@
  * -> 如果有需要,进行视图渲染,写入到HTTP response 输出流
  * -> 执行interceptor afterCompletion（常用于资源清理）
  * -> 完成一次HTTP请求
+ *
+ *
+ *
+ * MVC启动过程中resolver、Handler、HandlerAdapter的注册顺序
+ *
+ * \@EnableWebMvc的元注解@Import -> 注册各种Handler/HandlerAdapter Bean
+ * -> 回调RequestMappingHandlerAdapter#afterPropertiesSet完成参数解析器的初始化
+ *  （以HandlerMethodArgumentResolverComposite的封装形式作为上述Adapter的成员变量，未直接作为Bean注册到容器中）
+ * -> Servlet#init -> DispatcherServlet#initStrategies
+ * -> 将容器中的注册的Handler、HandlerAdapter拿出来以集合的形式缓存到DispatcherServlet中去
+ *
+ * 以上流程忽略了一些细节
  */
 @NonNullApi
 @NonNullFields

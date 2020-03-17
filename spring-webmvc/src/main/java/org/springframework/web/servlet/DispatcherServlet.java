@@ -498,6 +498,16 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Initialize the strategy objects that this servlet uses.
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
+	 *
+	 * 由tomcat容器触发javax.servlet.Servlet#init(javax.servlet.ServletConfig)，层层调用执行下列方法
+	 *
+	 * Servlet init 方法执行的时刻有两种：
+	 *
+	 * （1） load-on-startup 的值大于等于0，则伴随 Servlet 实例化后执行。
+	 *
+	 * （2） load-on-startup 的值小于0 或者 不配置， 则在第一次 Servlet 请求的时候执行。(Spring boot 2.x)默认行为
+	 *
+	 *
 	 */
 	protected void initStrategies(ApplicationContext context) {
 		initMultipartResolver(context);
@@ -595,6 +605,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		if (this.detectAllHandlerMappings) {
 			// Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
+			//HandlerMapping的注册可以由@EnableWebMvc触发，原理也比较简单，通过@EnableWebMvc的@Import元注解实现
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {
@@ -616,6 +627,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
 		if (this.handlerMappings == null) {
+			//实在找不到，会注册一个默认的，默认的规则配置在DispatcherServlet.properties 文件里
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {
 				logger.trace("No HandlerMappings declared for servlet '" + getServletName() +
@@ -634,6 +646,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		if (this.detectAllHandlerAdapters) {
 			// Find all HandlerAdapters in the ApplicationContext, including ancestor contexts.
+			// 与HandlerMapping类似，可以通过@EnableWebMvc的元注解@Import完成HandlerAdapter的注册
 			Map<String, HandlerAdapter> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerAdapter.class, true, false);
 			if (!matchingBeans.isEmpty()) {
@@ -866,6 +879,7 @@ public class DispatcherServlet extends FrameworkServlet {
 			for (String className : classNames) {
 				try {
 					Class<?> clazz = ClassUtils.forName(className, DispatcherServlet.class.getClassLoader());
+					//注册实例化指定类型的HandlerMapping
 					Object strategy = createDefaultStrategy(context, clazz);
 					strategies.add((T) strategy);
 				}
@@ -1041,6 +1055,9 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// Actually invoke the handler.
+				//@Controller RequestHandlerMappingAdapter
+				//Controller  SimpleControllerHandlerAdapter
+				//HttpRequestHandler HttpRequestHandlerAdapter
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
