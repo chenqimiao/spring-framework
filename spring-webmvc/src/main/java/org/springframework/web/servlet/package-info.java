@@ -27,6 +27,7 @@
  * MVC启动过程中resolver、Handler、HandlerAdapter的注册顺序
  *
  * \@EnableWebMvc的元注解@Import -> 注册各种Handler/HandlerAdapter Bean
+ * -> 回调RequqestMapppingHandlerMapping#afterPropertiesSet完成HandlerMethod的初始化
  * -> 回调RequestMappingHandlerAdapter#afterPropertiesSet完成参数解析器的初始化
  *  （以HandlerMethodArgumentResolverComposite的封装形式作为上述Adapter的成员变量，未直接作为Bean注册到容器中）
  * -> Servlet#init -> DispatcherServlet#initStrategies
