@@ -143,6 +143,8 @@ public @interface RequestMapping {
 	 * the type level. The primary path mapping (i.e. the specified URI value)
 	 * still has to uniquely identify the target handler, with parameter mappings
 	 * simply expressing preconditions for invoking the handler.
+	 *
+	 * 对请求的参数进行限制
 	 */
 	String[] params() default {};
 
