@@ -22,9 +22,11 @@
  * -> Register BeanPostProcessors
  * -> initMessageSource
  * -> initApplicationEventMulticaster
- * -> register Listeners
+ * -> Register Listeners
  * ]
  *
+ * -> Register BeanDefinition
+ * -> getMergedBeanDefinition
  * -> AbstractBeanFactory#resolveBeanClass(RootBeanDefinition, String, Class[])
  *   （最终将beanClass由String类型转化成Class类型的对象）
  * -> InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation(Class, String)
@@ -44,13 +46,23 @@
  *
  * -> aware接口回调
  *
- * -> BeanPostProcessor#postProcessBeforeInitialization(Object, String)
+ * -> BeanPostProcessor#postProcessBeforeInitialization(Object, String)[包括@PostConstruct注解驱动回调、ApplicationContextAware回调]
+ *
+ * -> InitializingBean#AfterPropertiesSet
+ *
+ * -> custom init method
  *
  * -> AbstractAutowireCapableBeanFactory#invokeInitMethods(String, Object, RootBeanDefinition)
  *
  * -> BeanPostProcessor#postProcessAfterInitialization(Object, String)
  *
+ * -> SmartInitializingSingleton#afterSingletonsInstantiated()[通常在Spring ApplicationContext场景下使用]
  *
+ * -> DestructionAwareBeanPostProcessor#postProcessBeforeDestruction[包括@PreDestory注解驱动回调]
+ *
+ * -> DisposableBean#destroy
+ *
+ * -> custom destroy method
  */
 @NonNullApi
 @NonNullFields
