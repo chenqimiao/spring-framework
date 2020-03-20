@@ -45,6 +45,7 @@ public interface MergedBeanDefinitionPostProcessor extends BeanPostProcessor {
 	 * @see AbstractAutowireCapableBeanFactory#applyMergedBeanDefinitionPostProcessors
 	 * 该方法在实例化之后，在InstantiationBeanAwarePostProcessor#postProcessAfterInstantiation之前执行，对MergedBeanDefinition做一些后处理或者说解析
 	 * 框架内部用该方法做了前置的依赖注入解析，详见AutowiredAnnotationBeanPostProcessor#postProcessMergedBeanDefinition
+	 * 可以在实例化之后，属性注入之前做一个BeanDefinition的增强或者修改
 	 */
 	void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName);
 

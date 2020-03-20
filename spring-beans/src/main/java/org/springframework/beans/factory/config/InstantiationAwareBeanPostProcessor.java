@@ -93,6 +93,7 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * @see #postProcessBeforeInstantiation
 	 *
 	 * 可以用来忽略后置属性注入/赋值，以及后续的InstantiationAwareBeanPostProcessor的方法调用
+	 * 可以用这个方法绕开后续的属性注入过程
 	 */
 	default boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
 		return true;
