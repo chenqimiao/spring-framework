@@ -58,6 +58,8 @@ import org.springframework.util.StringUtils;
  * @author Juergen Hoeller
  * @author Sam Brannen
  * @since 3.2
+ *
+ * Spring boot利用这个类实现了autoconfigure
  */
 public final class SpringFactoriesLoader {
 
@@ -129,8 +131,12 @@ public final class SpringFactoriesLoader {
 		}
 
 		try {
+			//稍微提一下getResources/getResource的区别:
+			//getResources会通过父类加载去找资源，然后再通过本类加载器去找资源，组成一个集合返回
+			//getResource也会通过父类加载器去找资源，如果找到了一个资源，就不会再通过本类加载器去找资源
 			Enumeration<URL> urls = (classLoader != null ?
 					classLoader.getResources(FACTORIES_RESOURCE_LOCATION) :
+					//通过系统类加载器去getResources
 					ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));
 			result = new LinkedMultiValueMap<>();
 			while (urls.hasMoreElements()) {
