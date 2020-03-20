@@ -128,6 +128,7 @@ import org.springframework.lang.Nullable;
  * @see MergedAnnotationSelectors
  *
  * 在类的继承树上以某种策略进行搜索，得到合并后的注解集合
+ * 在元注解的树上，一般找最近的那个注解，在没有指定策略的情况下
  */
 public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>> {
 
