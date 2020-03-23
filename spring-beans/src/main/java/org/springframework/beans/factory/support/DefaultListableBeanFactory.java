@@ -1561,6 +1561,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return priorityCandidate;
 		}
 		// Fallback
+		// 通过名字作为最后的匹配条件
 		for (Map.Entry<String, Object> entry : candidates.entrySet()) {
 			String candidateName = entry.getKey();
 			Object beanInstance = entry.getValue();

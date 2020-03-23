@@ -15,6 +15,6 @@ public class AutowireConstructorTest {
 
 	public static void main(String args[]){
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutowireConstructorTest.class);
-
+		ac.getBean(A.class);
 	}
 }

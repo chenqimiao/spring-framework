@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ImportResource;
  * @Date: 2020/3/4 14:52
  * @Description:
  */
-@Configuration
-@ImportResource
+//@Configuration
+//@ImportResource
 public class MultiInjectionsTest {
 
 
