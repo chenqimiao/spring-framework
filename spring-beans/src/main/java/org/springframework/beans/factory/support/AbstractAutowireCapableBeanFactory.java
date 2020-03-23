@@ -1181,7 +1181,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         // Candidate constructors for autowiring?
-		// 用后置处理器AutowiredAnnotationBeanPostProcessor检测可用于依赖自动注入的构造函数
+		// 用后置处理器AutowiredAnnotationBeanPostProcessor决定可用于实例化的构造函数候选人
 		//
         Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
         if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR || mbd.hasConstructorArgumentValues()
