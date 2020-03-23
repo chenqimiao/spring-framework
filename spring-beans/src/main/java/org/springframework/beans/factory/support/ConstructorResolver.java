@@ -789,7 +789,7 @@ class ConstructorResolver {
 							"] - did you specify the correct bean references as arguments?");
 				}
 				try {
-					//自动构造器注入是一个特殊的类型注入！！并非根据名字注入
+					//(自动/手动)构造器注入是一个特殊的类型注入！！当通过类型匹配找到多个候选人的时候，会通过对象名作为最后的fallback限定匹配
 					//依赖解析/处理
 					Object autowiredArgument = resolveAutowiredArgument(
 							methodParam, beanName, autowiredBeanNames, converter, fallback);
