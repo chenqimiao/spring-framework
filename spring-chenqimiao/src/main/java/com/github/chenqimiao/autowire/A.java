@@ -1,6 +1,8 @@
 package com.github.chenqimiao.autowire;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +27,7 @@ public class A {
 	//在没有使用@Qulifier、@Primary注解的情况下，会将对象名作为最终的fallback限定匹配，
 	//@Resource注解则刚好相反，先通过名称匹配，如果没找到，则通过类型匹配.
 	@Autowired
-	public A(B subB){
+	public A(@Qualifier(value = "b") B subB, @Value("xxx") String c){
 		System.out.println("AAAAAAA");
 		this.b = b;
 	}
