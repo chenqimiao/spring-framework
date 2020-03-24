@@ -245,8 +245,9 @@ public class InitDestroyAnnotationBeanPostProcessor
 					}
 				}
 			});
-
+			//头插法，说明@PostConstuctor是从上往下执行的
 			initMethods.addAll(0, currInitMethods);
+			//尾插法，说明@PreDestroy是从下往上执行的
 			destroyMethods.addAll(currDestroyMethods);
 			targetClass = targetClass.getSuperclass();
 		}
