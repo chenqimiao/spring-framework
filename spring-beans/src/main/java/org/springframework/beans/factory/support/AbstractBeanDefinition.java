@@ -54,6 +54,11 @@ import org.springframework.util.StringUtils;
  * @see GenericBeanDefinition
  * @see RootBeanDefinition
  * @see ChildBeanDefinition
+ *
+ *
+ * 以下方法只是用于存储一些辅助信息，用于自定义Bean声明周期，常规的Bean实例化初始化过程不会用到
+ * {@link #setAttribute(String, Object)} 设置辅助属性
+ * {@link #setSource(Object)} 设置BeanDefinition来源
  */
 @SuppressWarnings("serial")
 public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccessor

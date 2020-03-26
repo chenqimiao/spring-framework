@@ -34,8 +34,10 @@ import org.springframework.util.ObjectUtils;
  * @author Juergen Hoeller
  * @since 2.5
  * @see #setParentName
- * @see RootBeanDefinition
- * @see ChildBeanDefinition
+ * @see RootBeanDefinition 没有parent节点、或者经过mergeBeanDefinition处理之后的合成节点
+ * @see ChildBeanDefinition 存在parent节点
+ *
+ * GenericBeanDefinition 一般性的BeanDefinition
  */
 @SuppressWarnings("serial")
 public class GenericBeanDefinition extends AbstractBeanDefinition {
