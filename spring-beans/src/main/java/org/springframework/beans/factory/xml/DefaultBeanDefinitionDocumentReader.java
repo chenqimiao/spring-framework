@@ -129,6 +129,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		if (this.delegate.isDefaultNamespace(root)) {
+			//取到profile,与当前上下文的evn的activeProfile匹配，匹配失败则放弃该root节点的定义
 			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 			if (StringUtils.hasText(profileSpec)) {
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
@@ -145,8 +146,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			}
 		}
 
+		//前置处理扩展点
 		preProcessXml(root);
 		parseBeanDefinitions(root, this.delegate);
+		//后置处理扩展点
 		postProcessXml(root);
 
 		this.delegate = parent;

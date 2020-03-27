@@ -376,6 +376,7 @@ public class PropertiesBeanDefinitionReader extends AbstractBeanDefinitionReader
 					sepIdx = nameAndProperty.lastIndexOf(SEPARATOR);
 				}
 				if (sepIdx != -1) {
+					//user.(class)=UserHolder, beanName为user
 					String beanName = nameAndProperty.substring(0, sepIdx);
 					if (logger.isTraceEnabled()) {
 						logger.trace("Found bean name '" + beanName + "'");

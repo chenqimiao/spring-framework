@@ -48,6 +48,8 @@ import org.springframework.core.annotation.AliasFor;
  * @since 3.0
  * @see Configuration
  * @see Import
+ *
+ * 该注解与<Import/>标签类似，而@Import注解比两者的功能要更多一些.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
