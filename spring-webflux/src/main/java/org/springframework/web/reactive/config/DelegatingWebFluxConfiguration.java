@@ -39,7 +39,12 @@ import org.springframework.web.reactive.result.method.annotation.ArgumentResolve
  */
 @Configuration(proxyBeanMethods = false)
 public class DelegatingWebFluxConfiguration extends WebFluxConfigurationSupport {
-
+	// 设想假如没有这个组合类的对象，
+	// 那么WebFluxConfigurationSupport下面的几乎所有@Bean方法都需要注入一个List<WebFluxConfigurer> configurers,
+	// 并对这个configurers进行遍历，拿到自己想要的属性列表
+	// 有了这个组合类，首先遍历的逻辑被统一封装了，其次让WebFluxConfigurationSupport @Bean方法与List<WebFluxConfigurer> configurers
+	// 解耦了。
+	// 但是个人以为这里换成List<WebFluxConfigurer> 实例的对象问题也不大，也可以起到上面说的两个作用，只不过遍历的逻辑会被移动到当前类
 	private final WebFluxConfigurerComposite configurers = new WebFluxConfigurerComposite();
 
 	@Autowired(required = false)
