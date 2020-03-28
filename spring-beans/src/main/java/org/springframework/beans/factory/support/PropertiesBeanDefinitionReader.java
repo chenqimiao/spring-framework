@@ -349,6 +349,7 @@ public class PropertiesBeanDefinitionReader extends AbstractBeanDefinitionReader
 	 * @return the number of bean definitions found
 	 * @throws BeansException in case of loading or parsing errors
 	 * @see #registerBeanDefinitions(Map, String)
+	 * // 这个方法实际上只是解析了BeanName, 将具体的register BeanDefinition 交给了另一个重载方法
 	 */
 	public int registerBeanDefinitions(Map<?, ?> map, @Nullable String prefix, String resourceDescription)
 			throws BeansException {
