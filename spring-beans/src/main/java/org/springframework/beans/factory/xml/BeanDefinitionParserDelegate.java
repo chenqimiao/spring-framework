@@ -1380,6 +1380,11 @@ public class BeanDefinitionParserDelegate {
 	 * @param ele the element to parse
 	 * @param containingBd the containing bean definition (if any)
 	 * @return the resulting bean definition
+	 *
+	 * 1.通过DefaultNamespaceHandlerResolver找到与当前NamespaceURI匹配的NamespaceHandler
+	 * (Spring SPI 匹配规则默认通过定义在META-INF/spring.handlers）
+	 * 2.在第一步对应的DefaultNamespaceHandlerResolver#resolve方法会调用NamespaceHandler.init注册BeanDefinitionParser
+	 * 3.利用BeanDefinitionParser#parse将带自定义namespace elements解析成BeanDefinitions
 	 */
 	@Nullable
 	public BeanDefinition parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) {
@@ -1387,6 +1392,7 @@ public class BeanDefinitionParserDelegate {
 		if (namespaceUri == null) {
 			return null;
 		}
+		//通过DefaultNamespaceHandlerResolver解析自定义的命名空间
 		NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);
 		if (handler == null) {
 			error("Unable to locate Spring NamespaceHandler for XML schema namespace [" + namespaceUri + "]", ele);
