@@ -173,6 +173,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			NodeList nl = root.getChildNodes();
 			for (int i = 0; i < nl.getLength(); i++) {
 				Node node = nl.item(i);
+				//getChildNodes会返回空行，这里需要判断一下，另一方面可以说明xml中的空行会影响解析的效率
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {
@@ -234,6 +235,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// Absolute or relative?
 		if (absoluteLocation) {
 			try {
+				//避免传递在解析过程传递过多的参数，将需要传递的参数封装在ReaderContextContext中.
 				int importCount = getReaderContext().getReader().loadBeanDefinitions(location, actualResources);
 				if (logger.isTraceEnabled()) {
 					logger.trace("Imported " + importCount + " bean definitions from URL location [" + location + "]");

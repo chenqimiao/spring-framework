@@ -95,6 +95,7 @@ public class XmlValidationModeDetector {
 			boolean isDtdValidated = false;
 			String content;
 			while ((content = reader.readLine()) != null) {
+				//干掉所有注释
 				content = consumeCommentTokens(content);
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
