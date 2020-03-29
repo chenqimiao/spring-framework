@@ -44,6 +44,10 @@ import org.springframework.util.MultiValueMap;
  * @author Phillip Webb
  * @author Juergen Hoeller
  * @since 4.0
+ *
+ *
+ *  Spring boot 常用扩展点，取出@Conditional的vlaue属性，该属性为Condition的实现类，实例化该实现类，调用match方法，
+ *  其中有返回false的，表明此类型不应被注册为Bean， should skip this bean registration.
  */
 class ConditionEvaluator {
 
@@ -103,6 +107,7 @@ class ConditionEvaluator {
 		for (Condition condition : conditions) {
 			ConfigurationPhase requiredPhase = null;
 			if (condition instanceof ConfigurationCondition) {
+				//获取指定的phase, 与指定的phase不匹配的condition会被忽略
 				requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase();
 			}
 			if ((requiredPhase == null || requiredPhase == phase) && !condition.matches(this.context, metadata)) {

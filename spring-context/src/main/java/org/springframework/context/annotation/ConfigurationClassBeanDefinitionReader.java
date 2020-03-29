@@ -131,6 +131,9 @@ class ConfigurationClassBeanDefinitionReader {
 		if (trackedConditionEvaluator.shouldSkip(configClass)) {
 			String beanName = configClass.getBeanName();
 			if (StringUtils.hasLength(beanName) && this.registry.containsBeanDefinition(beanName)) {
+				//因为@Conditional并不会影响BeanDefinition的注册顺序，所以这里会作一次移除补偿
+				//这里不仅移除了beanName对应的BeanDefinition, 同时也会将依赖beanName的BeanDefinition也移除
+				//细节可以参考：DefaultListableBeanFactory.resetBeanDefinition
 				this.registry.removeBeanDefinition(beanName);
 			}
 			this.importRegistry.removeImportingClass(configClass.getMetadata().getClassName());
@@ -184,6 +187,7 @@ class ConfigurationClassBeanDefinitionReader {
 
 		// Do we need to mark the bean as skipped by its condition?
 		if (this.conditionEvaluator.shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN)) {
+			//忽略该@Bean方法对应的BeanDefinition的注册
 			configClass.skippedBeanMethods.add(methodName);
 			return;
 		}

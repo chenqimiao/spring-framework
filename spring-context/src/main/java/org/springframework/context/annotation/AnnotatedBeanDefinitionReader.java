@@ -254,6 +254,7 @@ public class AnnotatedBeanDefinitionReader {
 		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(beanClass);
 		//解析@Conditional注解的含义
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
+			//忽略该BeanDefinition的注册
 			return;
 		}
 
