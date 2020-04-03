@@ -87,6 +87,7 @@ public class DelegatingEntityResolver implements EntityResolver {
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}
 			else if (systemId.endsWith(XSD_SUFFIX)) {
+				//org.springframework.beans.factory.xml.PluggableSchemaResolver.resolveEntity 解析出封装了xsd的InputSource
 				return this.schemaResolver.resolveEntity(publicId, systemId);
 			}
 		}

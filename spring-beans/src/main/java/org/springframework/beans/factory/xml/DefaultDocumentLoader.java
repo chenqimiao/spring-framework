@@ -130,6 +130,7 @@ public class DefaultDocumentLoader implements DocumentLoader {
 
 		DocumentBuilder docBuilder = factory.newDocumentBuilder();
 		if (entityResolver != null) {
+			//设置自定义setEntityResolver为DelegatingEntityResolver，委托到xsdResolver/dtdResolver解析描述文件（.xsd/.dtd）
 			docBuilder.setEntityResolver(entityResolver);
 		}
 		if (errorHandler != null) {

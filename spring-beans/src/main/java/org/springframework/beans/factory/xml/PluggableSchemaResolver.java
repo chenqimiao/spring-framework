@@ -121,6 +121,7 @@ public class PluggableSchemaResolver implements EntityResolver {
 			if (resourceLocation != null) {
 				Resource resource = new ClassPathResource(resourceLocation, this.classLoader);
 				try {
+					//封装了本地xsd文件流的InputSource对象
 					InputSource source = new InputSource(resource.getInputStream());
 					source.setPublicId(publicId);
 					source.setSystemId(systemId);
