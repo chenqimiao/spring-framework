@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://com.github.chenqimiao/configuration/xml/user"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://com.github.chenqimiao/configuration/xml/user">
+
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+
+	<xsd:complexType name="User">
+		<xsd:attribute name="id" type="xsd:string" use="required"/>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="age" type="xsd:integer" use="required"/>
+	</xsd:complexType>
+
+
+
+	<xsd:element name="user" type="User"/>
+
+</xsd:schema>
