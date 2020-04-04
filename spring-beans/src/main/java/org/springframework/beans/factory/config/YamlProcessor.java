@@ -260,6 +260,8 @@ public abstract class YamlProcessor {
 	 * @param source the source map
 	 * @return a flattened map
 	 * @since 4.1.3
+	 *
+	 * eg. {"a":{"b":"c", "e":"f"}} -> {"a.b":"c", "a.e":"f"}
 	 */
 	protected final Map<String, Object> getFlattenedMap(Map<String, Object> source) {
 		Map<String, Object> result = new LinkedHashMap<>();
