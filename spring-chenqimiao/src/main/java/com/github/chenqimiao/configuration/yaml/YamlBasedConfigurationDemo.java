@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.yaml.snakeyaml.Yaml;
 
 /**
  * @Auther: chenqimiao
@@ -17,7 +16,7 @@ import org.yaml.snakeyaml.Yaml;
  * @Description:
  */
 @Configuration(proxyBeanMethods = false)
-public class YamlBasedBeanDefinitionDemo {
+public class YamlBasedConfigurationDemo {
 
 	@Bean
 	public YamlMapFactoryBean user(){
@@ -35,7 +34,8 @@ public class YamlBasedBeanDefinitionDemo {
 	}
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(YamlBasedBeanDefinitionDemo.class);
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(
+				YamlBasedConfigurationDemo.class);
 		Map<String, Object> yamlMap = ac.getBean("user", Map.class);
 		System.out.println(yamlMap);
 
