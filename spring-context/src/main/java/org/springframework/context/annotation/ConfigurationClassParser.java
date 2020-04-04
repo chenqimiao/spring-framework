@@ -458,6 +458,7 @@ class ConfigurationClassParser {
 			try {
 				String resolvedLocation = this.environment.resolveRequiredPlaceholders(location);
 				Resource resource = this.resourceLoader.getResource(resolvedLocation);
+				//调用自定义的PropertySource工厂方法，生成PropertySource对象并注入到Context evn中
 				addPropertySource(factory.createPropertySource(name, new EncodedResource(resource, encoding)));
 			}
 			catch (IllegalArgumentException | FileNotFoundException | UnknownHostException ex) {

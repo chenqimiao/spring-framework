@@ -7,6 +7,8 @@ import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -16,6 +18,7 @@ import org.springframework.core.io.Resource;
  * @Description:
  */
 @Configuration(proxyBeanMethods = false)
+@PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:/META-INF/yaml/user-config.yaml", name = "yamlBasedPropertySource")
 public class YamlBasedConfigurationDemo {
 
 	@Bean
@@ -39,8 +42,12 @@ public class YamlBasedConfigurationDemo {
 		Map<String, Object> yamlMap = ac.getBean("user", Map.class);
 		System.out.println(yamlMap);
 
-
 		Properties properties = ac.getBean("user1", Properties.class);
 		System.out.println(properties);
+
+		MutablePropertySources propertySources = ac.getEnvironment().getPropertySources();
+		System.out.println(propertySources);
+
+		System.out.println(propertySources.get("yamlBasedPropertySource").getProperty("user.name"));
 	}
 }
