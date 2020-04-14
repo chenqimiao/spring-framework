@@ -1233,6 +1233,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
      * @return a (potentially merged) RootBeanDefinition for the given bean
      * @throws NoSuchBeanDefinitionException if there is no bean with the given name
      * @throws BeanDefinitionStoreException in case of an invalid bean definition
+	 *
+	 * merged其实是指父子BeanDefinition.而Local是指当前BeanFactory.
      */
     protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException {
         // Quick check on the concurrent map first, with minimal locking.
