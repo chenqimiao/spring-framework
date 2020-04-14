@@ -681,7 +681,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Configure the bean factory with context callbacks.
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 		/**
-		 * ignoreDependencyInterface忽略该接口的实现类中和接口setter方法入参类型相同的依赖（自动装配时）
+		 * ignoreDependencyInterface忽略该接口的实现类中（定义在该接口的）setter方法的自动装配.（自动装配时）
 		 * 而ignoreDependencyType是直接忽略该类型的依赖（自动装配时）
 		 * 以下ignoreDependencyInterface的调用，让XxxAware的实现类中的xxx属性在自动装配时被忽略，由容器通过其他方式（
 		 * @see org.springframework.context.support.ApplicationContextAwareProcessor#invokeAwareInterfaces(java.lang.Object)
