@@ -1,6 +1,5 @@
 package com.github.chenqimiao.circular.reference;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
  * @Date: 2020/4/15 10:08
  * @Description:
  */
-@Component
 public class Wife {
 
 	private Husband husband;
