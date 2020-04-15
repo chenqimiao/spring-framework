@@ -1239,7 +1239,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      */
     @Override
     protected Object getObjectForBeanInstance(Object beanInstance, String name, String beanName, @Nullable RootBeanDefinition mbd) {
-
+    	//用户自定义的Supplier方法中手动触发了其他Bean的创建，那么自定义Supplier方法生成的Bean应该依赖于其他的Bean.
         String currentlyCreatedBean = this.currentlyCreatedBean.get();
         if (currentlyCreatedBean != null) {
             registerDependentBean(beanName, currentlyCreatedBean);
