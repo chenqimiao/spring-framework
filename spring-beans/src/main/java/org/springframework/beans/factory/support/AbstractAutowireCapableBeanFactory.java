@@ -596,7 +596,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         /**
          * 这里会判断当前创建的bean是否提前暴露了，
          * 如果提前暴露了，需要从缓存中再拿一次，
-         * 如果从缓存中拿到了earlySingletonReference不为null,说明该bean被循环引用了且该bean是由singletonObjects中的工厂创建的
+         * 如果从缓存中拿到了earlySingletonReference不为null,说明该bean被循环引用了且该bean是由singletonFactories中的工厂创建的
          * 紧接着判断exposedObject == bean 是否成立，
          * 如果成立，则exposedObject = initializeBean(beanName, exposedObject, mbd);中未执行增强逻辑，
          * 如果存在AOP增强逻辑，则相应的增强逻辑是由singletonObjects中的工厂执行
