@@ -1,9 +1,7 @@
 package com.github.chenqimiao.configuration.properties;
 
-import org.springframework.beans.MutablePropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 
 /**

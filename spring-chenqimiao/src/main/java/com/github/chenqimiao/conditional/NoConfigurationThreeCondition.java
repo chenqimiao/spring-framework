@@ -1,6 +1,5 @@
 package com.github.chenqimiao.conditional;
 
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;

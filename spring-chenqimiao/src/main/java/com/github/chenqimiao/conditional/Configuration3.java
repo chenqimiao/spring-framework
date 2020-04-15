@@ -1,7 +1,6 @@
 package com.github.chenqimiao.conditional;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * @Auther: chenqimiao

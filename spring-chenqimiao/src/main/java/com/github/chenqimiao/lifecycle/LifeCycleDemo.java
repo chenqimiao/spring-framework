@@ -6,7 +6,6 @@ import com.github.chenqimiao.lifecycle.processor.MyBeanPostProcessor;
 import com.github.chenqimiao.lifecycle.processor.MyDestructionAwareBeanPostProcessor;
 import com.github.chenqimiao.lifecycle.processor.MyInstantiationAwareBeanPostProcessor;
 import com.github.chenqimiao.lifecycle.processor.MyMergedBeanDefinitionPostProcessor;
-import com.github.chenqimiao.lifecycle.processor.MySmartInstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;

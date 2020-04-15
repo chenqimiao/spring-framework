@@ -1,7 +1,5 @@
 package com.github.chenqimiao.circular.reference;
 
-import org.springframework.stereotype.Component;
-
 /**
  * @Auther: chenqimiao
  * @Date: 2020/4/15 10:08
