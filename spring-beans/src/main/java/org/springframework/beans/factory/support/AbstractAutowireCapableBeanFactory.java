@@ -413,7 +413,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) throws BeansException {
 
         Object result = existingBean;
-        // 调用AnnotationAwareAspectJAutoProxyCreator的子类AbstractAutoProxyCreator#postProcessAfterInitialization完成aop的增强
+        // 调用AnnotationAwareAspectJAutoProxyCreator的父类AbstractAutoProxyCreator#postProcessAfterInitialization完成aop的增强
         for (BeanPostProcessor processor : getBeanPostProcessors()) {
             Object current = processor.postProcessAfterInitialization(result, beanName);
             if (current == null) {
