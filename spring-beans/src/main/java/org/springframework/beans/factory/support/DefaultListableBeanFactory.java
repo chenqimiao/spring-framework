@@ -418,6 +418,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		if (namedBean != null) {
 			return namedBean.getBeanInstance();
 		}
+		// 本地找不到，才去parentBeanFactory里找
 		BeanFactory parent = getParentBeanFactory();
 		if (parent instanceof DefaultListableBeanFactory) {
 			return ((DefaultListableBeanFactory) parent).resolveBean(requiredType, args, nonUniqueAsNull);
