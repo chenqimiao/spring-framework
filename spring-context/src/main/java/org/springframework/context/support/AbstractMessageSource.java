@@ -205,6 +205,7 @@ public abstract class AbstractMessageSource extends MessageSourceSupport impleme
 		Object[] argsToUse = args;
 
 		if (!isAlwaysUseMessageFormat() && ObjectUtils.isEmpty(args)) {
+			// 没有args的情况下，可以不用使用messageFormat使用，但得由子类去实现resolveCodeWithoutArguments.
 			// Optimized resolution: no arguments to apply,
 			// therefore no MessageFormat needs to be involved.
 			// Note that the default implementation still uses MessageFormat;
