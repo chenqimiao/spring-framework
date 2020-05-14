@@ -259,6 +259,7 @@ public abstract class AbstractMessageSource extends MessageSourceSupport impleme
 			if (parent instanceof AbstractMessageSource) {
 				// Call internal method to avoid getting the default code back
 				// in case of "useCodeAsDefaultMessage" being activated.
+				// 不采用 parent message source 的 fallback, 如果实在找不到，可以使用当前类的 fallback
 				return ((AbstractMessageSource) parent).getMessageInternal(code, args, locale);
 			}
 			else {
@@ -315,6 +316,7 @@ public abstract class AbstractMessageSource extends MessageSourceSupport impleme
 	 */
 	@Nullable
 	protected String getDefaultMessage(String code) {
+		//如果开启了此选项，会使用 code 作为 fallback message
 		if (isUseCodeAsDefaultMessage()) {
 			return code;
 		}
