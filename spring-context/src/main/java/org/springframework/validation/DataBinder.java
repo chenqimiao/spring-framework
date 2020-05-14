@@ -132,20 +132,26 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	@Nullable
 	private SimpleTypeConverter typeConverter;
 
+	//是否忽略未知字段
 	private boolean ignoreUnknownFields = true;
 
+	//是否忽略非法字段
 	private boolean ignoreInvalidFields = false;
 
+	//是否自动增加嵌套路径
 	private boolean autoGrowNestedPaths = true;
 
 	private int autoGrowCollectionLimit = DEFAULT_AUTO_GROW_COLLECTION_LIMIT;
 
+	//绑定字段白名单
 	@Nullable
 	private String[] allowedFields;
 
+	//绑定字段黑名单
 	@Nullable
 	private String[] disallowedFields;
 
+	//必须绑定字段
 	@Nullable
 	private String[] requiredFields;
 
