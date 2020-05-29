@@ -1,4 +1,4 @@
-package com.github.chenqimiao.javabeans;
+package com.github.chenqimiao.conversion;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
