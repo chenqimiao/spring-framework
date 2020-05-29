@@ -13,6 +13,6 @@ public class CustomizedPropertyEditorRegistrar implements PropertyEditorRegistra
 
 	@Override
 	public void registerCustomEditors(PropertyEditorRegistry registry) {
-		registry.registerCustomEditor(Properties.class, "context", new StringToPropertiesPropertyEditor());
+		registry.registerCustomEditor(User.class, "context", new StringToPropertiesPropertyEditor());
 	}
 }
