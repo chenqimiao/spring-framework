@@ -55,6 +55,7 @@ import org.springframework.util.ReflectionUtils;
  */
 public final class CollectionFactory {
 
+	// 近似集合（Collection）的类型
 	private static final Set<Class<?>> approximableCollectionTypes = new HashSet<>();
 
 	private static final Set<Class<?>> approximableMapTypes = new HashSet<>();

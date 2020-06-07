@@ -200,6 +200,8 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 	private void createDefaultEditors() {
 		this.defaultEditors = new HashMap<>(64);
 
+		// PropertyEditor 是非线程安全的，所以每一个BeanWrapperImpl 会单独构建一份 defaultEditors
+
 		// Simple editors, without parameterization capabilities.
 		// The JDK does not contain a default editor for any of these target types.
 		this.defaultEditors.put(Charset.class, new CharsetEditor());

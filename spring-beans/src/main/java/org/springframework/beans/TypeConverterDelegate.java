@@ -59,6 +59,7 @@ class TypeConverterDelegate {
 	private final PropertyEditorRegistrySupport propertyEditorRegistry;
 
 	@Nullable
+	// BeanWrapperImpl.getWrappedInstance
 	private final Object targetObject;
 
 
@@ -166,9 +167,11 @@ class TypeConverterDelegate {
 				}
 				else if (requiredType.isArray()) {
 					// Array required -> apply appropriate conversion of elements.
+					// String a,b,c -> String[3] [a,b,c]
 					if (convertedValue instanceof String && Enum.class.isAssignableFrom(requiredType.getComponentType())) {
 						convertedValue = StringUtils.commaDelimitedListToStringArray((String) convertedValue);
 					}
+					// String[3] [a,b,c] -> 遍历元素，apply convertIfNecessary 形成新的数组返回
 					return (T) convertToTypedArray(convertedValue, propertyName, requiredType.getComponentType());
 				}
 				else if (convertedValue instanceof Collection) {
@@ -238,6 +241,7 @@ class TypeConverterDelegate {
 				else if (conversionService != null && typeDescriptor != null) {
 					// ConversionService not tried before, probably custom editor found
 					// but editor couldn't produce the required type...
+					// 自定义的 Custom Editor 无法达到预期，采用 ConversionService 继续尝试
 					TypeDescriptor sourceTypeDesc = TypeDescriptor.forObject(newValue);
 					if (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) {
 						return (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor);
@@ -280,6 +284,7 @@ class TypeConverterDelegate {
 
 		if (Enum.class == requiredType && this.targetObject != null) {
 			// target type is declared as raw enum, treat the trimmed value as <enum.fqn>.FIELD_NAME
+			// 解析 [A.B]的 形式的String 为Enum instance
 			int index = trimmedValue.lastIndexOf('.');
 			if (index > - 1) {
 				String enumType = trimmedValue.substring(0, index);
@@ -308,8 +313,10 @@ class TypeConverterDelegate {
 			// with values defined as static fields. Resulting value still needs
 			// to be checked, hence we don't return it right away.
 			try {
+				// requiredType 必须为具体的 Enum 类型，不能为 Enum 抽象类
 				Field enumField = requiredType.getField(trimmedValue);
 				ReflectionUtils.makeAccessible(enumField);
+				// static field 传递 null, 即可获得静态域实例.
 				convertedValue = enumField.get(null);
 			}
 			catch (Throwable ex) {
