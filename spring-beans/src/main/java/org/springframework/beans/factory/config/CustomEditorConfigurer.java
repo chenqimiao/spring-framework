@@ -92,6 +92,9 @@ import org.springframework.util.ClassUtils;
  * @see ConfigurableBeanFactory#addPropertyEditorRegistrar
  * @see ConfigurableBeanFactory#registerCustomEditor
  * @see org.springframework.validation.DataBinder#registerCustomEditor
+ * 该后置处理器本质是用来注册PropertyEditor，有两种方式
+ * 1.通过注册PropertyEditorRegistrar集合，每个PropertyEditorRegistrar可以批量注册一些PropertyEditor
+ * 2.直接注册一批customEditors
  */
 public class CustomEditorConfigurer implements BeanFactoryPostProcessor, Ordered {
 

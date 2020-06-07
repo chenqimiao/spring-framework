@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * @Auther: chenqimiao
  * @Date: 2020/5/21 16:53
- * @Description:
+ * @Description: Spring只会利用PropertyEditor，将String转化成指定类型,但其实PropertyEditor是支持将其他类型转化成String的。
  */
 public class StringToPropertiesPropertyEditor extends PropertyEditorSupport implements PropertyEditor {
 
