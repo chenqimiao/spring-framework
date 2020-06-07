@@ -3,7 +3,13 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean class="com.github.chenqimiao.conversion.CustomizedPropertyEditorRegistrar"/>
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean class="com.github.chenqimiao.conversion.CustomizedPropertyEditorRegistrar"/>
+			</list>
+		</property>
+	</bean>
 
 	<bean id ="user" class="com.github.chenqimiao.conversion.User">
 		<property name="context" >

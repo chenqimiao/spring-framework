@@ -4,7 +4,13 @@
 		xmlns:util="http://www.springframework.org/schema/util"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean class="com.github.chenqimiao.conversion.CustomizedPropertyEditorRegistrar"/>
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean class="com.github.chenqimiao.conversion.CustomizedPropertyEditorRegistrar"/>
+			</list>
+		</property>
+	</bean>
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
