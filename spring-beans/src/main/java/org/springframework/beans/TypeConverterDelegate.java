@@ -272,6 +272,9 @@ class TypeConverterDelegate {
 			if (editor == null && !standardConversion && requiredType != null && Object.class != requiredType) {
 				throw conversionAttemptEx;
 			}
+			// 即使没有加判断，下面这句话在info模式下也不会被打印出来，logger.isDebugEnabled()判断本质是为了节省字符串拼接的开销。
+			// 而Spring 没有使用占位符的形式打印日志 是因为历史原因，Spring 使用 apache commons-logging，但是该 log 框架不支持占位符.
+			// 详见：https://github.com/spring-projects/spring-framework/issues/23242#issuecomment-508986857
 			logger.debug("Original ConversionService attempt failed - ignored since " +
 					"PropertyEditor based conversion eventually succeeded", conversionAttemptEx);
 		}
