@@ -11,6 +11,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
  * @Date: 2020/1/17 09:31
  * @Description:
  */
+@SuppressWarnings("unchecked")
 public class InstantiateTestApplication {
 
 	public static void main(String[] args) throws Exception {

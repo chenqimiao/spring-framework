@@ -17,6 +17,7 @@ import org.springframework.core.io.Resource;
  * @Date: 2020/4/4 11:41
  * @Description:
  */
+@SuppressWarnings("unchecked")
 @Configuration(proxyBeanMethods = false)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:/META-INF/yaml/user-config.yaml", name = "yamlBasedPropertySource")
 public class YamlBasedConfigurationDemo {
