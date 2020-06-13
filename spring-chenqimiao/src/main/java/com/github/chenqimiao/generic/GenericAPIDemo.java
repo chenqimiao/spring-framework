@@ -23,6 +23,9 @@ public class GenericAPIDemo {
 		// raw class
 		Class<?> rawClass = String.class;
 
+		// TypeVariables
+		TypeVariable<?>[] typeVariables = ArrayList.class.getTypeParameters();
+
 		// parameterizedType
 		ParameterizedType parameterizedType = (ParameterizedType) ArrayList.class.getGenericSuperclass();
 
