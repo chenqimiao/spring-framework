@@ -52,8 +52,5 @@ public class GenericTypeResolverDemo {
 
 	}
 
-	static class StringList extends ArrayList<String>{
-
-	}
 }
 

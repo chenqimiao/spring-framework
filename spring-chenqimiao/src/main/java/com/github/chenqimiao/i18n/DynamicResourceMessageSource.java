@@ -102,7 +102,7 @@ public class DynamicResourceMessageSource extends AbstractMessageSource implemen
 				// watchKey 是否有效
 				try {
 					if (watchKey.isValid()) {
-						for (WatchEvent event : watchKey.pollEvents()) {
+						for (WatchEvent<?> event : watchKey.pollEvents()) {
 							Watchable watchable = watchKey.watchable();
 							// 目录路径（监听的注册目录）
 							Path dirPath = (Path) watchable;

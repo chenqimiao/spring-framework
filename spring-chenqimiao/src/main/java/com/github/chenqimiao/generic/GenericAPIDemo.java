@@ -15,13 +15,13 @@ public class GenericAPIDemo {
 	public static void main(String[] args) {
 
 		// primitive class
-		Class intClass = int.class;
+		Class<?> intClass = int.class;
 
 		// array class
-		Class arrayClass = Object[].class;
+		Class<?> arrayClass = Object[].class;
 
 		// raw class
-		Class rawClass = String.class;
+		Class<?> rawClass = String.class;
 
 		// parameterizedType
 		ParameterizedType parameterizedType = (ParameterizedType) ArrayList.class.getGenericSuperclass();
@@ -33,7 +33,7 @@ public class GenericAPIDemo {
 		Type[] types = parameterizedType.getActualTypeArguments();
 
 		// TypeVariable
-		TypeVariable typeVariable = (TypeVariable) types[0];
+		TypeVariable<?> typeVariable = (TypeVariable<?>) types[0];
 
 
 	}

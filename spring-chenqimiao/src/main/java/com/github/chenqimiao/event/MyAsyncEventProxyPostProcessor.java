@@ -9,7 +9,8 @@ import org.springframework.beans.BeansException;
  * @Date: 2020/2/26 15:24
  * @Description:
  */
-public class MyAsycEventProxyPostProcessor extends AbstractAutoProxyCreator {
+@SuppressWarnings("serial")
+public class MyAsyncEventProxyPostProcessor extends AbstractAutoProxyCreator {
 
 	@Override
 	protected Object[] getAdvicesAndAdvisorsForBean(Class<?> beanClass, String beanName,

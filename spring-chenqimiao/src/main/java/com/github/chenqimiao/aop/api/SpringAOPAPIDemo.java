@@ -36,7 +36,7 @@ public class SpringAOPAPIDemo {
 	@Bean
 	public ProxyFactoryBean userProxy() throws ClassNotFoundException {
 		ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
-		proxyFactoryBean.setProxyInterfaces(new Class[]{User.class});
+		proxyFactoryBean.setProxyInterfaces(new Class<?>[]{User.class});
 		//proxyFactoryBean.setInterceptorNames("myAdvisor","debugInterceptor");
 		proxyFactoryBean.setInterceptorNames("myAdvisor");
 		proxyFactoryBean.setTargetName("userTarget");

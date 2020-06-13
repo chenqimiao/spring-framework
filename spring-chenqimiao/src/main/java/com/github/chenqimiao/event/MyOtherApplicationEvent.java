@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEvent;
  * @Date: 2020/2/25 22:28
  * @Description:
  */
+@SuppressWarnings("serial")
 public class MyOtherApplicationEvent extends ApplicationEvent {
 	private String name;
 
