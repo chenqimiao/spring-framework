@@ -153,6 +153,8 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	 * @since 4.1
 	 */
 	protected void invokeListener(ApplicationListener<?> listener, ApplicationEvent event) {
+		// 在同步处理事件的时候，如果处理过程中的异常是可以容忍的，最好配置ErrorHandler，避免下面的实例也随之失败
+		// 又或者上下文启动期间的事件处理，配置errorHandler也可以避免上下文因处理事件异常导致启动失败
 		ErrorHandler errorHandler = getErrorHandler();
 		if (errorHandler != null) {
 			try {
