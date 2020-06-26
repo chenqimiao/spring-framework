@@ -402,11 +402,25 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		 * @see org.springframework.context.support.AbstractApplicationContext#prepareRefresh() 给earlyApplicationEvents赋值
 		 * @see org.springframework.context.support.AbstractApplicationContext#registerListeners() 将earlyApplicationEvents置为null
 		 *
-		 * 执行到这里的时候，如果监听器还未注册完毕，会将事件先放入到earlyApplicationEvents，
-		 * 等到监听器注册完毕，再将事件广播出去，并将earlyApplicationEvents置为null
+		 * 执行到这里的时候，如果广播器和监听器还未注册完毕，会将事件先放入到earlyApplicationEvents，
+		 * 等到广播器和监听器注册完毕，再将事件广播出去，并将earlyApplicationEvents置为null
 		 *
-		 * 所以某种意义上来说，earlyApplicationEvents是监听器是否注册完成的一个标志位
+		 * 所以某种意义上来说，earlyApplicationEvents是广播器是否注册完成的一个标志位
 		 *
+		 *
+		 *
+		 * earlyApplicationEvents主要是为了解决spring3.x的一个bug,
+		 * 假设在下面方法的
+		 * @see org.springframework.context.support.AbstractApplicationContext#registerBeanPostProcessors
+		 * 过早地实例化了一个BeanPostProcessor的实现类，而这个实现类又会在实例化的时候，会调用publishEvent方法发布一个事件，
+		 * 此时，
+		 * @see org.springframework.context.support.AbstractApplicationContext#initApplicationEventMulticaster
+		 * 与
+		 * @see org.springframework.context.support.AbstractApplicationContext#registerListeners
+		 * 都还未执行，广播器和监听器都还未初始化，无法广播事件。
+		 * 为了解决这个BUG,定义了一个early的概念，在广播器和监听器初始化之前发布的事件都放在earlyApplicationEvents，等初始化完成了，再去广播这些事件.
+		 * 类似
+		 * @see com.github.chenqimiao.event.EarlyApplicationEventDemo
 		 */
 		if (this.earlyApplicationEvents != null) {
 			this.earlyApplicationEvents.add(applicationEvent);
