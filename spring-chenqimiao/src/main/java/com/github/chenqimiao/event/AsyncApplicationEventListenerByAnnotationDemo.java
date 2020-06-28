@@ -2,9 +2,11 @@ package com.github.chenqimiao.event;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -39,6 +41,12 @@ public class AsyncApplicationEventListenerByAnnotationDemo {
 		public void onApplicationEvent(MyEvent event) {
 			System.out.printf("[线程]: %s 监听到事件 MyEvent \n", Thread.currentThread().getName());
 		}
+	}
+
+	@Bean
+	public AsyncConfigurer asyncConfigurer() {
+		AsyncConfigurer defaultConfigurer = new AsyncConfigurer(){};
+		return defaultConfigurer;
 	}
 
 }

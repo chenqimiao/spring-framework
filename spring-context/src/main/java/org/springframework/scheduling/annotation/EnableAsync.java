@@ -155,6 +155,10 @@ import org.springframework.core.Ordered;
  * @see Async
  * @see AsyncConfigurer
  * @see AsyncConfigurationSelector
+ *
+ * EnableAsync -> AsyncConfigurationSelector -> ProxyAsyncConfiguration
+ * -> AsyncAnnotationBeanPostProcessor -> advisor -> AsyncAnnotationAdvisor -> advice/pointcut -> interceptor -> ...
+ *
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
