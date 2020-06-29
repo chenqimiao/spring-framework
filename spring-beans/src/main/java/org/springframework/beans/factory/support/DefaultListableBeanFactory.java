@@ -514,6 +514,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			// is not defined as alias for some other bean.
 			if (!isAlias(beanName)) {
 				try {
+					// Local是针对父子工厂，Merged是针对对父子BeanDefinition
 					RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 					// Only check bean definition if it is complete.
 					if (!mbd.isAbstract() && (allowEagerInit ||

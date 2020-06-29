@@ -27,6 +27,11 @@ public class FactoryBeanLazyInitDemo {
 	}
 
 	@Bean
+	public MyEventListenerFactoryBean myEventListener() {
+		return new MyEventListenerFactoryBean();
+	}
+
+	@Bean
 	@Lazy
 	public User user1(){
 		return new User("wahaha");
