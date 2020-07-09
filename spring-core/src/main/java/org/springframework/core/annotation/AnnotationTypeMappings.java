@@ -43,6 +43,8 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * @since 5.2
  * @see AnnotationTypeMapping
  */
+
+// 可以简单理解为一个解析注解的工具类，这个工具类可以解析AliasFor的语义
 final class AnnotationTypeMappings {
 
 	private static final IntrospectionFailureLogger failureLogger = IntrospectionFailureLogger.DEBUG;
