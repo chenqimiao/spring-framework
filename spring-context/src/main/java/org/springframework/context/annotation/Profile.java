@@ -99,6 +99,7 @@ import org.springframework.core.env.Profiles;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+// 通过@Conditional实现
 @Conditional(ProfileCondition.class)
 public @interface Profile {
 
