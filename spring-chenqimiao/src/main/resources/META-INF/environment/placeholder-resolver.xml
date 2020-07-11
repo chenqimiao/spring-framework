@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="user" class="com.github.chenqimiao.environment.User">
+		<property name="name" value="${user.name}"/>
+		<property name="city" value="${user.city}"/>
+	</bean>
+
+<!--	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--		<property name="location" value="classpath:/META-INF/environment/user.properties"/>-->
+<!--		<property name="fileEncoding" value="UTF-8"/>-->
+<!--	</bean>-->
+
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="location" value="classpath:/META-INF/environment/user.properties"/>
+		<property name="fileEncoding" value="UTF-8"/>
+	</bean>
+</beans>
