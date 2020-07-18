@@ -663,6 +663,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					if (!this.cached) {
 						if (value != null || this.required) {
 							this.cachedFieldValue = desc;
+							// 这个方法很骚，看实现，里面的参数顺序被调转，看着很奇怪。最终的依赖关系还是ok的，beanName -> autowiredBeanNames
 							registerDependentBeans(beanName, autowiredBeanNames);
 							if (autowiredBeanNames.size() == 1) {
 								//当只有一个匹配的注入bean时，考虑缓存类型与对应的名字

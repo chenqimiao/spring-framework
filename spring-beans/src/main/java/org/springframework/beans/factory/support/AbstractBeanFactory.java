@@ -877,6 +877,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
         }
         String result = value;
         for (StringValueResolver resolver : this.embeddedValueResolvers) {
+        	// @see org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization
+        	// 调用路径 : Environment.resolvePlaceholders -> propertySourcePropertyResolver.resolvePlaceholders
             result = resolver.resolveStringValue(result);
             if (result == null) {
                 return null;
