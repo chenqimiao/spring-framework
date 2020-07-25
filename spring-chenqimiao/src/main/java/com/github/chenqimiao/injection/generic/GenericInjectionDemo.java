@@ -1,9 +1,11 @@
 package com.github.chenqimiao.injection.generic;
 
+import com.github.chenqimiao.injection.generic.scanpackage.MyStringGenericTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.io.Serializable;
  * @Create: 2020-07-25 19:08
  **/
 @Configuration(proxyBeanMethods = false)
+@ComponentScan(basePackages = "com.github.chenqimiao.injection.generic")
 public class GenericInjectionDemo {
 
 	@Autowired
@@ -27,6 +30,8 @@ public class GenericInjectionDemo {
 	// Bean声明和依赖注入声明的泛型信息不匹配，则无法进行依赖注入
 	// private MyTemplate<Serializable, Serializable> mySerializableTemplate;
 
+	@Autowired
+	private MyStringGenericTemplate<Integer> myStringGenericTemplate;
 
 	public static void main(String[] args) {
 		// 实例化上下文
@@ -46,6 +51,9 @@ public class GenericInjectionDemo {
 
 		// 打印 myTemplate
 		System.out.println(genericInjectionDemo.myTemplate);
+
+		// 打印myStringGenericTemplate
+		System.out.println(genericInjectionDemo.myStringGenericTemplate);
 	}
 
 

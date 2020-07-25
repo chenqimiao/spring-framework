@@ -137,7 +137,7 @@ public class GenericTypeAwareAutowireCandidateResolver extends SimpleAutowireCan
 			return true;
 		}
 		// Full check for complex generic type match...
-		// 依赖注入解析候选人解析是需要匹配泛型信息的
+		// 依赖注入解析的候选人解析是需要匹配泛型信息的
 		return dependencyType.isAssignableFrom(targetType);
 	}
 
