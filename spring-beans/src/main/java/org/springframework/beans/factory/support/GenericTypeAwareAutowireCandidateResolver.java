@@ -66,6 +66,7 @@ public class GenericTypeAwareAutowireCandidateResolver extends SimpleAutowireCan
 			// If explicitly false, do not proceed with any other checks...
 			return false;
 		}
+		// 依赖解析的时候，会去识别依赖的泛型信息
 		return checkGenericTypeMatch(bdHolder, descriptor);
 	}
 
@@ -136,6 +137,7 @@ public class GenericTypeAwareAutowireCandidateResolver extends SimpleAutowireCan
 			return true;
 		}
 		// Full check for complex generic type match...
+		// 依赖注入解析候选人解析是需要匹配泛型信息的
 		return dependencyType.isAssignableFrom(targetType);
 	}
 

@@ -740,7 +740,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	@Override
 	public boolean isAutowireCandidate(String beanName, DependencyDescriptor descriptor)
 			throws NoSuchBeanDefinitionException {
-
+		// 默认使用ContextAnnotationAutowireCandidateResolver 进行解析
 		return isAutowireCandidate(beanName, descriptor, getAutowireCandidateResolver());
 	}
 

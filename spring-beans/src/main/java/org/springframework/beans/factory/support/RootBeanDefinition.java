@@ -67,6 +67,7 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	boolean isFactoryMethodUnique = false;
 
+	// 这里是ResolvableType， 说明记录了类型的泛型信息
 	@Nullable
 	volatile ResolvableType targetType;
 
