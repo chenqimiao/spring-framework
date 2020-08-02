@@ -156,6 +156,7 @@ public class User implements BeanNameAware, BeanClassLoaderAware, BeanFactoryAwa
 		System.out.println("Custom destroy method, user.name = " + this.name);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
