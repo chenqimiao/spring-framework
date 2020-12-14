@@ -367,6 +367,7 @@ public abstract class ReflectionUtils {
 		if (clazz.getSuperclass() != null && (mf != USER_DECLARED_METHODS || clazz.getSuperclass() != Object.class)) {
 			doWithMethods(clazz.getSuperclass(), mc, mf);
 		}
+		// interface.getSuperClass == null
 		else if (clazz.isInterface()) {
 			for (Class<?> superIfc : clazz.getInterfaces()) {
 				doWithMethods(superIfc, mc, mf);
