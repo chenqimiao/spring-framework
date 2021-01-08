@@ -5,16 +5,16 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**
  * @Description:
  * @Author: Qimiao Chen
- * @Create: 2020-12-31 15:09
+ * @Create: 2021-01-08 14:47
  **/
 @Aspect
-@Order // 默认是最低优先级
-public class AspectJConfiguration {
+public class AspectJConfiguration2 implements Ordered {
 
 	@Pointcut("execution(public * *(..))")
 	private void anyPublicMethod(){
@@ -23,12 +23,17 @@ public class AspectJConfiguration {
 
 	@Before("anyPublicMethod()")
 	public void before(){
-		System.out.println("@Before advice ...");
+		System.out.println("@Before advice2 ...");
 	}
 
 	@Around("anyPublicMethod()")
 	public void around(ProceedingJoinPoint joinPoint) throws Throwable{
-		System.out.println("@Around advice ...");
+		System.out.println("@Around advice2 ...");
 		joinPoint.proceed();
+	}
+
+	@Override
+	public int getOrder() {
+		return 0;
 	}
 }
