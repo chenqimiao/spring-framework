@@ -1,5 +1,7 @@
 package com.github.chenqimiao.aop.feature;
 
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -20,5 +22,11 @@ public class AspectJConfiguration {
 	@Before("anyPublicMethod()")
 	public void before(){
 		System.out.println("@Before advice ...");
+	}
+
+	@Around("anyPublicMethod()")
+	public void around(ProceedingJoinPoint joinPoint) throws Throwable{
+		System.out.println("@Around advice ...");
+		joinPoint.proceed();
 	}
 }
