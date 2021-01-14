@@ -1,11 +1,10 @@
 package com.github.chenqimiao.aop.feature;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
+
+import java.util.Random;
 
 /**
  * @Description:
@@ -22,7 +21,11 @@ public class AspectJConfiguration {
 	}
 
 	@Before("anyPublicMethod()")
-	public void before(){
+	public void before() throws Exception{
+		Random random = new Random();
+		if (random.nextBoolean()){
+			throw new RuntimeException("On purpose.");
+		}
 		System.out.println("@Before advice ...");
 	}
 
@@ -31,4 +34,21 @@ public class AspectJConfiguration {
 		System.out.println("@Around advice ...");
 		joinPoint.proceed();
 	}
+
+	@After("anyPublicMethod()")
+	public void after() throws Throwable{
+		System.out.println("@After advice ...");
+	}
+
+	@AfterReturning("anyPublicMethod()")
+	public void afterReturning() throws Throwable{
+		System.out.println("@AfterReturning advice ...");
+	}
+
+	@AfterThrowing("anyPublicMethod()")
+	public void afterThrowing() throws Throwable{
+		System.out.println("@AfterThrowing advice ...");
+	}
+
+
 }
