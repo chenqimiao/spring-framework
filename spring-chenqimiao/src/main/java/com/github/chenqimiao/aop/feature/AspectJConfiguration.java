@@ -22,10 +22,10 @@ public class AspectJConfiguration {
 
 	@Before("anyPublicMethod()")
 	public void before() throws Exception{
-		Random random = new Random();
-		if (random.nextBoolean()){
-			throw new RuntimeException("On purpose.");
-		}
+//		Random random = new Random();
+//		if (random.nextBoolean()){
+//			throw new RuntimeException("On purpose.");
+//		}
 		System.out.println("@Before advice ...");
 	}
 

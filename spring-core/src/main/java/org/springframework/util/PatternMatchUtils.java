@@ -47,26 +47,31 @@ public abstract class PatternMatchUtils {
 
 		if (firstIndex == 0) {
 			if (pattern.length() == 1) {
+				// pattern: * All match
 				return true;
 			}
 			int nextIndex = pattern.indexOf('*', 1);
 			if (nextIndex == -1) {
+				// pattern: *XXX
 				return str.endsWith(pattern.substring(1));
 			}
 			String part = pattern.substring(1, nextIndex);
 			if (part.isEmpty()) {
+				// pattern: **XXX 与 *XXX 同义
 				return simpleMatch(pattern.substring(nextIndex), str);
 			}
 			int partIndex = str.indexOf(part);
 			while (partIndex != -1) {
+				// pattern: *xx*abc, str: xxXXXabc, 拿 pattern: *abc 与 str: XXXabc 继续 match
 				if (simpleMatch(pattern.substring(nextIndex), str.substring(partIndex + part.length()))) {
 					return true;
 				}
+				// pattern: *xx*abc, str: xxXXXabdxxXXXabc, 拿 pattern: *abc 与 str: XXXabc 继续 match
 				partIndex = str.indexOf(part, partIndex + 1);
 			}
 			return false;
 		}
-
+		// pattern: xxx*xxx ，分俩部分比较 ：1. xxx的比较 2. *xxx的递归比较
 		return (str.length() >= firstIndex &&
 				pattern.substring(0, firstIndex).equals(str.substring(0, firstIndex)) &&
 				simpleMatch(pattern.substring(firstIndex), str.substring(firstIndex)));
