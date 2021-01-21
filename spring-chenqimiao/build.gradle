@@ -17,6 +17,9 @@ dependencies {
 	//引入aspectj依赖，Spring默认没有引入这个依赖
 	compile ("org.aspectj:aspectjweaver:1.9.4")
 	compile ("javax.annotation:javax.annotation-api:1.3.2")
+
+	compile "org.apache.commons:commons-pool2:2.9.0"
+
 	//假如依赖的依赖是optional，间接依赖，也需要手动引入
 	compile("org.yaml:snakeyaml")
 	testCompile group: 'junit', name: 'junit', version: '4.13'
