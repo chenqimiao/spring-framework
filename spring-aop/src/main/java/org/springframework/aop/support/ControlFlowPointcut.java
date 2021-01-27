@@ -94,7 +94,7 @@ public class ControlFlowPointcut implements Pointcut, ClassFilter, MethodMatcher
 	@Override
 	public boolean matches(Method method, Class<?> targetClass, Object... args) {
 		this.evaluations.incrementAndGet();
-
+		// 进行调用链匹配，但是效率不高
 		for (StackTraceElement element : new Throwable().getStackTrace()) {
 			if (element.getClassName().equals(this.clazz.getName()) &&
 					(this.methodName == null || element.getMethodName().equals(this.methodName))) {

@@ -133,6 +133,7 @@ public abstract class ClassFilters {
 	@SuppressWarnings("serial")
 	private static class IntersectionClassFilter implements ClassFilter, Serializable {
 
+		// 链式组合
 		private final ClassFilter[] filters;
 
 		IntersectionClassFilter(ClassFilter[] filters) {
@@ -141,6 +142,7 @@ public abstract class ClassFilters {
 
 		@Override
 		public boolean matches(Class<?> clazz) {
+			//  链式调用
 			for (ClassFilter filter : this.filters) {
 				if (!filter.matches(clazz)) {
 					return false;
