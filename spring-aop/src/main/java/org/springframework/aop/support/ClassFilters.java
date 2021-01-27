@@ -133,7 +133,7 @@ public abstract class ClassFilters {
 	@SuppressWarnings("serial")
 	private static class IntersectionClassFilter implements ClassFilter, Serializable {
 
-		// 链式组合
+		// 链式组合（属于组合设计模式）
 		private final ClassFilter[] filters;
 
 		IntersectionClassFilter(ClassFilter[] filters) {

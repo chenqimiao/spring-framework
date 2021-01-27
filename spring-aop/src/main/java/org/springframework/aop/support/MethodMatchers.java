@@ -274,7 +274,7 @@ public abstract class MethodMatchers {
 	@SuppressWarnings("serial")
 	private static class IntersectionMethodMatcher implements MethodMatcher, Serializable {
 
-		// 普通组合
+		// 普通组合（属于组合设计模式）
 		protected final MethodMatcher mm1;
 
 		protected final MethodMatcher mm2;
