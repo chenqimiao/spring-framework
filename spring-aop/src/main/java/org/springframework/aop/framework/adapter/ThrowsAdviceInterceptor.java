@@ -80,6 +80,7 @@ public class ThrowsAdviceInterceptor implements MethodInterceptor, AfterAdvice {
 		for (Method method : methods) {
 			if (method.getName().equals(AFTER_THROWING) &&
 					(method.getParameterCount() == 1 || method.getParameterCount() == 4)) {
+				// 符合一定规范的方法，会被认为是异常处理器，方法名为 afterThrowing，修饰符为 public, 参数个数为1个或者4个，最后一个参数是 Throwable 或其子类
 				Class<?> throwableParam = method.getParameterTypes()[method.getParameterCount() - 1];
 				if (Throwable.class.isAssignableFrom(throwableParam)) {
 					// An exception handler to register...
