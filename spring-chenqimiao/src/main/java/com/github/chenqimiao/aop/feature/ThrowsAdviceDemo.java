@@ -18,7 +18,7 @@ public class ThrowsAdviceDemo {
 		ThrowsAdviceDemo instance = new ThrowsAdviceDemo();
 		ProxyFactory proxyFactory = new ProxyFactory(instance);
 		proxyFactory.addAdvice(new MyThrowsAdvice(){
-			public void afterThrowing(Method method, Object[] args, Object target, Exception ex){
+//			public void afterThrowing(Method method, Object[] args, Object target, Exception ex){
 //				System.out.printf("Method : %s , args : %s , target : %s, exception : %s\n",
 //						method,
 //						Arrays.asList(args),
