@@ -25,7 +25,7 @@ public class ThrowsAdviceDemo {
 //						target,
 //						ex
 //				);
-			}
+//			}
 		});
 
 		ThrowsAdviceDemo proxy = (ThrowsAdviceDemo)proxyFactory.getProxy();

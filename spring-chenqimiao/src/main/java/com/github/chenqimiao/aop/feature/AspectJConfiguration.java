@@ -46,6 +46,13 @@ public class AspectJConfiguration {
 	}
 
 	@AfterThrowing("anyPublicMethod()")
+	// AspectJAfterReturningAdvice is AfterReturningAdvice
+	// 一个 AfterReturningAdviceInterceptor 关联一个 AfterReturningAdvice
+	// Spring 封装 AfterReturningAdvice -> AfterReturningAdviceInterceptor
+	// AfterReturningAdviceInterceptor is MethodInterceptor
+	// AfterReturningAdviceInterceptor
+	//  -> AspectJAfterReturningAdvice
+	//      -> AbstractAspectJAdvice#invokeAdviceMethodWithGivenArgs
 	public void afterThrowing() throws Throwable{
 		System.out.println("@AfterThrowing advice ...");
 	}
