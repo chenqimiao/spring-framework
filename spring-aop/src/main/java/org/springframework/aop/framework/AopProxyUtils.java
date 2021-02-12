@@ -225,20 +225,24 @@ public abstract class AopProxyUtils {
 		}
 		if (method.isVarArgs()) {
 			Class<?>[] paramTypes = method.getParameterTypes();
+			// 相等，说明实参传递了可变参数，
 			if (paramTypes.length == arguments.length) {
 				int varargIndex = paramTypes.length - 1;
 				Class<?> varargType = paramTypes[varargIndex];
 				if (varargType.isArray()) {
 					Object varargArray = arguments[varargIndex];
-					// 下面条件成立，可变参数类型实参则需要向下转型
+					// 下面条件(可变实参类型不是形参的子类或其本身)成立，可变参数类型实参则需要向下转型
 					// 数组是支持协变的，集合泛型是不支持多态的
 					if (varargArray instanceof Object[] && !varargType.isInstance(varargArray)) {
 						Object[] newArguments = new Object[arguments.length];
 						System.arraycopy(arguments, 0, newArguments, 0, varargIndex);
 						Class<?> targetElementType = varargType.getComponentType();
 						int varargLength = Array.getLength(varargArray);
+						// 生成一个与形参可变类型一致的数组
 						Object newVarargArray = Array.newInstance(targetElementType, varargLength);
+						// 实参可变参数数组转型
 						System.arraycopy(varargArray, 0, newVarargArray, 0, varargLength);
+						// 将转型后的可变实参数组赋到实参数组的最后一位
 						newArguments[varargIndex] = newVarargArray;
 						return newArguments;
 					}
