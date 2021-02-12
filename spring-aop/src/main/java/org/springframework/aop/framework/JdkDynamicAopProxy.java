@@ -174,6 +174,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 			}
 			else if (method.getDeclaringClass() == DecoratingProxy.class) {
 				// There is only getDecoratedClass() declared -> dispatch to proxy config.
+				// 找最终的 targetClass
 				return AopProxyUtils.ultimateTargetClass(this.advised);
 			}
 			else if (!this.advised.opaque && method.getDeclaringClass().isInterface() &&
@@ -192,6 +193,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 
 			// Get as late as possible to minimize the time we "own" the target,
 			// in case it comes from a pool.
+			// 池化的资源尽可能减少持有时间
 			target = targetSource.getTarget();
 			Class<?> targetClass = (target != null ? target.getClass() : null);
 
@@ -223,6 +225,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 				// Special case: it returned "this" and the return type of the method
 				// is type-compatible. Note that we can't help if the target sets
 				// a reference to itself in another returned object.
+				// 目标方法将 this 传递给其他返回对象，作为属性之一，这种情况， spring 无法无法处理
 				retVal = proxy;
 			}
 			else if (retVal == null && returnType != Void.TYPE && returnType.isPrimitive()) {

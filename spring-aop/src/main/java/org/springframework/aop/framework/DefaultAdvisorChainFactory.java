@@ -47,6 +47,14 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("serial")
 public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializable {
 
+	/**
+	 * 兑现ClassFilter、MethodMatcher 语意，返回用户需要的interceptor
+	 * @param config the AOP configuration in the form of an Advised object
+	 * @param method the proxied method
+	 * @param targetClass the target class (may be {@code null} to indicate a proxy without
+	 * target object, in which case the method's declaring class is the next best option)
+	 * @return
+	 */
 	@Override
 	public List<Object> getInterceptorsAndDynamicInterceptionAdvice(
 			Advised config, Method method, @Nullable Class<?> targetClass) {
@@ -73,10 +81,12 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 						match = ((IntroductionAwareMethodMatcher) mm).matches(method, actualClass, hasIntroductions);
 					}
 					else {
+						// 静态过滤
 						match = mm.matches(method, actualClass);
 					}
 					if (match) {
 						MethodInterceptor[] interceptors = registry.getInterceptors(advisor);
+						// MethodMatcher 如果是运行时的，则返回一个组合对象，保证运行时的一个过滤（往往是对实参的一个条件过滤）
 						if (mm.isRuntime()) {
 							// Creating a new object instance in the getInterceptors() method
 							// isn't a problem as we normally cache created chains.

@@ -98,6 +98,13 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/**
 	 * Array updated on changes to the advisors list, which is easier
 	 * to manipulate internally.
+	 * 1.为什么有了 List<Advisor>, 还要定义Advisor[]
+	 * 内部使用List, 对外使用拷贝List成数组，进行返回，保护内部数据结构
+	 * 2.为什么不直接使用this.advisors.toArray(new Advisor[0]);进行返回？
+	 * 在org.springframework.aop.framework.AdvisedSupport#updateAdvisorArray()进行数组的更新，
+	 * 在org.springframework.aop.framework.AdvisedSupport#getAdvisors()方法中直接可以返回数组，
+	 * 本质上还是空间换时间的思想，因为集合转数组是有性能开销的，存在数组拷贝的过程.
+	 *
 	 */
 	private Advisor[] advisorArray = new Advisor[0];
 
@@ -579,6 +586,8 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/**
 	 * Simple wrapper class around a Method. Used as the key when
 	 * caching methods, for efficient equals and hashCode comparisons.
+	 *
+	 * 实现了equals、hashCode、compareTo 可作为TreeMap的key
 	 */
 	private static final class MethodCacheKey implements Comparable<MethodCacheKey> {
 

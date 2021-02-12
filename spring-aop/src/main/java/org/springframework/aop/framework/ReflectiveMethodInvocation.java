@@ -186,6 +186,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			// been evaluated statically before this object was constructed.
 			// 这里是一个责任链模式，请注意this是也是一个MethodInterceptor类型，
 			// 下面的invoke方法内，在执行对应的拦截逻辑之后，会调用this.proceed().
+			// 递归调用: methodInvocation(存放了完整的上下文) -> interceptor -> methodInvocation
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}

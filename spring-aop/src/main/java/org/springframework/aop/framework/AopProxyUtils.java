@@ -230,7 +230,8 @@ public abstract class AopProxyUtils {
 				Class<?> varargType = paramTypes[varargIndex];
 				if (varargType.isArray()) {
 					Object varargArray = arguments[varargIndex];
-					//下面条件成立，可变参数类型实参则需要向下转型
+					// 下面条件成立，可变参数类型实参则需要向下转型
+					// 数组是支持协变的，集合泛型是不支持多态的
 					if (varargArray instanceof Object[] && !varargType.isInstance(varargArray)) {
 						Object[] newArguments = new Object[arguments.length];
 						System.arraycopy(arguments, 0, newArguments, 0, varargIndex);
