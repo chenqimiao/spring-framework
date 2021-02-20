@@ -91,6 +91,8 @@ import org.springframework.util.ObjectUtils;
  * @see Advised
  *
  * 注意这是一个Advised、ProxyConfig的实现
+ *
+ * ProxyCreatorSupport Ioc 实现
  */
 @SuppressWarnings("serial")
 public class ProxyFactoryBean extends ProxyCreatorSupport
