@@ -253,6 +253,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	@Override
 	@Nullable
 	public Object getObject() throws BeansException {
+		// 初始化 AdvisorChain
 		initializeAdvisorChain();
 		if (isSingleton()) {
 			return getSingletonInstance();
@@ -350,7 +351,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 		if (logger.isTraceEnabled()) {
 			logger.trace("Creating copy of prototype ProxyFactoryBean config: " + this);
 		}
-
+		// 若子类覆盖 getAopProxyFactory() 可进行扩展 .
 		ProxyCreatorSupport copy = new ProxyCreatorSupport(getAopProxyFactory());
 		// The copy needs a fresh advisor chain, and a fresh TargetSource.
 		TargetSource targetSource = freshTargetSource();
@@ -367,6 +368,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 		if (logger.isTraceEnabled()) {
 			logger.trace("Using ProxyCreatorSupport copy: " + copy);
 		}
+		// 每一个 instance 对应一个 ProxyCreatorSupport 实例的
 		return getProxy(copy.createAopProxy());
 	}
 
