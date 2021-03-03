@@ -56,6 +56,7 @@ public class SimpleAspectInstanceFactory implements AspectInstanceFactory {
 	@Override
 	public final Object getAspectInstance() {
 		try {
+			// 默认构造器去构造 Aspect 实例
 			return ReflectionUtils.accessibleConstructor(this.aspectClass).newInstance();
 		}
 		catch (NoSuchMethodException ex) {

@@ -84,6 +84,7 @@ public class AspectMetadata implements Serializable {
 		Class<?> currClass = aspectClass;
 		AjType<?> ajType = null;
 		while (currClass != Object.class) {
+			// 利用 AspectJ 的原生 API 去解析 Aspect Class
 			AjType<?> ajTypeToCheck = AjTypeSystem.getAjType(currClass);
 			if (ajTypeToCheck.isAspect()) {
 				ajType = ajTypeToCheck;
