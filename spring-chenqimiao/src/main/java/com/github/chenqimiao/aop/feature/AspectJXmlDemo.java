@@ -15,7 +15,8 @@ public class AspectJXmlDemo {
 		aspectJXmlDemo.execute();
 	}
 
-	public void execute(){
+	public String execute(){
 		System.out.println("execute() ...");
+		return "execute()";
 	}
 }

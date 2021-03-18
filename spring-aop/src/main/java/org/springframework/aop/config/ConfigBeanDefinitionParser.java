@@ -373,6 +373,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 		adviceDefinition.getPropertyValues().add(DECLARATION_ORDER_PROPERTY, order);
 
 		if (adviceElement.hasAttribute(RETURNING)) {
+			// after-returning 会注入一个属性(returning) 到 bean 实例中去
 			adviceDefinition.getPropertyValues().add(
 					RETURNING_PROPERTY, adviceElement.getAttribute(RETURNING));
 		}

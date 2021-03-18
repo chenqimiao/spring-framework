@@ -22,7 +22,7 @@ public class AspectXmlConfig {
 	public void around(ProceedingJoinPoint joinPoint) throws Throwable{
 		Random random = new Random();
 		if (random.nextBoolean()){
-			throw new RuntimeException("On purpose.");
+			// throw new RuntimeException("On purpose.");
 		}
 		System.out.println("@Around advice ...");
 		joinPoint.proceed();
