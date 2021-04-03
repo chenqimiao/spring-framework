@@ -40,6 +40,9 @@ package org.springframework.aop.framework;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ *
+ * 很标准的一个抽象工厂模式, 生产同一抽象类型的对象，但是这些对象实现不同
  */
 public interface AopProxyFactory {
 

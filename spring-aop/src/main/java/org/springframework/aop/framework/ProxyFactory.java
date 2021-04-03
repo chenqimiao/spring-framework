@@ -29,6 +29,11 @@ import org.springframework.util.ClassUtils;
  *
  *
  * ProxyCreatorSupport 标准实现
+ *
+ * 普通工厂模式，分为静态（类）和动态（对象），指的是工厂是否需要实例化
+ * 与抽象工厂的区别：
+ * 	1. 没有抽象接口或者抽象类对创建方法的一个约束
+ * 	2. 往往普通工厂只会创建某种某一个具体的类型对象，但是也不绝对
  */
 @SuppressWarnings("serial")
 public class ProxyFactory extends ProxyCreatorSupport {

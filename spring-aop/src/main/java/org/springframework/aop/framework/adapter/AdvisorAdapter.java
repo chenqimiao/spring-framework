@@ -33,6 +33,8 @@ import org.springframework.aop.Advisor;
  * do so only if you need to introduce more Advisor or Advice types to Spring.
  *
  * @author Rod Johnson
+ *
+ * 适配器模式，或者说象转换器模式
  */
 public interface AdvisorAdapter {
 

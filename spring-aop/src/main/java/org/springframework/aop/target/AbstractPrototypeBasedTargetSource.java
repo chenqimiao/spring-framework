@@ -42,6 +42,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
  * @see PrototypeTargetSource
  * @see ThreadLocalTargetSource
  * @see CommonsPool2TargetSource
+ *
+ * 原型模式
  */
 @SuppressWarnings("serial")
 public abstract class AbstractPrototypeBasedTargetSource extends AbstractBeanFactoryBasedTargetSource {

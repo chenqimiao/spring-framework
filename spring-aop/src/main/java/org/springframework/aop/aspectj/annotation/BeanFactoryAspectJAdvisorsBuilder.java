@@ -37,6 +37,8 @@ import org.springframework.util.Assert;
  * @author Juergen Hoeller
  * @since 2.0.2
  * @see AnnotationAwareAspectJAutoProxyCreator
+ *
+ * 构造器模式, 与抽象工厂模式不同，它构造的对象往往是同一种具体对象（当然也可以生成不同的具体对象），但是具体对象所包含的属性可能是不一样的，这种模式比较关注对象属性的填充过程
  */
 public class BeanFactoryAspectJAdvisorsBuilder {
 

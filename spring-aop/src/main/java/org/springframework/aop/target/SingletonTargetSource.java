@@ -34,6 +34,8 @@ import org.springframework.util.ObjectUtils;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.aop.framework.AdvisedSupport#setTarget(Object)
+ *
+ * 单例模式
  */
 public class SingletonTargetSource implements TargetSource, Serializable {
 
