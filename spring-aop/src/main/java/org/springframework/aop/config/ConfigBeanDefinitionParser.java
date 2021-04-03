@@ -139,6 +139,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	 * with the supplied {@link BeanDefinitionRegistry}.
 	 */
 	private void parseAdvisor(Element advisorElement, ParserContext parserContext) {
+		// 生成的 bean definition 包含 advice 和 order 属性
 		AbstractBeanDefinition advisorDef = createAdvisorBeanDefinition(advisorElement, parserContext);
 		String id = advisorElement.getAttribute(ID);
 
@@ -149,16 +150,19 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 				parserContext.getRegistry().registerBeanDefinition(advisorBeanName, advisorDef);
 			}
 			else {
+				// 将 advisor bean definition 注册到 context 中
 				advisorBeanName = parserContext.getReaderContext().registerWithGeneratedName(advisorDef);
 			}
-
+			// 两种情况: Pointcut BeanDefinition or pointcut ref
 			Object pointcut = parsePointcutProperty(advisorElement, parserContext);
 			if (pointcut instanceof BeanDefinition) {
+				// 将 pointcut 属性注入到 advisor bean definition
 				advisorDef.getPropertyValues().add(POINTCUT, pointcut);
 				parserContext.registerComponent(
 						new AdvisorComponentDefinition(advisorBeanName, advisorDef, (BeanDefinition) pointcut));
 			}
 			else if (pointcut instanceof String) {
+				// 将 pointcut 属性注入到 advisor bean definition
 				advisorDef.getPropertyValues().add(POINTCUT, new RuntimeBeanReference((String) pointcut));
 				parserContext.registerComponent(
 						new AdvisorComponentDefinition(advisorBeanName, advisorDef));
@@ -471,6 +475,8 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	 */
 	@Nullable
 	private Object parsePointcutProperty(Element element, ParserContext parserContext) {
+		// 这个分支逻辑可以学习
+		// if (both match) else if (one match) else if (other one match) else (both not match)
 		if (element.hasAttribute(POINTCUT) && element.hasAttribute(POINTCUT_REF)) {
 			parserContext.getReaderContext().error(
 					"Cannot define both 'pointcut' and 'pointcut-ref' on <advisor> tag.",

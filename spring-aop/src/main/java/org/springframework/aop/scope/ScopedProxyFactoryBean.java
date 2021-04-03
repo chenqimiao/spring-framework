@@ -108,6 +108,11 @@ public class ScopedProxyFactoryBean extends ProxyConfig
 
 		// Add an introduction that implements only the methods on ScopedObject.
 		ScopedObject scopedObject = new DefaultScopedObject(cbf, this.scopedTargetSource.getTargetBeanName());
+		// pf.interfaces 来源如下：
+		// pf（interfaces）-> DelegatingIntroductionInterceptor(IntroductionInfo.interfaces) -> DelegatingIntroductionInterceptor.publishedInterfaces -> DefaultScopedObject 实现的接口
+		// 如此便可以让生成的代理对象实现 ScopedObject 接口
+		// 因此经过scoped-proxy 增强之后，可以将 proxy 转化成 ScopedObject类型，调用其getTargetObject 获得目标对象
+		// 其原理无非是将其委托到了 DefaultScopedObject.getTargetObject 方法
 		pf.addAdvice(new DelegatingIntroductionInterceptor(scopedObject));
 
 		// Add the AopInfrastructureBean marker to indicate that the scoped proxy

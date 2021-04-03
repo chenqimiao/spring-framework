@@ -15,14 +15,20 @@
 
 	<bean id="aspectJXmlDemo" class="com.github.chenqimiao.aop.feature.AspectJXmlDemo"/>
 	<aop:config>
+		<aop:pointcut id="anyPublicMethod" expression="execution(public * *(..))"/>
+		<aop:advisor advice-ref="echoServiceMethodInterceptor" pointcut-ref="anyPublicMethod"></aop:advisor>
 		<aop:aspect id="AspectXmlConfig" ref="aspectXmlConfig">
 			<aop:pointcut id="anyPublicMethod" expression="execution(public * *(..))"/>
 <!--			<aop:before method="before" pointcut-ref="anyPublicMethod"/>-->
-			<aop:around method="around" pointcut-ref="anyPublicMethod"/>
+<!--			<aop:around method="around" pointcut-ref="anyPublicMethod"/>-->
 <!--			<aop:after method="before" pointcut-ref="anyPublicMethod"/>-->
 <!--			<aop:after-returning method="afterReturning" pointcut-ref="anyPublicMethod" returning="java.lang.String"/>-->
 <!--			<aop:after-throwing method="afterThrowing" pointcut-ref="anyPublicMethod"/>-->
 		</aop:aspect>
 	</aop:config>
 
+	<bean id ="echoServiceMethodInterceptor" class="com.github.chenqimiao.aop.feature.interceptor.EchoServiceMethodInterceptor"></bean>
+	<bean id="echoService" class="com.github.chenqimiao.aop.overview.DefaultEchoService">
+		<aop:scoped-proxy/>
+	</bean>
 </beans>
