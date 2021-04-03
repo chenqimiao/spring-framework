@@ -95,6 +95,8 @@ public abstract class ScopedProxyUtils {
 		// Return the scoped proxy definition as primary bean definition
 		// (potentially an inner bean).
 		// 注册 proxy definition 以 originalBeanName （注意！！！！）
+		// 在 bean 生成顺序上来说，先生成 scopedTarget.xxxx, 再去创建 xxx, 此时的 xxx 对应的 bean class 是 ScopedProxyFactoryBean, 回调 setBeanFactory 方法，
+		// 在此方法调用完成之后，会生成 proxy 对象. 通过 ScopedProxyFactoryBean.getObject 方法就可以拿到 proxy 对象了
 		return new BeanDefinitionHolder(proxyDefinition, originalBeanName, definition.getAliases());
 	}
 
