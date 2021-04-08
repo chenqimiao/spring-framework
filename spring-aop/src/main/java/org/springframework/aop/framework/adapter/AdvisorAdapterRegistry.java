@@ -27,6 +27,8 @@ import org.springframework.aop.Advisor;
  *
  * @author Rod Johnson
  * @author Rob Harrop
+ *
+ * 注册中心，享元模式
  */
 public interface AdvisorAdapterRegistry {
 

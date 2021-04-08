@@ -40,6 +40,8 @@ import org.springframework.util.Assert;
  * @author Rob Harrop
  * @since 11.11.2003
  * @see Pointcuts
+ *
+ * 组合模式
  */
 public class ComposablePointcut implements Pointcut, Serializable {
 

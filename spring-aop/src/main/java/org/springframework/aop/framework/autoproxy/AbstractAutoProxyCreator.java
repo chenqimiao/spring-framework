@@ -83,6 +83,8 @@ import org.springframework.util.StringUtils;
  * @see #getAdvicesAndAdvisorsForBean
  * @see BeanNameAutoProxyCreator
  * @see DefaultAdvisorAutoProxyCreator
+ *
+ * 使用了"模版方法"设计模式
  */
 @SuppressWarnings("serial")
 public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
@@ -582,6 +584,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
      * @throws BeansException in case of errors
      * @see #DO_NOT_PROXY
      * @see #PROXY_WITHOUT_ADDITIONAL_INTERCEPTORS
+	 *
+	 * 由子类实现，调用这个方法的方法就是模版方法
      */
     @Nullable
     protected abstract Object[] getAdvicesAndAdvisorsForBean(Class<?> beanClass, String beanName, @Nullable TargetSource customTargetSource)

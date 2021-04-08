@@ -28,6 +28,8 @@ import org.springframework.lang.Nullable;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see DefaultAopProxyFactory
+ *
+ *  代理模式
  */
 public interface AopProxy {
 
