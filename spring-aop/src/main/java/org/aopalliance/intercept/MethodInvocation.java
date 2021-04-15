@@ -27,6 +27,9 @@ import java.lang.reflect.Method;
  *
  * @author Rod Johnson
  * @see MethodInterceptor
+ *
+ * 命令模式
+ *
  */
 public interface MethodInvocation extends Invocation {
 

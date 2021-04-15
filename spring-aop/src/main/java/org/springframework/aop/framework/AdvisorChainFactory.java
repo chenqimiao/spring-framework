@@ -26,6 +26,8 @@ import org.springframework.lang.Nullable;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
+ *
+ * 责任链模式和抽象工厂模式的结合
  */
 public interface AdvisorChainFactory {
 

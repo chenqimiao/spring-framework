@@ -27,6 +27,8 @@ import org.springframework.util.Assert;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see AdvisedSupport
+ *
+ * 状态模式
  */
 public class ProxyConfig implements Serializable {
 

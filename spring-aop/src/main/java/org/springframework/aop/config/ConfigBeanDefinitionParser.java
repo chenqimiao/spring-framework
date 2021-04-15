@@ -411,6 +411,9 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 
 	/**
 	 * Gets the advice implementation class corresponding to the supplied {@link Element}.
+	 *
+	 * 策略模式 一般使用分支或者多态结合SPI等配置的方式实现，相对来说分支的实现方式扩展性略差，但实现更简单
+	 *
 	 */
 	private Class<?> getAdviceClass(Element adviceElement, ParserContext parserContext) {
 		String elementName = parserContext.getDelegate().getLocalName(adviceElement);
