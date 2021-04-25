@@ -87,6 +87,7 @@ public class EventPublicationInterceptor
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		// 利用初始化的生命周期，做属性 null 判定
 		if (this.applicationEventClassConstructor == null) {
 			throw new IllegalArgumentException("Property 'applicationEventClass' is required");
 		}
