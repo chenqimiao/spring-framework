@@ -820,6 +820,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * The completed flag has already been checked.
 	 * @param status object representing the transaction
 	 * @throws TransactionException in case of rollback failure
+	 *
+	 *  spring 对事务回滚的一个封装
 	 */
 	private void processRollback(DefaultTransactionStatus status, boolean unexpected) {
 		try {

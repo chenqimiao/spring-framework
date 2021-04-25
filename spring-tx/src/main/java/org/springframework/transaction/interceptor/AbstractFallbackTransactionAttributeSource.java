@@ -100,6 +100,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		if (cached != null) {
 			// Value will either be canonical value indicating there is no transaction attribute,
 			// or an actual transaction attribute.
+			// 类似于缓存穿透的解决方式
 			if (cached == NULL_TRANSACTION_ATTRIBUTE) {
 				return null;
 			}

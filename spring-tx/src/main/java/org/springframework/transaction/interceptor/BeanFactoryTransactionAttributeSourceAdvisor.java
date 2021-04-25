@@ -37,6 +37,8 @@ public class BeanFactoryTransactionAttributeSourceAdvisor extends AbstractBeanFa
 	@Nullable
 	private TransactionAttributeSource transactionAttributeSource;
 
+	// 内置的 pointcut 依赖 transactionAttributeSource 的属性作为过滤条件
+	// transactionAttributeSource 内聚了存储和抽取事务属性的逻辑
 	private final TransactionAttributeSourcePointcut pointcut = new TransactionAttributeSourcePointcut() {
 		@Override
 		@Nullable
