@@ -34,6 +34,9 @@ public class BeanFactoryCacheOperationSourceAdvisor extends AbstractBeanFactoryP
 	@Nullable
 	private CacheOperationSource cacheOperationSource;
 
+	// 利用匿名内部类的方法实现传递外部类的属性
+	// CacheOperationSourcePointcut 不仅仅是一个 pointcut 其本身也是一个 MethodMatcher
+	// pointcut 是由 MethodMatcher 和 ClassFilter 组合而成，CacheOperationSourcePointcut实现有点特殊，getMethodMatcher() 方法 return this即可，因为CacheOperationSourcePointcut实现了MethodMatcher.
 	private final CacheOperationSourcePointcut pointcut = new CacheOperationSourcePointcut() {
 		@Override
 		@Nullable

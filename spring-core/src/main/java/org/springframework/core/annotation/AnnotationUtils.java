@@ -164,9 +164,11 @@ public abstract class AnnotationUtils {
 	 * @see #isCandidateClass(Class, Class)
 	 */
 	public static boolean isCandidateClass(Class<?> clazz, String annotationName) {
+		// 如果注解是 java.打头，则无论是什么类都有可能存在这个注解
 		if (annotationName.startsWith("java.")) {
 			return true;
 		}
+		// 走到这里，说明注解名是自定义的，非 jdk自带的，判断这个类是否只有简单的jdk自带注解，如果是，则这个类不可能拥有自定义的注解, return falase.
 		if (AnnotationsScanner.hasPlainJavaAnnotationsOnly(clazz)) {
 			return false;
 		}

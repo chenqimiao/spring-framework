@@ -41,7 +41,7 @@ abstract class CacheOperationSourcePointcut extends StaticMethodMatcherPointcut 
 		setClassFilter(new CacheOperationSourceClassFilter());
 	}
 
-
+	// 这其实也可以理解为模版方法模式
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		CacheOperationSource cas = getCacheOperationSource();

@@ -61,6 +61,7 @@ public class SpringCacheAnnotationParser implements CacheAnnotationParser, Seria
 
 	@Override
 	public boolean isCandidateClass(Class<?> targetClass) {
+		// 候选类推测，并不能说这个类一定有上述注解
 		return AnnotationUtils.isCandidateClass(targetClass, CACHE_OPERATION_ANNOTATIONS);
 	}
 

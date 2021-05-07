@@ -43,6 +43,8 @@ public class ProxyCachingConfiguration extends AbstractCachingConfiguration {
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public BeanFactoryCacheOperationSourceAdvisor cacheAdvisor() {
 		BeanFactoryCacheOperationSourceAdvisor advisor = new BeanFactoryCacheOperationSourceAdvisor();
+		// advisor 的核心就是一个 pointcut 和 一个 advice
+		// pointcut 的 filter 和 match 逻辑依赖 CacheOperationSource
 		advisor.setCacheOperationSource(cacheOperationSource());
 		advisor.setAdvice(cacheInterceptor());
 		if (this.enableCaching != null) {

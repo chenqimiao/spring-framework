@@ -520,6 +520,7 @@ abstract class AnnotationsScanner {
 	}
 
 	static boolean hasPlainJavaAnnotationsOnly(Class<?> type) {
+		// jdk自带的类，只会只用自带的注解，不可能使用我们自定义的注解
 		return (type.getName().startsWith("java.") || type == Ordered.class);
 	}
 
