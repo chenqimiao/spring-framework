@@ -23,6 +23,8 @@ import java.util.Set;
  *
  * @author Stephane Nicoll
  * @since 4.1
+ *
+ * 子类的实现对应了@Cacheable、@CachePut、@CacheEvict
  */
 public interface BasicOperation {
 
