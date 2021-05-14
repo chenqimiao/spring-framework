@@ -141,6 +141,9 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 	@Override
 	@Nullable
 	public <T> T get(Object key, Callable<T> valueLoader) {
+		// 1.存储能力
+		// 2.序列化/反序列化
+		// 3.查询能力
 		return (T) fromStoreValue(this.store.computeIfAbsent(key, k -> {
 			try {
 				return toStoreValue(valueLoader.call());
