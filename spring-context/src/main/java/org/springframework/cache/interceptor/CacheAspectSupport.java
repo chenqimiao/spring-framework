@@ -374,6 +374,9 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		// Special handling of synchronized invocation
 		if (contexts.isSynchronized()) {
 			CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
+			// @Cacheable condition 是在目标方法执行前的一个过滤操作，所以 result 此时犹未可知
+			// @Cacheable unless 是在目标执行后的一个过滤操作，将其封装成 PutRequest 对象在最后执行，
+			// 同时 PutRequest 对象又可用作 对 @CachePut 的一个封装
 			if (isConditionPassing(context, CacheOperationExpressionEvaluator.NO_RESULT)) {
 				Object key = generateKey(context, CacheOperationExpressionEvaluator.NO_RESULT);
 				Cache cache = context.getCaches().iterator().next();
@@ -403,6 +406,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		// Collect puts from any @Cacheable miss, if no cached item is found
 		List<CachePutRequest> cachePutRequests = new LinkedList<>();
 		if (cacheHit == null) {
+			// 收集 CachePutRequest, 因为 @Cacheable miss
 			collectPutRequests(contexts.get(CacheableOperation.class),
 					CacheOperationExpressionEvaluator.NO_RESULT, cachePutRequests);
 		}
@@ -422,14 +426,17 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		}
 
 		// Collect any explicit @CachePuts
+		// 收集 CachePutRequest, 因为 @CachePut 注解
 		collectPutRequests(contexts.get(CachePutOperation.class), cacheValue, cachePutRequests);
 
 		// Process any collected put requests, either from @CachePut or a @Cacheable miss
 		for (CachePutRequest cachePutRequest : cachePutRequests) {
+			// 执行所有的CachePutRequest
 			cachePutRequest.apply(cacheValue);
 		}
 
 		// Process any late evictions
+		// 到这里的话，被提升的方法已经被执行过了，或者说已经从缓存中拿到了想要的值
 		processCacheEvicts(contexts.get(CacheEvictOperation.class), false, cacheValue);
 
 		return returnValue;
@@ -446,6 +453,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 
 	@Nullable
 	private Object unwrapReturnValue(Object returnValue) {
+		// unwrapOptional
 		return ObjectUtils.unwrapOptional(returnValue);
 	}
 
@@ -473,6 +481,8 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		for (CacheOperationContext context : contexts) {
 			CacheEvictOperation operation = (CacheEvictOperation) context.metadata.operation;
 			if (beforeInvocation == operation.isBeforeInvocation() && isConditionPassing(context, result)) {
+				// 默认情况下，是方法执行后执行缓存淘汰，如果方法执行异常可以阻断缓存淘汰
+				// 如果设置成方法执行前，进行缓存淘汰，则没有这个阻断的问题
 				performCacheEvict(context, operation, result);
 			}
 		}
@@ -484,10 +494,12 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		Object key = null;
 		for (Cache cache : context.getCaches()) {
 			if (operation.isCacheWide()) {
+				// 全局失效
 				logInvalidating(context, operation, null);
 				doClear(cache, operation.isBeforeInvocation());
 			}
 			else {
+				// 只淘汰部分key
 				if (key == null) {
 					key = generateKey(context, result);
 				}
@@ -774,9 +786,11 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		@Nullable
 		protected Object generateKey(@Nullable Object result) {
 			if (StringUtils.hasText(this.metadata.operation.getKey())) {
+				// 在注解中直接指定了 key 的生成策略，通过spel
 				EvaluationContext evaluationContext = createEvaluationContext(result);
 				return evaluator.key(this.metadata.operation.getKey(), this.metadata.methodKey, evaluationContext);
 			}
+			// 在注解中指定了 keyGenerator 类
 			return this.metadata.keyGenerator.generate(this.target, this.metadata.method, this.args);
 		}
 
@@ -815,6 +829,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 		}
 
 		public void apply(@Nullable Object result) {
+			// 会执行 unless 语义，满足unless表达式，则不执行 put 操作
 			if (this.context.canPutToCache(result)) {
 				for (Cache cache : this.context.getCaches()) {
 					doPut(cache, this.key, result);
