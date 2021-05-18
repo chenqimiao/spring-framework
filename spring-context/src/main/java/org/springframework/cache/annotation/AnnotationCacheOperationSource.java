@@ -144,8 +144,6 @@ public class AnnotationCacheOperationSource extends AbstractFallbackCacheOperati
 					ops = annOps;
 				}
 				else {
-					// addAll的实现是遍历外部传入的集合，依次调用add方法，而扩容的逻辑在add中
-					// 如果直接使用 ops.addAll(annOps)，可能会导致多次扩容的情况发生
 					Collection<CacheOperation> combined = new ArrayList<>(ops.size() + annOps.size());
 					combined.addAll(ops);
 					combined.addAll(annOps);
