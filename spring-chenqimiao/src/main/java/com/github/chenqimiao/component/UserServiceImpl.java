@@ -21,7 +21,8 @@ public class UserServiceImpl implements InitializingBean, UserService {
     }
 
     @PostConstruct
-    public void postConstruct() {
+	// @PostConstruct > implements InitializingBean#afterPropertiesSet > @Bean(initMethod) || xml initMethod
+	public void postConstruct() {
         // System.out.println("userService postConstruct");
     }
 
